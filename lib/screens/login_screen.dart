@@ -5,7 +5,9 @@ import '../widgets/login/login_container.dart';
 import '../widgets/login/authentication_textformfield.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const double fieldsSpacings = 10;
+  static const double fieldsSpacing = 10;
+  static const double fieldsButtonsSpacing = 10;
+  static const double buttonsSpacing = 3;
 
   LoginScreen({
     Key key,
@@ -34,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                       icon: Icons.account_circle,
                     ),
                     SizedBox(
-                      height: fieldsSpacings,
+                      height: fieldsSpacing,
                     ),
                     AuthenticationTextFormField(
                       key: Key('password_field'),
@@ -43,6 +45,47 @@ class LoginScreen extends StatelessWidget {
                       labelText: 'password',
                       icon: Icons.lock,
                       obscureText: true,
+                    ),
+                    SizedBox(
+                      height: fieldsButtonsSpacing,
+                    ),
+                    FlatButton(
+                      key: Key('forgot_password_button'),
+                      onPressed: (){},
+                      child: Text(
+                        'Forgot Your Password, huh?',
+                        style: TextStyle(
+                          color: grey600
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: buttonsSpacing,
+                    ),
+                    FlatButton(
+                      key: Key('signin_button'),
+                      onPressed: (){},
+                      child: Text(
+                        'SIGN UP',
+                        style: TextStyle(
+                          color: blue,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: buttonsSpacing,
+                    ),
+                    FlatButton(
+                      key: Key('login_button'),
+                      color: blue,
+                      textColor: white,
+                      onPressed: (){},
+                      child: Text(
+                        'LOGIN',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ],
                 ),
