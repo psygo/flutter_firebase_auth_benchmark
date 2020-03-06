@@ -32,7 +32,7 @@ class LoginContainer extends StatelessWidget {
         borderRadius: BorderRadius.all(
           Radius.circular(
             15,
-          ),  
+          ),
         ),
       ),
       child: child,

@@ -4,7 +4,7 @@ import '../widgets/login/login_container.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({
-    Key key, 
+    Key key,
   }) : super(key: key);
 
   @override
