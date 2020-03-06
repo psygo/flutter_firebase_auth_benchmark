@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/login/login_container.dart';
+import '../widgets/login/authentication_textformfield.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const double fieldsSpacings = 10;
+
   LoginScreen({
     Key key,
   }) : super(key: key);
@@ -20,13 +23,20 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  TextFormField(
+                  AuthenticationTextFormField(
                     key: Key('email_field'),
-                    keyboardType: TextInputType.emailAddress,
+                    hintText: 'email',
+                    labelText: 'email',
+                    icon: Icons.account_circle,
                   ),
-                  TextFormField(
+                  SizedBox(
+                    height: fieldsSpacings,
+                  ),
+                  AuthenticationTextFormField(
                     key: Key('password_field'),
-                    obscureText: true,
+                    hintText: 'password',
+                    labelText: 'password',
+                    icon: Icons.lock,
                   ),
                 ],
               ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/auxiliary_theming.dart';
+import '../../theme/colors.dart';
+
 class LoginContainer extends StatelessWidget {
   final Widget child;
 
@@ -16,24 +19,15 @@ class LoginContainer extends StatelessWidget {
       margin: EdgeInsets.all(
         10,
       ),
+      padding: EdgeInsets.symmetric(
+        horizontal: 15,
+      ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: white,
         boxShadow: [
-          BoxShadow(
-            color: Colors.grey[400],
-            blurRadius: 6,
-            spreadRadius: 3,
-            offset: Offset(
-              7,
-              7,
-            ),
-          )
+          containerBoxShadow,
         ],
-        borderRadius: BorderRadius.all(
-          Radius.circular(
-            15,
-          ),
-        ),
+        borderRadius: containerBorderRadius,
       ),
       child: child,
     );
