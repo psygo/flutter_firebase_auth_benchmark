@@ -4,11 +4,11 @@ import 'colors.dart';
 
 final BoxShadow containerBoxShadow = BoxShadow(
   color: containerShadowGrey,
-  blurRadius: 6,
-  spreadRadius: 3,
+  blurRadius: 4,
+  spreadRadius: 2,
   offset: Offset(
-    7,
-    7,
+    5,
+    5,
   ),
 );
 

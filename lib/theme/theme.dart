@@ -23,4 +23,7 @@ final InputDecorationTheme authenticationTextFormFieldTheme =
       color: focusedBorderColor,
     ),
   ),
+  contentPadding: EdgeInsets.symmetric(
+    vertical: 15,
+  ),
 );

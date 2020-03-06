@@ -20,6 +20,7 @@ class LoginContainer extends StatelessWidget {
         10,
       ),
       padding: EdgeInsets.symmetric(
+        vertical: 25,
         horizontal: 15,
       ),
       decoration: BoxDecoration(

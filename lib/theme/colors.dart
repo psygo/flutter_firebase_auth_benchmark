@@ -6,13 +6,14 @@ BASIC COLORS
 
 const Color white = Colors.white;
 const Color grey = Colors.grey;
+const Color blue = Colors.blue;
 const Color transparent = Colors.transparent;
 
 /*
 LOGIN CONTAINER
 */
 
-final Color containerShadowGrey = Colors.grey[400];
+final Color containerShadowGrey = Colors.grey[800];
 
 /*
 AUTHENTICATION TEXTFORMFIELD
