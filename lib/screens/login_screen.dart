@@ -28,6 +28,7 @@ class LoginScreen extends StatelessWidget {
                   children: <Widget>[
                     AuthenticationTextFormField(
                       key: Key('email_field'),
+                      keyboardType: TextInputType.emailAddress,
                       hintText: 'email',
                       labelText: 'email',
                       icon: Icons.account_circle,
@@ -37,9 +38,11 @@ class LoginScreen extends StatelessWidget {
                     ),
                     AuthenticationTextFormField(
                       key: Key('password_field'),
+                      keyboardType: TextInputType.visiblePassword,
                       hintText: 'password',
                       labelText: 'password',
                       icon: Icons.lock,
+                      obscureText: true,
                     ),
                   ],
                 ),
