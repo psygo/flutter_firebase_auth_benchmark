@@ -1,4 +1,4 @@
-name: flutter_auth_benchmark
+name: flutter_firebase_auth_benchmark
 
 description: >-
   A benchmark for Authentication through Firebase in Flutter.

@@ -1,4 +1,4 @@
-package com.example.flutter_auth_benchmark
+package com.philippefanaro.flutter_firebase_auth_benchmark
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

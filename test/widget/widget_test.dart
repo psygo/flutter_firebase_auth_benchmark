@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_auth_benchmark/main.dart';
+import 'package:flutter_firebase_auth_benchmark/main.dart';
 
 void main() {
   FirebaseAuthenticationApp app;
@@ -56,8 +56,8 @@ void main() {
   });
 
   testWidgets(
-      'Checks if the password visibility switches from obscured to visible and vice-versa',
-      (tester) async {
+      'Checks if the password visibility switches from obscured to visible '
+      'and vice-versa', (tester) async {
     await tester.pumpWidget(app);
 
     const Key visibilityIconKey = Key('password_is_visible_icon');
