@@ -6,10 +6,18 @@ import 'colors.dart';
 final ThemeData appTheme = ThemeData(
   inputDecorationTheme: authenticationTextFormFieldTheme,
   buttonTheme: flatButtonTheme,
+  iconTheme: defaultIconTheme,
+);
+
+final IconThemeData defaultIconTheme = IconThemeData(
+  color: grey,
 );
 
 final InputDecorationTheme authenticationTextFormFieldTheme =
     InputDecorationTheme(
+  labelStyle: TextStyle(
+    color: labelTextColor,
+  ),
   enabledBorder: OutlineInputBorder(
     borderRadius: infiniteCircularBorderRadius,
     borderSide: BorderSide(

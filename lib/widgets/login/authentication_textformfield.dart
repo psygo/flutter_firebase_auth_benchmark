@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/colors.dart';
+
 class AuthenticationTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final String hintText;
@@ -61,6 +63,7 @@ class _AuthenticationTextFormFieldState
         labelText: widget.labelText,
         prefixIcon: Icon(
           widget.icon,
+          color: prefixIconColor,
         ),
         suffixIcon: _doNotObscureText
             ? null
@@ -68,6 +71,7 @@ class _AuthenticationTextFormFieldState
                 key: _visibilityIconKey,
                 icon: Icon(
                   _visibilityIcon,
+                  color: suffixIconColor,
                 ),
                 onPressed: _switchVisibility,
               ),
