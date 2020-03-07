@@ -51,12 +51,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                     FlatButton(
                       key: Key('forgot_password_button'),
-                      onPressed: (){},
+                      onPressed: () {},
                       child: Text(
                         'Forgot Your Password, huh?',
-                        style: TextStyle(
-                          color: grey600
-                        ),
+                        style: TextStyle(color: grey600),
                       ),
                     ),
                     SizedBox(
@@ -64,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     FlatButton(
                       key: Key('signin_button'),
-                      onPressed: (){},
+                      onPressed: () {},
                       child: Text(
                         'SIGN UP',
                         style: TextStyle(
@@ -79,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                       key: Key('login_button'),
                       color: blue,
                       textColor: white,
-                      onPressed: (){},
+                      onPressed: () {},
                       child: Text(
                         'LOGIN',
                         style: TextStyle(

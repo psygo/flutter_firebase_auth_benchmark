@@ -10,23 +10,46 @@ void main() {
     app = FirebaseAuthenticationApp();
   });
 
-  testWidgets('Finds two TextFormFields', (WidgetTester tester) async {
+  void checkEachKeyOneWidget(List<Key> keys) {
+    for (final Key key in keys) {
+      expect(find.byKey(key), findsOneWidget);
+    }
+  }
+
+  testWidgets('Finds two TextFormFields', (tester) async {
     await tester.pumpWidget(app);
-    expect(find.byType(TextFormField), findsNWidgets(2));
+
+    Map<Type, int> typesByNumberOfWidgets = {
+      TextFormField: 2,
+      FlatButton: 3,
+    };
+
+    typesByNumberOfWidgets.forEach((Type type, int numberOfWidgets) {
+      expect(find.byType(type), findsNWidgets(numberOfWidgets));
+    });
   });
 
-  testWidgets('Finds an email field', (WidgetTester tester) async {
+  testWidgets('Finds an email and a password fields', (tester) async {
     await tester.pumpWidget(app);
-    expect(find.byKey(Key('email_field')), findsOneWidget);
+
+    List<Key> fieldsKeys = [
+      Key('email_field'),
+      Key('password_field'),
+    ];
+
+    checkEachKeyOneWidget(fieldsKeys);
   });
 
-  testWidgets('Finds a password field', (WidgetTester tester) async {
+  testWidgets('Finds a forgot password, a sign up and a login buttons',
+      (tester) async {
     await tester.pumpWidget(app);
-    expect(find.byKey(Key('password_field')), findsOneWidget);
-  });
 
-  testWidgets('Finds two buttons', (WidgetTester tester) async {
-    await tester.pumpWidget(app);
-    expect(find.byType(FlatButton), findsNWidgets(2));
+    List<Key> buttonsKeys = [
+      Key('forgot_password_button'),
+      Key('signin_button'),
+      Key('login_button'),
+    ];
+
+    checkEachKeyOneWidget(buttonsKeys);
   });
 }
