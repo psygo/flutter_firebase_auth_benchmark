@@ -23,3 +23,5 @@ final BorderRadius infiniteCircularBorderRadius = BorderRadius.all(
     1000,
   ),
 );
+
+const double raisedButtonElevation = 5;

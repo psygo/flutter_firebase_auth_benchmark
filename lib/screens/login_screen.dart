@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../theme/auxiliary_theming.dart';
 import '../theme/colors.dart';
 import '../widgets/login/login_container.dart';
 import '../widgets/login/authentication_textformfield.dart';
@@ -7,7 +8,7 @@ import '../widgets/login/authentication_textformfield.dart';
 class LoginScreen extends StatelessWidget {
   static const double fieldsSpacing = 10;
   static const double fieldsButtonsSpacing = 10;
-  static const double buttonsSpacing = 3;
+  static const double buttonsSpacing = 10;
 
   LoginScreen({
     Key key,
@@ -49,39 +50,52 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       height: fieldsButtonsSpacing,
                     ),
-                    FlatButton(
-                      key: Key('forgot_password_button'),
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot Your Password, huh?',
-                        style: TextStyle(color: grey600),
-                      ),
-                    ),
                     SizedBox(
-                      height: buttonsSpacing,
-                    ),
-                    FlatButton(
-                      key: Key('signin_button'),
-                      onPressed: () {},
-                      child: Text(
-                        'SIGN UP',
-                        style: TextStyle(
-                          color: blue,
+                      width: 150,
+                      height: 30,
+                      child: FlatButton(
+                        key: Key('forgot_password_button'),
+                        onPressed: () {},
+                        child: Text(
+                          'Forgot, huh?',
+                          style: TextStyle(color: grey600),
                         ),
                       ),
                     ),
                     SizedBox(
                       height: buttonsSpacing,
                     ),
-                    FlatButton(
-                      key: Key('login_button'),
-                      color: blue,
-                      textColor: white,
-                      onPressed: () {},
-                      child: Text(
-                        'LOGIN',
-                        style: TextStyle(
-                          fontSize: 16,
+                    SizedBox(
+                      width: 120,
+                      height: 30,
+                      child: FlatButton(
+                        key: Key('signin_button'),
+                        onPressed: () {},
+                        child: Text(
+                          'SIGN UP',
+                          style: TextStyle(
+                            color: blue,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: buttonsSpacing,
+                    ),
+                    SizedBox(
+                      width: 110,
+                      height: 40,
+                      child: RaisedButton(
+                        key: Key('login_button'),
+                        elevation: raisedButtonElevation,
+                        color: blue,
+                        textColor: white,
+                        onPressed: () {},
+                        child: Text(
+                          'LOGIN',
+                          style: TextStyle(
+                            fontSize: 14.5,
+                          ),
                         ),
                       ),
                     ),

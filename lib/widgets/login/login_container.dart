@@ -14,7 +14,7 @@ class LoginContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 325,
+      height: 295,
       width: 275,
       margin: EdgeInsets.all(
         10,

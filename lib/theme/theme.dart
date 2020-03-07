@@ -5,6 +5,7 @@ import 'colors.dart';
 
 final ThemeData appTheme = ThemeData(
   inputDecorationTheme: authenticationTextFormFieldTheme,
+  buttonTheme: flatButtonTheme,
 );
 
 final InputDecorationTheme authenticationTextFormFieldTheme =
@@ -26,4 +27,13 @@ final InputDecorationTheme authenticationTextFormFieldTheme =
   contentPadding: EdgeInsets.symmetric(
     vertical: 15,
   ),
+);
+
+final ButtonThemeData flatButtonTheme = ButtonThemeData(
+  shape: RoundedRectangleBorder(
+    borderRadius: infiniteCircularBorderRadius,
+  ),
+  minWidth: 100,
+  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  padding: EdgeInsets.all(0),
 );
