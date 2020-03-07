@@ -19,7 +19,7 @@ void main() {
   testWidgets('Finds two TextFormFields', (tester) async {
     await tester.pumpWidget(app);
 
-    Map<Type, int> typesByNumberOfWidgets = {
+    const Map<Type, int> typesByNumberOfWidgets = {
       TextFormField: 2,
       FlatButton: 3,
     };
@@ -32,7 +32,7 @@ void main() {
   testWidgets('Finds an email and a password fields', (tester) async {
     await tester.pumpWidget(app);
 
-    List<Key> fieldsKeys = [
+    const List<Key> fieldsKeys = [
       Key('email_field'),
       Key('password_field'),
     ];
@@ -44,12 +44,31 @@ void main() {
       (tester) async {
     await tester.pumpWidget(app);
 
-    List<Key> buttonsKeys = [
+    const List<Key> buttonsKeys = [
       Key('forgot_password_button'),
       Key('signin_button'),
       Key('login_button'),
     ];
 
     checkEachKeyOneWidget(buttonsKeys);
+  });
+
+  testWidgets('Checks if the password visibility switches from obscured to visible and vice-versa', (tester) async {
+    await tester.pumpWidget(app);
+
+    const Key visibilityIconKey = Key('password_is_visible_icon');
+    const Key nonVisibilityIconKey = Key('password_is_not_visible_icon');
+
+    await tester.tap(find.byKey(visibilityIconKey));
+    await tester.pump();
+
+    expect(find.byKey(visibilityIconKey), findsNothing);
+    expect(find.byKey(nonVisibilityIconKey), findsOneWidget);
+
+    await tester.tap(find.byKey(nonVisibilityIconKey));
+    await tester.pump();
+
+    expect(find.byKey(nonVisibilityIconKey), findsNothing);
+    expect(find.byKey(visibilityIconKey), findsOneWidget);
   });
 }

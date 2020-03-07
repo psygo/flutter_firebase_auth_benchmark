@@ -24,19 +24,30 @@ class AuthenticationTextFormField extends StatefulWidget {
 class _AuthenticationTextFormFieldState
     extends State<AuthenticationTextFormField> {
   bool _passwordIsVisible;
+  Key _visibilityIconKey;
+  IconData _visibilityIcon;
 
-  bool get _passwordIsNotVisible => !_passwordIsVisible;
   bool get _doNotObscureText => !widget.obscureText;
 
   @override
   void initState() {
     _passwordIsVisible = widget.obscureText;
+    switchIcons();
     super.initState();
+  }
+
+  void switchIcons() {
+    _visibilityIconKey = _passwordIsVisible
+        ? Key('password_is_visible_icon')
+        : Key('password_is_not_visible_icon');
+    _visibilityIcon =
+        _passwordIsVisible ? Icons.visibility : Icons.visibility_off;
   }
 
   void _switchVisibility() {
     setState(() {
       _passwordIsVisible = !_passwordIsVisible;
+      switchIcons();
     });
   }
 
@@ -44,7 +55,7 @@ class _AuthenticationTextFormFieldState
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: widget.keyboardType,
-      obscureText: _passwordIsNotVisible,
+      obscureText: _passwordIsVisible,
       decoration: InputDecoration(
         hintText: widget.hintText,
         labelText: widget.labelText,
@@ -54,8 +65,9 @@ class _AuthenticationTextFormFieldState
         suffixIcon: _doNotObscureText
             ? null
             : IconButton(
+                key: _visibilityIconKey,
                 icon: Icon(
-                  _passwordIsVisible ? Icons.visibility : Icons.visibility_off,
+                  _visibilityIcon,
                 ),
                 onPressed: _switchVisibility,
               ),
