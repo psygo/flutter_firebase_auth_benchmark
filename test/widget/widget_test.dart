@@ -16,12 +16,14 @@ void main() {
     }
   }
 
-  testWidgets('Finds two TextFormFields', (tester) async {
+  testWidgets('Finds the fields and buttons on the login screen',
+      (tester) async {
     await tester.pumpWidget(app);
 
     const Map<Type, int> typesByNumberOfWidgets = {
       TextFormField: 2,
-      FlatButton: 3,
+      FlatButton: 2,
+      RaisedButton: 1,
     };
 
     typesByNumberOfWidgets.forEach((Type type, int numberOfWidgets) {
@@ -53,7 +55,9 @@ void main() {
     checkEachKeyOneWidget(buttonsKeys);
   });
 
-  testWidgets('Checks if the password visibility switches from obscured to visible and vice-versa', (tester) async {
+  testWidgets(
+      'Checks if the password visibility switches from obscured to visible and vice-versa',
+      (tester) async {
     await tester.pumpWidget(app);
 
     const Key visibilityIconKey = Key('password_is_visible_icon');
