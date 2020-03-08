@@ -3,22 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_firebase_auth_benchmark/widgets/login/auth_textformfield.dart';
 
+import 'utils.dart';
+
 void main() {
   MaterialApp materialWrapper(Widget widget) =>
       MaterialApp(home: Material(child: widget));
-
-  StatefulElement extractStatefulElementByType(
-          WidgetTester tester, Type type) =>
-      tester.element(find.byType(type));
-
-  St extractStateFromElement<St extends State<StatefulWidget>,
-          El extends StatefulElement>(El element) =>
-      element.state as St;
-
-  St extractState<St extends State<StatefulWidget>>(WidgetTester tester, Type type) {
-    final StatefulElement element = extractStatefulElementByType(tester, type);
-    return extractStateFromElement(element);
-  }
 
   group('Email Field Use Case', () {
     final AuthTextFormField authFieldDummy = AuthTextFormField(
@@ -77,6 +66,31 @@ void main() {
 
       expect(find.byIcon(Icons.visibility_off), findsNothing);
       expect(find.byIcon(Icons.visibility), findsOneWidget);
+    });
+
+    testWidgets(
+      'Checks if clicking on the icons '
+      'switches visibility (`obscureText`)', (tester) async {
+        await tester.pumpWidget(wrappedAuthField);
+
+        String dummyPassword = 'asdf';
+
+        await tester.enterText(find.byType(AuthTextFormField), dummyPassword);
+        await tester.pump();
+
+        String typedPassword = findRenderEditable(tester).text.text;
+        int textLength = dummyPassword.length;
+        String bulletCharacter = '\u{2022}';
+        String obscuredPassword = bulletCharacter * textLength;
+        
+        expect(typedPassword, obscuredPassword);
+
+        await tester.tap(find.byIcon(Icons.visibility));
+        await tester.pump();
+
+        String visiblePassword = findRenderEditable(tester).text.text;
+
+        expect(visiblePassword, dummyPassword);
     });
   });
 }
