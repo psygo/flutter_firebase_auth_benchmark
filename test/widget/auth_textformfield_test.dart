@@ -27,7 +27,6 @@ void main() {
       final AuthTextFormFieldState extractedAuthFieldState =
           extractState(tester, AuthTextFormField);
 
-      expect(extractedAuthFieldState.widget, equals(authFieldDummy));
       expect(extractedAuthFieldState.doNotObscureText, isTrue);
       expect(find.byType(IconData), findsNothing);
     });
@@ -52,7 +51,8 @@ void main() {
       expect(find.byIcon(Icons.visibility), findsOneWidget);
     });
 
-    testWidgets('Checks if pressing the `IconButton` switches icons', (tester) async{
+    testWidgets('Checks if pressing the `IconButton` switches icons',
+        (tester) async {
       await tester.pumpWidget(wrappedAuthField);
 
       await tester.tap(find.byIcon(Icons.visibility));
@@ -68,29 +68,38 @@ void main() {
       expect(find.byIcon(Icons.visibility), findsOneWidget);
     });
 
-    testWidgets(
-      'Checks if clicking on the icons '
-      'switches visibility (`obscureText`)', (tester) async {
-        await tester.pumpWidget(wrappedAuthField);
+    testWidgets('Checks if the password is obscured (`obscureText`)',
+        (tester) async {
+      await tester.pumpWidget(wrappedAuthField);
 
-        String dummyPassword = 'asdf';
+      String dummyPassword = 'asdf';
 
-        await tester.enterText(find.byType(AuthTextFormField), dummyPassword);
-        await tester.pump();
+      await tester.enterText(find.byType(AuthTextFormField), dummyPassword);
+      await tester.pump();
 
-        String typedPassword = findRenderEditable(tester).text.text;
-        int textLength = dummyPassword.length;
-        String bulletCharacter = '\u{2022}';
-        String obscuredPassword = bulletCharacter * textLength;
-        
-        expect(typedPassword, obscuredPassword);
+      String typedPassword = findRenderEditable(tester).text.text;
+      int textLength = dummyPassword.length;
+      String bulletCharacter = '\u{2022}';
+      String obscuredPassword = bulletCharacter * textLength;
 
-        await tester.tap(find.byIcon(Icons.visibility));
-        await tester.pump();
+      expect(typedPassword, obscuredPassword);
+    });
 
-        String visiblePassword = findRenderEditable(tester).text.text;
+    testWidgets('Chekcs if clicking on the visibility icon shows the password',
+        (tester) async {
+      await tester.pumpWidget(wrappedAuthField);
 
-        expect(visiblePassword, dummyPassword);
+      String dummyPassword = 'asdf';
+
+      await tester.enterText(find.byType(AuthTextFormField), dummyPassword);
+      await tester.pump();
+
+      await tester.tap(find.byIcon(Icons.visibility));
+      await tester.pump();
+
+      String visiblePassword = findRenderEditable(tester).text.text;
+
+      expect(visiblePassword, dummyPassword);
     });
   });
 }
