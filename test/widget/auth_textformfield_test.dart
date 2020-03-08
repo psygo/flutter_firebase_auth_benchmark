@@ -60,9 +60,22 @@ void main() {
         'when `obscureText` is `true`', (tester) async {
       await tester.pumpWidget(wrappedAuthField);
 
-      final AuthTextFormFieldState extractedAuthFieldState =
-          extractState(tester, AuthTextFormField);
+      expect(find.byIcon(Icons.visibility), findsOneWidget);
+    });
 
+    testWidgets('Checks if pressing the `IconButton` switches icons', (tester) async{
+      await tester.pumpWidget(wrappedAuthField);
+
+      await tester.tap(find.byIcon(Icons.visibility));
+      await tester.pump();
+
+      expect(find.byIcon(Icons.visibility), findsNothing);
+      expect(find.byIcon(Icons.visibility_off), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.visibility_off));
+      await tester.pump();
+
+      expect(find.byIcon(Icons.visibility_off), findsNothing);
       expect(find.byIcon(Icons.visibility), findsOneWidget);
     });
   });

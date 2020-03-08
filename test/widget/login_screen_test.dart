@@ -56,27 +56,6 @@ void main() {
     checkEachKeyOneWidget(buttonsKeys);
   });
 
-  testWidgets(
-      'Checks if the password visibility switches from obscured to visible '
-      'and vice-versa', (tester) async {
-    await tester.pumpWidget(app);
-
-    const Key visibilityIconKey = Key('password_is_visible_icon');
-    const Key nonVisibilityIconKey = Key('password_is_not_visible_icon');
-
-    await tester.tap(find.byKey(visibilityIconKey));
-    await tester.pump();
-
-    expect(find.byKey(visibilityIconKey), findsNothing);
-    expect(find.byKey(nonVisibilityIconKey), findsOneWidget);
-
-    await tester.tap(find.byKey(nonVisibilityIconKey));
-    await tester.pump();
-
-    expect(find.byKey(nonVisibilityIconKey), findsNothing);
-    expect(find.byKey(visibilityIconKey), findsOneWidget);
-  });
-
   testWidgets('Checks if the Login Screen has been correctly initialized',
       (tester) async {
     final LoginScreen loginScreen = LoginScreen.defaultLoginScreen;
