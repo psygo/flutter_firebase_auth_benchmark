@@ -10,7 +10,7 @@ class FirebaseAuthenticationApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: appTheme,
-      home: LoginScreen(),
+      home: LoginScreen.defaultLoginScreen,
     );
   }
 }

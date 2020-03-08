@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_firebase_auth_benchmark/main.dart';
+import 'package:flutter_firebase_auth_benchmark/screens/login_screen.dart';
 
 void main() {
   FirebaseAuthenticationApp app;
@@ -15,6 +16,23 @@ void main() {
       expect(find.byKey(key), findsOneWidget);
     }
   }
+
+  testWidgets('Checks if the Login Screen has been correctly initialized',
+      (tester) async {
+    final LoginScreen loginScreen = LoginScreen.defaultLoginScreen;
+
+    MaterialApp wrappedScreen =
+        MaterialApp(home: LoginScreen.defaultLoginScreen);
+
+    await tester.pumpWidget(wrappedScreen);
+
+    final StatelessElement extractedLoginScreenElement =
+        tester.element(find.byType(LoginScreen));
+    final LoginScreen extractedLoginScreen =
+        extractedLoginScreenElement.widget as LoginScreen;
+
+    expect(loginScreen, equals(extractedLoginScreen));
+  });
 
   testWidgets('Finds the fields and buttons on the login screen',
       (tester) async {

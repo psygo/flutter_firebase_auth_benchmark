@@ -8,7 +8,7 @@ class LoginContainer extends StatelessWidget {
 
   const LoginContainer({
     Key key,
-    this.child,
+    @required this.child,
   }) : super(key: key);
 
   @override

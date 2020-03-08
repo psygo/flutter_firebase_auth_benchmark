@@ -10,9 +10,10 @@ class LoginScreen extends StatelessWidget {
   static const double fieldsButtonsSpacing = 10;
   static const double buttonsSpacing = 10;
 
-  const LoginScreen({
-    Key key,
-  }) : super(key: key);
+  static final LoginScreen defaultLoginScreen =
+      const LoginScreen(key: Key('login_screen'));
+
+  const LoginScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -114,20 +115,19 @@ class ButtonAlignmentWrapper extends StatelessWidget {
 
   const ButtonAlignmentWrapper({
     Key key,
-    this.child,
-    this.height,
+    @required this.height,
+    @required this.child,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          child
-        ],
-      )
-    );
+        height: height,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            child,
+          ],
+        ));
   }
 }
