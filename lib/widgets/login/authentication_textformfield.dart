@@ -9,7 +9,7 @@ class AuthenticationTextFormField extends StatefulWidget {
   final IconData icon;
   final bool obscureText;
 
-  AuthenticationTextFormField({
+  const AuthenticationTextFormField({
     Key key,
     this.keyboardType,
     this.hintText,
@@ -34,11 +34,11 @@ class _AuthenticationTextFormFieldState
   @override
   void initState() {
     _passwordIsVisible = widget.obscureText;
-    switchIcons();
+    _switchIcons();
     super.initState();
   }
 
-  void switchIcons() {
+  void _switchIcons() {
     _visibilityIconKey = _passwordIsVisible
         ? Key('password_is_visible_icon')
         : Key('password_is_not_visible_icon');
@@ -49,7 +49,7 @@ class _AuthenticationTextFormFieldState
   void _switchVisibility() {
     setState(() {
       _passwordIsVisible = !_passwordIsVisible;
-      switchIcons();
+      _switchIcons();
     });
   }
 

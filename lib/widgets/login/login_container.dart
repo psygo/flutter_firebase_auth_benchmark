@@ -14,13 +14,12 @@ class LoginContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 295,
+      height: 285,
       width: 275,
       margin: EdgeInsets.all(
         10,
       ),
       padding: EdgeInsets.symmetric(
-        vertical: 25,
         horizontal: 15,
       ),
       decoration: BoxDecoration(
