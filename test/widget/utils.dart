@@ -2,6 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 
+MaterialApp materialWrapper(Widget widget) =>
+    MaterialApp(home: Material(child: widget));
+
 // inspired by https://github.com/flutter/flutter/blob/77fb28b3da19dcf2b718ce963a23c2e4917c55f0/packages/flutter/test/widgets/stateful_components_test.dart#L47-L62
 StatefulElement extractStatefulElementByType(WidgetTester tester, Type type) =>
     tester.element(find.byType(type));

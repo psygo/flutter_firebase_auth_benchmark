@@ -68,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                       ButtonAlignmentWrapper(
                         height: 30,
                         child: FlatButton(
-                          key: Key('signin_button'),
+                          key: Key('signup_button'),
                           onPressed: () {},
                           child: Text(
                             'SIGN UP',

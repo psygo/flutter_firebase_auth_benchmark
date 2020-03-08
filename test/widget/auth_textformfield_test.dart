@@ -6,9 +6,6 @@ import 'package:flutter_firebase_auth_benchmark/widgets/login/auth_textformfield
 import 'utils.dart';
 
 void main() {
-  MaterialApp materialWrapper(Widget widget) =>
-      MaterialApp(home: Material(child: widget));
-
   group('Email Field Use Case', () {
     final AuthTextFormField authFieldDummy = AuthTextFormField(
       key: Key('email_field'),
