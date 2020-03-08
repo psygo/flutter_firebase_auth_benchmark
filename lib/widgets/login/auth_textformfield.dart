@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../theme/colors.dart';
 
-class AuthenticationTextFormField extends StatefulWidget {
+class AuthTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final String hintText;
   final String labelText;
   final IconData icon;
   final bool obscureText;
 
-  const AuthenticationTextFormField({
+  const AuthTextFormField({
     Key key,
     this.keyboardType,
     this.hintText,
@@ -19,17 +19,16 @@ class AuthenticationTextFormField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AuthenticationTextFormFieldState createState() =>
-      _AuthenticationTextFormFieldState();
+  AuthTextFormFieldState createState() => AuthTextFormFieldState();
 }
 
-class _AuthenticationTextFormFieldState
-    extends State<AuthenticationTextFormField> {
+@visibleForTesting
+class AuthTextFormFieldState extends State<AuthTextFormField> {
   bool _passwordIsVisible;
   Key _visibilityIconKey;
   IconData _visibilityIcon;
 
-  bool get _doNotObscureText => !widget.obscureText;
+  bool get doNotObscureText => !widget.obscureText;
 
   @override
   void initState() {
@@ -65,7 +64,7 @@ class _AuthenticationTextFormFieldState
           widget.icon,
           color: prefixIconColor,
         ),
-        suffixIcon: _doNotObscureText
+        suffixIcon: doNotObscureText
             ? null
             : IconButton(
                 key: _visibilityIconKey,
