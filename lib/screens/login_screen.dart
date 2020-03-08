@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme/auxiliary_theming.dart';
 import '../theme/colors.dart';
 import '../widgets/login/login_container.dart';
-import '../widgets/login/authentication_textformfield.dart';
+import '../widgets/login/auth_textformfield.dart';
 
 class LoginScreen extends StatelessWidget {
   static const double fieldsSpacing = 10;
@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                 LoginContainer(
                   child: ListView(
                     children: <Widget>[
-                      AuthenticationTextFormField(
+                      AuthTextFormField(
                         key: Key('email_field'),
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'email',
@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: fieldsSpacing,
                       ),
-                      AuthenticationTextFormField(
+                      AuthTextFormField(
                         key: Key('password_field'),
                         keyboardType: TextInputType.visiblePassword,
                         hintText: 'password',

@@ -17,23 +17,6 @@ void main() {
     }
   }
 
-  testWidgets('Checks if the Login Screen has been correctly initialized',
-      (tester) async {
-    final LoginScreen loginScreen = LoginScreen.defaultLoginScreen;
-
-    MaterialApp wrappedScreen =
-        MaterialApp(home: LoginScreen.defaultLoginScreen);
-
-    await tester.pumpWidget(wrappedScreen);
-
-    final StatelessElement extractedLoginScreenElement =
-        tester.element(find.byType(LoginScreen));
-    final LoginScreen extractedLoginScreen =
-        extractedLoginScreenElement.widget as LoginScreen;
-
-    expect(loginScreen, equals(extractedLoginScreen));
-  });
-
   testWidgets('Finds the fields and buttons on the login screen',
       (tester) async {
     await tester.pumpWidget(app);
@@ -92,5 +75,22 @@ void main() {
 
     expect(find.byKey(nonVisibilityIconKey), findsNothing);
     expect(find.byKey(visibilityIconKey), findsOneWidget);
+  });
+
+  testWidgets('Checks if the Login Screen has been correctly initialized',
+      (tester) async {
+    final LoginScreen loginScreen = LoginScreen.defaultLoginScreen;
+
+    MaterialApp wrappedScreen =
+        MaterialApp(home: LoginScreen.defaultLoginScreen);
+
+    await tester.pumpWidget(wrappedScreen);
+
+    final StatelessElement extractedLoginScreenElement =
+        tester.element(find.byType(LoginScreen));
+    final LoginScreen extractedLoginScreen =
+        extractedLoginScreenElement.widget as LoginScreen;
+
+    expect(loginScreen, equals(extractedLoginScreen));
   });
 }
