@@ -56,13 +56,12 @@ void main() {
     });
   });
 
-  group('Extra Initialization Checks', (){
+  group('Extra Initialization Checks', () {
     testWidgets('Checks if the Login Screen has been correctly initialized',
-      (tester) async {
+        (tester) async {
       final LoginScreen loginScreen = LoginScreen.defaultLoginScreen;
-
       final MaterialApp wrappedScreen =
-          MaterialApp(home: LoginScreen.defaultLoginScreen);
+          materialWrapper(LoginScreen.defaultLoginScreen);
 
       await tester.pumpWidget(wrappedScreen);
 
