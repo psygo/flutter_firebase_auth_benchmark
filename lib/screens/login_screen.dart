@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: blue,
+        color: BasicColors.blue,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                         key: Key('email_field'),
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'email',
-                        hintTextOnFocus: '',
+                        hintTextOnFocus: 'your email',
                         labelText: 'email',
                         icon: Icons.account_circle,
                       ),
@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                         key: Key('password_field'),
                         keyboardType: TextInputType.visiblePassword,
                         hintText: 'password',
-                        hintTextOnFocus: '',
+                        hintTextOnFocus: 'your password',
                         labelText: 'password',
                         icon: Icons.lock,
                         obscureText: true,
@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () {},
                           child: Text(
                             'Forgot, huh?',
-                            style: TextStyle(color: grey600),
+                            style: TextStyle(color: BasicColors.grey600),
                           ),
                         ),
                       ),
@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                           child: Text(
                             'SIGN UP',
                             style: TextStyle(
-                              color: blue,
+                              color: BasicColors.blue,
                             ),
                           ),
                         ),
@@ -87,9 +87,9 @@ class LoginScreen extends StatelessWidget {
                         height: 40,
                         child: RaisedButton(
                           key: Key('login_button'),
-                          elevation: raisedButtonElevation,
-                          color: blue,
-                          textColor: white,
+                          elevation: AuxiliaryTheming.raisedButtonElevation,
+                          color: BasicColors.blue,
+                          textColor: BasicColors.white,
                           onPressed: () {},
                           child: Text(
                             'LOGIN',

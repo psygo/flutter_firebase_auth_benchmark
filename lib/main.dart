@@ -9,7 +9,7 @@ class FirebaseAuthenticationApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: appTheme,
+      theme: Theming.appTheme,
       home: LoginScreen.defaultLoginScreen,
     );
   }

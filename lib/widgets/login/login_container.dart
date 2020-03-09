@@ -23,11 +23,11 @@ class LoginContainer extends StatelessWidget {
         horizontal: 15,
       ),
       decoration: BoxDecoration(
-        color: white,
+        color: BasicColors.white,
         boxShadow: [
-          containerBoxShadow,
+          AuxiliaryTheming.containerBoxShadow,
         ],
-        borderRadius: containerBorderRadius,
+        borderRadius: AuxiliaryTheming.containerBorderRadius,
       ),
       child: child,
     );

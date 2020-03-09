@@ -3,45 +3,48 @@ import 'package:flutter/material.dart';
 import 'auxiliary_theming.dart';
 import 'colors.dart';
 
-final ThemeData appTheme = ThemeData(
-  inputDecorationTheme: authenticationTextFormFieldTheme,
-  buttonTheme: flatButtonTheme,
-  iconTheme: defaultIconTheme,
-);
+class Theming {
+  static final ThemeData appTheme = ThemeData(
+    inputDecorationTheme: authenticationTextFormFieldTheme,
+    buttonTheme: flatButtonTheme,
+    iconTheme: defaultIconTheme,
+  );
 
-final IconThemeData defaultIconTheme = IconThemeData(
-  color: grey,
-);
+  static final IconThemeData defaultIconTheme = IconThemeData(
+    color: BasicColors.grey,
+  );
 
-final InputDecorationTheme authenticationTextFormFieldTheme =
-    InputDecorationTheme(
-  labelStyle: TextStyle(
-    color: labelTextColor,
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderRadius: infiniteCircularBorderRadius,
-    borderSide: BorderSide(
-      color: enabledBorderColor,
+  static final InputDecorationTheme authenticationTextFormFieldTheme =
+      InputDecorationTheme(
+    labelStyle: TextStyle(
+      color: AuthTextFormFieldColors.labelTextColor,
     ),
-  ),
-  fillColor: fillColor,
-  filled: true,
-  focusedBorder: OutlineInputBorder(
-    borderRadius: infiniteCircularBorderRadius,
-    borderSide: BorderSide(
-      color: focusedBorderColor,
+    enabledBorder: OutlineInputBorder(
+      borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
+      borderSide: BorderSide(
+        color: AuthTextFormFieldColors.enabledBorderColor,
+      ),
     ),
-  ),
-  contentPadding: EdgeInsets.symmetric(
-    vertical: 15,
-  ),
-);
+    fillColor: AuthTextFormFieldColors.fillColor,
+    filled: true,
+    focusedBorder: OutlineInputBorder(
+      borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
+      borderSide: BorderSide(
+        color: AuthTextFormFieldColors.focusedBorderColor,
+      ),
+    ),
+    contentPadding: EdgeInsets.symmetric(
+      vertical: 15,
+    ),
+  );
 
-final ButtonThemeData flatButtonTheme = ButtonThemeData(
-  shape: RoundedRectangleBorder(
-    borderRadius: infiniteCircularBorderRadius,
-  ),
-  minWidth: 100,
-  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  padding: EdgeInsets.all(0),
-);
+  static final ButtonThemeData flatButtonTheme = ButtonThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
+    ),
+    minWidth: 100,
+    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    padding: EdgeInsets.all(0),
+  );
+}
+

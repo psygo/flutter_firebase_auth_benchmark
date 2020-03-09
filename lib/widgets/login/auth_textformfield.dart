@@ -62,7 +62,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
-  void _requestFocus(){
+  void _requestFocus() {
     setState(() {
       FocusScope.of(context).requestFocus(_focusNode);
     });
@@ -76,11 +76,12 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
       focusNode: _focusNode,
       onTap: _requestFocus,
       decoration: InputDecoration(
-        hintText: _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
+        hintText:
+            _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
         labelText: widget.labelText,
         prefixIcon: Icon(
           widget.icon,
-          color: prefixIconColor,
+          color: AuthTextFormFieldColors.prefixIconColor,
         ),
         suffixIcon: doNotObscureText
             ? null
@@ -88,7 +89,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
                 key: _visibilityIconKey,
                 icon: Icon(
                   _visibilityIcon,
-                  color: suffixIconColor,
+                  color: AuthTextFormFieldColors.suffixIconColor,
                 ),
                 onPressed: _switchVisibility,
               ),
