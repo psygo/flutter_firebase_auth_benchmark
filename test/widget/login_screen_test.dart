@@ -8,7 +8,8 @@ import 'utils.dart';
 void main() {
   group('Login Screen Components Check', () {
     final LoginScreen loginScreen = LoginScreen();
-    final MaterialApp wrappedLoginScreen = materialWrapper(loginScreen);
+    final MaterialApp wrappedLoginScreen =
+        WidgetWrappers.materialWrapper(loginScreen);
 
     void checkEachKeyOneWidget(List<Key> keys) {
       for (final Key key in keys) {
@@ -61,14 +62,12 @@ void main() {
         (tester) async {
       final LoginScreen loginScreen = LoginScreen.defaultLoginScreen;
       final MaterialApp wrappedScreen =
-          materialWrapper(LoginScreen.defaultLoginScreen);
+          WidgetWrappers.materialWrapper(LoginScreen.defaultLoginScreen);
 
       await tester.pumpWidget(wrappedScreen);
 
-      final StatelessElement extractedLoginScreenElement =
-          tester.element(find.byType(LoginScreen));
       final LoginScreen extractedLoginScreen =
-          extractedLoginScreenElement.widget as LoginScreen;
+          WidgetExtractor.extractStatelessWidget(tester, LoginScreen);
 
       expect(loginScreen, equals(extractedLoginScreen));
     });

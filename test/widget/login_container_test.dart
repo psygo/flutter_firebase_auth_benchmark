@@ -7,13 +7,12 @@ import 'utils.dart';
 
 void main() {
   final LoginContainer loginContainer = LoginContainer(child: Container());
-  final MaterialApp wrappedLoginContainer = materialWrapper(loginContainer);
 
   testWidgets('Tests LoginContainer Initialization', (tester) async {
     await tester.pumpWidget(loginContainer);
 
     final LoginContainer extractedLoginContainer =
-        extractStatelessWidget(tester, LoginContainer);
+        WidgetExtractor.extractStatelessWidget(tester, LoginContainer);
 
     expect(loginContainer, equals(extractedLoginContainer));
   });

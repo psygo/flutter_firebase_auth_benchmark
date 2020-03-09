@@ -14,7 +14,8 @@ void main() {
       labelText: 'email',
       icon: Icons.account_circle,
     );
-    final MaterialApp wrappedAuthField = materialWrapper(authFieldDummy);
+    final MaterialApp wrappedAuthField =
+        WidgetWrappers.materialWrapper(authFieldDummy);
 
     testWidgets(
         'Checks that there is no visibility icon '
@@ -22,7 +23,7 @@ void main() {
       await tester.pumpWidget(wrappedAuthField);
 
       final AuthTextFormFieldState extractedAuthFieldState =
-          extractState(tester, AuthTextFormField);
+          WidgetExtractor.extractState(tester, AuthTextFormField);
 
       expect(extractedAuthFieldState.doNotObscureText, isTrue);
       expect(find.byType(IconData), findsNothing);
@@ -38,7 +39,8 @@ void main() {
       icon: Icons.lock,
       obscureText: true,
     );
-    final MaterialApp wrappedAuthField = materialWrapper(authFieldDummy);
+    final MaterialApp wrappedAuthField =
+        WidgetWrappers.materialWrapper(authFieldDummy);
 
     testWidgets(
         'Checks that there is a visibility icon available '
@@ -74,7 +76,7 @@ void main() {
       await tester.enterText(find.byType(AuthTextFormField), dummyPassword);
       await tester.pump();
 
-      String typedPassword = findRenderEditable(tester).text.text;
+      String typedPassword = RenderUtils.findRenderEditable(tester).text.text;
       int textLength = dummyPassword.length;
       String bulletCharacter = '\u{2022}';
       String obscuredPassword = bulletCharacter * textLength;
@@ -94,7 +96,7 @@ void main() {
       await tester.tap(find.byIcon(Icons.visibility));
       await tester.pump();
 
-      String visiblePassword = findRenderEditable(tester).text.text;
+      String visiblePassword = RenderUtils.findRenderEditable(tester).text.text;
 
       expect(visiblePassword, dummyPassword);
     });
