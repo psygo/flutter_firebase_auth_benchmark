@@ -31,8 +31,6 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   IconData _visibilityIcon;
   FocusNode _focusNode;
 
-  bool get doNotObscureText => !widget.obscureText;
-
   @override
   void initState() {
     _passwordIsVisible = widget.obscureText;
@@ -83,16 +81,17 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
           widget.icon,
           color: AuthTextFormFieldColors.prefixIconColor,
         ),
-        suffixIcon: doNotObscureText
-            ? null
-            : IconButton(
-                key: _visibilityIconKey,
-                icon: Icon(
-                  _visibilityIcon,
-                  color: AuthTextFormFieldColors.suffixIconColor,
-                ),
-                onPressed: _switchVisibility,
-              ),
+        suffixIcon: Visibility(
+          visible: widget.obscureText,
+          child: IconButton(
+            key: _visibilityIconKey,
+            icon: Icon(
+              _visibilityIcon,
+              color: AuthTextFormFieldColors.suffixIconColor,
+            ),
+            onPressed: _switchVisibility,
+          ),
+        ),
       ),
     );
   }

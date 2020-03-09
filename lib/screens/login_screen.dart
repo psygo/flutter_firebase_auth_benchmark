@@ -26,9 +26,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
 
+  bool get _isLoginWorkFlow => _loginSubWorkflow == LoginSubWorkflow.login;
+  bool get _isResetWorkflow => _loginSubWorkflow == LoginSubWorkflow.passwordReset;
+  bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signUp;
+
   void _switchWorkFlow(LoginSubWorkflow loginSubWorkflow){
     switch (loginSubWorkflow){
       case LoginSubWorkflow.login:
+        setState(() => _loginSubWorkflow = LoginSubWorkflow.login);
         break;
       case LoginSubWorkflow.passwordReset:
         setState(() => _loginSubWorkflow = LoginSubWorkflow.passwordReset);
@@ -66,37 +71,38 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: LoginScreen.fieldsSpacing,
                       ),
-                      _loginSubWorkflow == LoginSubWorkflow.login
-                        ? AuthTextFormField(
-                            key: Key('password_field'),
-                            keyboardType: TextInputType.visiblePassword,
-                            hintText: 'password',
-                            hintTextOnFocus: 'your password',
-                            labelText: 'password',
-                            icon: Icons.lock,
-                            obscureText: true,
-                          )
-                        : Container(),
+                      Visibility(
+                        visible: _isLoginWorkFlow,
+                        child: AuthTextFormField(
+                          key: Key('password_field'),
+                          keyboardType: TextInputType.visiblePassword,
+                          hintText: 'password',
+                          hintTextOnFocus: 'your password',
+                          labelText: 'password',
+                          icon: Icons.lock,
+                          obscureText: true,
+                        ),
+                      ),
                       SizedBox(
                         height: LoginScreen.fieldsButtonsSpacing,
                       ),
-                      _loginSubWorkflow == LoginSubWorkflow.passwordReset
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              FlatButton(
-                                key: Key('cancel_reset'),
-                                onPressed: () => _switchWorkFlow(LoginSubWorkflow.login),
-                                child: Text(
-                                  'CANCEL RESET',
-                                  style: TextStyle(
-                                    color: BasicColors.blue,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        : Container(),
+                      Visibility(
+                        visible: _isResetWorkflow,
+                        maintainState: true,
+                        child: ButtonAlignmentWrapper(
+                          height: 30, 
+                          child: FlatButton(
+                            key: Key('cancel_reset'),
+                            onPressed: () => _switchWorkFlow(LoginSubWorkflow.login),
+                            child: Text(
+                              'CANCEL RESET',
+                              style: TextStyle(
+                                color: BasicColors.blue,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       ButtonAlignmentWrapper(
                         height: 30,
                         child: FlatButton(
