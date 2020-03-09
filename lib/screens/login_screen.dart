@@ -5,16 +5,24 @@ import '../theme/colors.dart';
 import '../widgets/login/login_container.dart';
 import '../widgets/login/auth_textformfield.dart';
 
-class LoginScreen extends StatelessWidget {
+enum LoginSubWorkflow {
+  login,
+  passwordReset,
+  signUp,
+}
+
+class LoginScreen extends StatefulWidget {
   static const double fieldsSpacing = 10;
   static const double fieldsButtonsSpacing = 10;
   static const double buttonsSpacing = 10;
 
-  static final LoginScreen defaultLoginScreen =
-      const LoginScreen(key: Key('login_screen'));
-
   const LoginScreen({Key key}) : super(key: key);
 
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +47,7 @@ class LoginScreen extends StatelessWidget {
                         icon: Icons.account_circle,
                       ),
                       SizedBox(
-                        height: fieldsSpacing,
+                        height: LoginScreen.fieldsSpacing,
                       ),
                       AuthTextFormField(
                         key: Key('password_field'),
@@ -51,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                         obscureText: true,
                       ),
                       SizedBox(
-                        height: fieldsButtonsSpacing,
+                        height: LoginScreen.fieldsButtonsSpacing,
                       ),
                       ButtonAlignmentWrapper(
                         height: 30,
@@ -65,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: buttonsSpacing,
+                        height: LoginScreen.buttonsSpacing,
                       ),
                       ButtonAlignmentWrapper(
                         height: 30,
@@ -81,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: buttonsSpacing,
+                        height: LoginScreen.buttonsSpacing,
                       ),
                       ButtonAlignmentWrapper(
                         height: 40,

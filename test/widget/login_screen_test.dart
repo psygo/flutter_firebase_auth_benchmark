@@ -6,11 +6,11 @@ import 'package:flutter_firebase_auth_benchmark/screens/login_screen.dart';
 import 'utils.dart';
 
 void main() {
-  group('Login Screen Components Check', () {
-    final LoginScreen loginScreen = LoginScreen();
-    final MaterialApp wrappedLoginScreen =
-        WidgetWrappers.materialWrapper(loginScreen);
+  final LoginScreen loginScreen = LoginScreen();
+  final MaterialApp wrappedLoginScreen =
+      WidgetWrappers.materialWrapper(loginScreen);
 
+  group('Login Screen Components Check', () {
     void checkEachKeyOneWidget(List<Key> keys) {
       for (final Key key in keys) {
         expect(find.byKey(key), findsOneWidget);
@@ -57,19 +57,9 @@ void main() {
     });
   });
 
-  group('Extra Initialization Checks', () {
-    testWidgets('Checks if the Login Screen has been correctly initialized',
-        (tester) async {
-      final LoginScreen loginScreen = LoginScreen.defaultLoginScreen;
-      final MaterialApp wrappedScreen =
-          WidgetWrappers.materialWrapper(LoginScreen.defaultLoginScreen);
+  group('Changing the Login Screen to Password Reset', (){
+    testWidgets('Clicking the *Forgot* Button "deletes" the password field', (tester) async {
 
-      await tester.pumpWidget(wrappedScreen);
-
-      final LoginScreen extractedLoginScreen =
-          WidgetExtractor.extractStatelessWidget(tester, LoginScreen);
-
-      expect(loginScreen, equals(extractedLoginScreen));
     });
   });
 }
