@@ -5,6 +5,7 @@ import '../../theme/colors.dart';
 class AuthTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final String hintText;
+  final String hintTextOnFocus;
   final String labelText;
   final IconData icon;
   final bool obscureText;
@@ -13,6 +14,7 @@ class AuthTextFormField extends StatefulWidget {
     Key key,
     this.keyboardType,
     this.hintText,
+    this.hintTextOnFocus = '',
     this.labelText,
     this.icon,
     this.obscureText = false,
@@ -27,6 +29,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   bool _passwordIsVisible;
   Key _visibilityIconKey;
   IconData _visibilityIcon;
+  FocusNode _focusNode;
 
   bool get doNotObscureText => !widget.obscureText;
 
@@ -35,6 +38,13 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _passwordIsVisible = widget.obscureText;
     _switchIcons();
     super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
   }
 
   void _switchIcons() {
@@ -52,13 +62,21 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
+  void _requestFocus(){
+    setState(() {
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: widget.keyboardType,
       obscureText: _passwordIsVisible,
+      focusNode: _focusNode,
+      onTap: _requestFocus,
       decoration: InputDecoration(
-        hintText: widget.hintText,
+        hintText: _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
         labelText: widget.labelText,
         prefixIcon: Icon(
           widget.icon,

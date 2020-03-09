@@ -71,15 +71,16 @@ void main() {
         (tester) async {
       await tester.pumpWidget(wrappedAuthField);
 
-      String dummyPassword = 'asdf';
+      const String dummyPassword = 'asdf';
 
       await tester.enterText(find.byType(AuthTextFormField), dummyPassword);
       await tester.pump();
 
-      String typedPassword = RenderUtils.findRenderEditable(tester).text.text;
-      int textLength = dummyPassword.length;
-      String bulletCharacter = '\u{2022}';
-      String obscuredPassword = bulletCharacter * textLength;
+      final String typedPassword =
+          RenderUtils.findRenderEditable(tester).text.text;
+      final int textLength = dummyPassword.length;
+      const String bulletCharacter = '\u{2022}';
+      final String obscuredPassword = bulletCharacter * textLength;
 
       expect(typedPassword, obscuredPassword);
     });
@@ -88,7 +89,7 @@ void main() {
         (tester) async {
       await tester.pumpWidget(wrappedAuthField);
 
-      String dummyPassword = 'asdf';
+      const String dummyPassword = 'asdf';
 
       await tester.enterText(find.byType(AuthTextFormField), dummyPassword);
       await tester.pump();
@@ -96,7 +97,8 @@ void main() {
       await tester.tap(find.byIcon(Icons.visibility));
       await tester.pump();
 
-      String visiblePassword = RenderUtils.findRenderEditable(tester).text.text;
+      final String visiblePassword =
+          RenderUtils.findRenderEditable(tester).text.text;
 
       expect(visiblePassword, dummyPassword);
     });
