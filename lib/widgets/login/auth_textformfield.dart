@@ -26,14 +26,16 @@ class AuthTextFormField extends StatefulWidget {
 
 @visibleForTesting
 class AuthTextFormFieldState extends State<AuthTextFormField> {
-  bool _passwordIsVisible;
+  bool _passwordIsNotVisible;
   Key _visibilityIconKey;
   IconData _visibilityIcon;
   FocusNode _focusNode;
 
+  bool get textIsVisible => !_passwordIsNotVisible;
+
   @override
   void initState() {
-    _passwordIsVisible = widget.obscureText;
+    _passwordIsNotVisible = widget.obscureText;
     _switchIcons();
     super.initState();
     _focusNode = FocusNode();
@@ -46,16 +48,16 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   }
 
   void _switchIcons() {
-    _visibilityIconKey = _passwordIsVisible
+    _visibilityIconKey = _passwordIsNotVisible
         ? Key('password_is_visible_icon')
         : Key('password_is_not_visible_icon');
     _visibilityIcon =
-        _passwordIsVisible ? Icons.visibility : Icons.visibility_off;
+        _passwordIsNotVisible ? Icons.visibility : Icons.visibility_off;
   }
 
   void _switchVisibility() {
     setState(() {
-      _passwordIsVisible = !_passwordIsVisible;
+      _passwordIsNotVisible = !_passwordIsNotVisible;
       _switchIcons();
     });
   }
@@ -70,7 +72,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: widget.keyboardType,
-      obscureText: _passwordIsVisible,
+      obscureText: _passwordIsNotVisible,
       focusNode: _focusNode,
       onTap: _requestFocus,
       decoration: InputDecoration(

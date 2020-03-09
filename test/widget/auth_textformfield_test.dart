@@ -25,7 +25,7 @@ void main() {
       final AuthTextFormFieldState extractedAuthFieldState =
           WidgetExtractor.extractState(tester, AuthTextFormField);
 
-      expect(extractedAuthFieldState.doNotObscureText, isTrue);
+      expect(extractedAuthFieldState.textIsVisible, isTrue);
       expect(find.byType(IconData), findsNothing);
     });
   });
