@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_benchmark/exceptions/login.dart';
-import 'package:flutter_firebase_auth_benchmark/widgets/utils/null_widget.dart';
 
 import '../theme/auxiliary_theming.dart';
 import '../theme/colors.dart';
 import '../widgets/login/login_container.dart';
 import '../widgets/login/auth_textformfield.dart';
+import '../widgets/login/button_alignment_wrapper.dart';
 
 enum LoginSubWorkflow {
   login,
@@ -63,6 +63,10 @@ class _LoginScreenState extends State<LoginScreen>
   bool get _isResetWorkflow =>
       _loginSubWorkflow == LoginSubWorkflow.passwordReset;
   bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signUp;
+  bool get _isLoginOrSignUpWorkflow => 
+    _loginSubWorkflow == LoginSubWorkflow.login ||  _loginSubWorkflow == LoginSubWorkflow.signUp;
+  bool get _isLoginOrResetWorkFlow =>
+    _loginSubWorkflow == LoginSubWorkflow.login ||  _loginSubWorkflow == LoginSubWorkflow.passwordReset;
 
   @override
   void initState() {
@@ -118,8 +122,11 @@ class _LoginScreenState extends State<LoginScreen>
                         labelText: 'email',
                         icon: Icons.account_circle,
                       ),
-                      SizedBox(
-                        height: LoginScreen.fieldsSpacing,
+                      Visibility(
+                        visible: _isLoginOrSignUpWorkflow,
+                        child: SizedBox(
+                          height: LoginScreen.fieldsSpacing,
+                        ),
                       ),
                       AnimatedSwitcher(
                         duration: Duration(milliseconds: 1500),
@@ -150,8 +157,11 @@ class _LoginScreenState extends State<LoginScreen>
                           );
                         },
                       ),
-                      SizedBox(
-                        height: LoginScreen.fieldsButtonsSpacing,
+                      Visibility(
+                        visible: _isLoginOrResetWorkFlow,
+                        child: SizedBox(
+                          height: LoginScreen.fieldsButtonsSpacing,
+                        ),
                       ),
                       Visibility(
                         visible: _isLoginWorkFlow,
@@ -170,8 +180,11 @@ class _LoginScreenState extends State<LoginScreen>
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: LoginScreen.buttonsSpacing,
+                      Visibility(
+                        visible: _isLoginWorkFlow,
+                        child: SizedBox(
+                          height: LoginScreen.buttonsSpacing,
+                        ),
                       ),
                       Visibility(
                         visible: _isLoginWorkFlow,
@@ -190,8 +203,11 @@ class _LoginScreenState extends State<LoginScreen>
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: LoginScreen.buttonsSpacing,
+                      Visibility(
+                        visible: _isLoginWorkFlow,
+                        child: SizedBox(
+                          height: LoginScreen.buttonsSpacing,
+                        ),
                       ),
                       Visibility(
                         visible: _isLoginWorkFlow,
@@ -218,9 +234,8 @@ class _LoginScreenState extends State<LoginScreen>
                           height: 30,
                           child: FlatButton(
                             key: Key('cancel_reset_button'),
-                            onPressed: () {
-                              _switchWorkFlow(LoginSubWorkflow.login);
-                            },
+                            onPressed: () =>
+                              _switchWorkFlow(LoginSubWorkflow.login),
                             child: Text(
                               'CANCEL RESET',
                               style: TextStyle(
@@ -228,6 +243,12 @@ class _LoginScreenState extends State<LoginScreen>
                               ),
                             ),
                           ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: _isResetWorkflow,
+                        child: SizedBox(
+                          height: LoginScreen.buttonsSpacing,
                         ),
                       ),
                       Visibility(
@@ -254,7 +275,19 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                       Visibility(
                         visible: _isSignUpWorkflow,
+                        child: SizedBox(
+                          height: LoginScreen.fieldsSpacing,
+                        ),
+                      ),
+                      Visibility(
+                        visible: _isSignUpWorkflow,
                         child: _confirmPasswordField,
+                      ),
+                      Visibility(
+                        visible: _isSignUpWorkflow,
+                        child: SizedBox(
+                          height: LoginScreen.fieldsButtonsSpacing,
+                        ),
                       ),
                       Visibility(
                         visible: _isSignUpWorkflow,
@@ -262,9 +295,8 @@ class _LoginScreenState extends State<LoginScreen>
                           height: 30,
                           child: FlatButton(
                             key: Key('cancel_signup_button'),
-                            onPressed: () {
-                              _switchWorkFlow(LoginSubWorkflow.login);
-                            },
+                            onPressed: () =>
+                              _switchWorkFlow(LoginSubWorkflow.login),
                             child: Text(
                               'CANCEL SIGN UP',
                               style: TextStyle(
@@ -272,6 +304,12 @@ class _LoginScreenState extends State<LoginScreen>
                               ),
                             ),
                           ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: _isSignUpWorkflow,
+                        child: SizedBox(
+                          height: LoginScreen.buttonsSpacing,
                         ),
                       ),
                       Visibility(
@@ -305,28 +343,5 @@ class _LoginScreenState extends State<LoginScreen>
         ),
       ),
     );
-  }
-}
-
-class ButtonAlignmentWrapper extends StatelessWidget {
-  final double height;
-  final Widget child;
-
-  const ButtonAlignmentWrapper({
-    Key key,
-    @required this.height,
-    @required this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: height,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            child,
-          ],
-        ));
   }
 }
