@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_benchmark/widgets/utils/null_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_firebase_auth_benchmark/screens/login_screen.dart';
@@ -59,14 +58,17 @@ void main() {
   });
 
   group('Changing the Login Screen to Password Reset', () {
+    Future<void> setUpResetScenario(WidgetTester tester) async {
+      await tester.pumpWidget(wrappedLoginScreen);
+      await tester.tap(find.byKey(Key('forgot_password_button')));
+      await tester.pump(Duration(seconds: 2));
+    }
+
     testWidgets(
       'Clicking the *Forgot* Button '
       '"deletes" the password field in an animation',
         (tester) async {
-      await tester.pumpWidget(wrappedLoginScreen);
-
-      await tester.tap(find.byKey(Key('forgot_password_button')));
-      await tester.pump(Duration(seconds: 2));
+      await setUpResetScenario(tester);
 
       final List<Widget> widgets = WidgetExtractor.extractWidgetsFromStackByKey(tester, Key('password_animation_stack'));
 
@@ -79,10 +81,7 @@ void main() {
       'Clicking the *Forgot* Button '
       '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
         (tester) async {
-      await tester.pumpWidget(wrappedLoginScreen);
-
-      await tester.tap(find.byKey(Key('forgot_password_button')));
-      await tester.pump();
+      await setUpResetScenario(tester);
 
       final List<Key> shouldNotExistButtonsKeys = [
         Key('forgot_password_button'),
@@ -98,25 +97,31 @@ void main() {
     testWidgets(
       'Checks if the Back Button and the *Send Reset Email* '
       'for when in Password Reset Mode exist', (tester) async {
-      await tester.pumpWidget(wrappedLoginScreen);
+      await setUpResetScenario(tester);
 
-      await tester.tap(find.byKey(Key('forgot_password_button')));
-      await tester.pump();
+      final List<Key> signUpButtonKeys = [
+        Key('cancel_reset_button'),
+        Key('send_password_verification_button')
+      ];
 
-      expect(find.byKey(Key('cancel_reset_button')), findsOneWidget);
-      expect(find.byKey(Key('send_password_verification_button')), findsOneWidget);
+      signUpButtonKeys.forEach((Key key){
+        expect(find.byKey(key), findsOneWidget);
+      });
     });
   });
 
   group('Changing the Login Screen to Sign Up', (){
+    Future<void> setUpSignUpScenario(WidgetTester tester) async {
+      await tester.pumpWidget(wrappedLoginScreen);
+      await tester.tap(find.byKey(Key('signup_button')));
+      await tester.pump();
+    }
+
     testWidgets(
       'Clicking the *Sign Up* Button '
       '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
         (tester) async {
-      await tester.pumpWidget(wrappedLoginScreen);
-
-      await tester.tap(find.byKey(Key('signup_button')));
-      await tester.pump();
+        await setUpSignUpScenario(tester);
 
       final List<Key> shouldNotExistButtonsKeys = [
         Key('forgot_password_button'),
@@ -130,10 +135,7 @@ void main() {
     });
 
     testWidgets('Checks if the Back Button and Create Account exist', (tester) async {
-      await tester.pumpWidget(wrappedLoginScreen);
-
-      await tester.tap(find.byKey(Key('signup_button')));
-      await tester.pump();
+      await setUpSignUpScenario(tester);
 
       final List<Key>  signUpButtonsKeys = [
         Key('cancel_signup_button'),
