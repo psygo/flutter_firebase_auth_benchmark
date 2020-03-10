@@ -250,6 +250,50 @@ class _LoginScreenState extends State<LoginScreen>
                           ),
                         ),
                       ),
+                      Visibility(
+                        visible: _isSignUpWorkflow,
+                        child: _confirmPasswordField,
+                      ),
+                      Visibility(
+                        visible: _isSignUpWorkflow,
+                        child: ButtonAlignmentWrapper(
+                          height: 30,
+                          child: FlatButton(
+                            key: Key('cancel_signup_button'),
+                            onPressed: () {
+                              _switchWorkFlow(LoginSubWorkflow.login);
+                            },
+                            child: Text(
+                              'CANCEL SIGN UP',
+                              style: TextStyle(
+                                color: BasicColors.blue,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: _isSignUpWorkflow,
+                        child: ButtonAlignmentWrapper(
+                          height: 40, 
+                          child: SizedBox(
+                            width: 165,
+                            child: RaisedButton(
+                              key: Key('create_account_button'),
+                              elevation: AuxiliaryTheming.raisedButtonElevation,
+                              color: BasicColors.blue,
+                              textColor: BasicColors.white,
+                              onPressed: () {},
+                              child: Text(
+                                'CREATE ACCOUNT',
+                                style: TextStyle(
+                                  fontSize: 14.5,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

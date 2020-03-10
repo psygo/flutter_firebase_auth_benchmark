@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_benchmark/widgets/login/auth_textformfield.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_firebase_auth_benchmark/screens/login_screen.dart';
@@ -134,17 +135,26 @@ void main() {
       });
     });
 
-    testWidgets('Checks if the Back Button and Create Account exist', (tester) async {
+    testWidgets('Checks if the Back and Create Account buttons exist. '
+      'Also checks if the *confirm password* field exists', 
+        (tester) async {
       await setUpSignUpScenario(tester);
 
       final List<Key>  signUpButtonsKeys = [
         Key('cancel_signup_button'),
         Key('create_account_button'),
+        Key('confirm_password_field'),
       ];
 
       signUpButtonsKeys.forEach((Key key){
         expect(find.byKey(key), findsOneWidget);
       });
+    });
+
+    testWidgets('There should be 3 text fields here', (tester) async {
+      await setUpSignUpScenario(tester);
+
+      expect(find.byType(AuthTextFormField), findsNWidgets(3));
     });
   });
 }
