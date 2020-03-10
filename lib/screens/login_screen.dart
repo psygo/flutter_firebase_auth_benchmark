@@ -74,13 +74,13 @@ class _LoginScreenState extends State<LoginScreen>
   void _switchWorkFlow(LoginSubWorkflow loginSubWorkflow) {
     switch (loginSubWorkflow) {
       case LoginSubWorkflow.login:
-        setState((){
+        setState(() {
           _animatedPasswordField = _passwordField;
           _loginSubWorkflow = LoginSubWorkflow.login;
         });
         break;
       case LoginSubWorkflow.passwordReset:
-        setState((){
+        setState(() {
           _animatedPasswordField = _passwordResetMsg;
           _loginSubWorkflow = LoginSubWorkflow.passwordReset;
         });
@@ -129,16 +129,17 @@ class _LoginScreenState extends State<LoginScreen>
                         transitionBuilder:
                             (Widget child, Animation<double> animation) {
                           final Animation<Offset> offsetAnimation =
-                            Tween<Offset>(
-                              begin: Offset(5, 0), 
-                              end: Offset.zero).animate(animation);
+                              Tween<Offset>(
+                                      begin: Offset(5, 0), end: Offset.zero)
+                                  .animate(animation);
 
                           return SlideTransition(
                             position: offsetAnimation,
                             child: child,
                           );
                         },
-                        layoutBuilder: (Widget currentChild, List<Widget> previousChildren){
+                        layoutBuilder: (Widget currentChild,
+                            List<Widget> previousChildren) {
                           return Stack(
                             key: Key('password_animation_stack'),
                             children: <Widget>[
@@ -159,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen>
                           child: FlatButton(
                             key: Key('forgot_password_button'),
                             onPressed: () =>
-                              _switchWorkFlow(LoginSubWorkflow.passwordReset),
+                                _switchWorkFlow(LoginSubWorkflow.passwordReset),
                             child: Text(
                               'Forgot, huh?',
                               style: TextStyle(
@@ -178,7 +179,8 @@ class _LoginScreenState extends State<LoginScreen>
                           height: 30,
                           child: FlatButton(
                             key: Key('signup_button'),
-                            onPressed: () => _switchWorkFlow(LoginSubWorkflow.signUp),
+                            onPressed: () =>
+                                _switchWorkFlow(LoginSubWorkflow.signUp),
                             child: Text(
                               'SIGN UP',
                               style: TextStyle(
@@ -231,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isResetWorkflow,
                         child: ButtonAlignmentWrapper(
-                          height: 40, 
+                          height: 40,
                           child: SizedBox(
                             width: 165,
                             child: RaisedButton(
@@ -275,7 +277,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isSignUpWorkflow,
                         child: ButtonAlignmentWrapper(
-                          height: 40, 
+                          height: 40,
                           child: SizedBox(
                             width: 165,
                             child: RaisedButton(

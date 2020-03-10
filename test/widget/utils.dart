@@ -44,14 +44,16 @@ class WidgetExtractor {
     return extractStatelessWidgetFromElement(element);
   }
 
-  static List<Widget> extractWidgetsFromStackByKey(WidgetTester tester, Key key){
+  static List<Widget> extractWidgetsFromStackByKey(
+      WidgetTester tester, Key key) {
     final Element stackElement = extractElementByKey(tester, key);
-    final MultiChildRenderObjectElement stack = stackElement as MultiChildRenderObjectElement;
+    final MultiChildRenderObjectElement stack =
+        stackElement as MultiChildRenderObjectElement;
     final List<Widget> widgets = [];
-    stack.visitChildren((Element el){
-      el.visitChildren((Element el){
-        el.visitChildren((Element el){
-          el.visitChildren((Element el){
+    stack.visitChildren((Element el) {
+      el.visitChildren((Element el) {
+        el.visitChildren((Element el) {
+          el.visitChildren((Element el) {
             widgets.add(el.widget);
           });
         });

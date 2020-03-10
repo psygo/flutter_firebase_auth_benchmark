@@ -66,12 +66,12 @@ void main() {
     }
 
     testWidgets(
-      'Clicking the *Forgot* Button '
-      '"deletes" the password field in an animation',
-        (tester) async {
+        'Clicking the *Forgot* Button '
+        '"deletes" the password field in an animation', (tester) async {
       await setUpResetScenario(tester);
 
-      final List<Widget> widgets = WidgetExtractor.extractWidgetsFromStackByKey(tester, Key('password_animation_stack'));
+      final List<Widget> widgets = WidgetExtractor.extractWidgetsFromStackByKey(
+          tester, Key('password_animation_stack'));
 
       expect(widgets.length, 2);
       expect(widgets.first.key, Key('password_field'));
@@ -79,8 +79,8 @@ void main() {
     });
 
     testWidgets(
-      'Clicking the *Forgot* Button '
-      '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
+        'Clicking the *Forgot* Button '
+        '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
         (tester) async {
       await setUpResetScenario(tester);
 
@@ -90,14 +90,14 @@ void main() {
         Key('login_button'),
       ];
 
-      shouldNotExistButtonsKeys.forEach((Key key){
+      shouldNotExistButtonsKeys.forEach((Key key) {
         expect(find.byKey(key), findsNothing);
       });
     });
 
     testWidgets(
-      'Checks if the Back Button and the *Send Reset Email* '
-      'for when in Password Reset Mode exist', (tester) async {
+        'Checks if the Back Button and the *Send Reset Email* '
+        'for when in Password Reset Mode exist', (tester) async {
       await setUpResetScenario(tester);
 
       final List<Key> signUpButtonKeys = [
@@ -105,13 +105,13 @@ void main() {
         Key('send_password_verification_button')
       ];
 
-      signUpButtonKeys.forEach((Key key){
+      signUpButtonKeys.forEach((Key key) {
         expect(find.byKey(key), findsOneWidget);
       });
     });
   });
 
-  group('Changing the Login Screen to Sign Up', (){
+  group('Changing the Login Screen to Sign Up', () {
     Future<void> setUpSignUpScenario(WidgetTester tester) async {
       await tester.pumpWidget(wrappedLoginScreen);
       await tester.tap(find.byKey(Key('signup_button')));
@@ -119,10 +119,10 @@ void main() {
     }
 
     testWidgets(
-      'Clicking the *Sign Up* Button '
-      '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
+        'Clicking the *Sign Up* Button '
+        '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
         (tester) async {
-        await setUpSignUpScenario(tester);
+      await setUpSignUpScenario(tester);
 
       final List<Key> shouldNotExistButtonsKeys = [
         Key('forgot_password_button'),
@@ -130,23 +130,23 @@ void main() {
         Key('login_button'),
       ];
 
-      shouldNotExistButtonsKeys.forEach((Key key){
+      shouldNotExistButtonsKeys.forEach((Key key) {
         expect(find.byKey(key), findsNothing);
       });
     });
 
-    testWidgets('Checks if the Back and Create Account buttons exist. '
-      'Also checks if the *confirm password* field exists', 
-        (tester) async {
+    testWidgets(
+        'Checks if the Back and Create Account buttons exist. '
+        'Also checks if the *confirm password* field exists', (tester) async {
       await setUpSignUpScenario(tester);
 
-      final List<Key>  signUpButtonsKeys = [
+      final List<Key> signUpButtonsKeys = [
         Key('cancel_signup_button'),
         Key('create_account_button'),
         Key('confirm_password_field'),
       ];
 
-      signUpButtonsKeys.forEach((Key key){
+      signUpButtonsKeys.forEach((Key key) {
         expect(find.byKey(key), findsOneWidget);
       });
     });
