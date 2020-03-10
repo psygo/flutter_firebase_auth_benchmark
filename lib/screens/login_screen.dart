@@ -46,6 +46,16 @@ class _LoginScreenState extends State<LoginScreen>
     obscureText: true,
   );
 
+  final AuthTextFormField _confirmPasswordField = AuthTextFormField(
+    key: Key('confirm_password_field'),
+    keyboardType: TextInputType.visiblePassword,
+    hintText: 'confirm your password',
+    hintTextOnFocus: 'your password again',
+    labelText: 'confirm password',
+    icon: Icons.lock,
+    obscureText: true,
+  );
+
   LoginSubWorkflow _loginSubWorkflow;
   Widget _animatedPasswordField;
 
@@ -65,8 +75,8 @@ class _LoginScreenState extends State<LoginScreen>
     switch (loginSubWorkflow) {
       case LoginSubWorkflow.login:
         setState((){
-          _loginSubWorkflow = LoginSubWorkflow.login;
           _animatedPasswordField = _passwordField;
+          _loginSubWorkflow = LoginSubWorkflow.login;
         });
         break;
       case LoginSubWorkflow.passwordReset:
@@ -76,7 +86,9 @@ class _LoginScreenState extends State<LoginScreen>
         });
         break;
       case LoginSubWorkflow.signUp:
-        setState(() => _loginSubWorkflow = LoginSubWorkflow.signUp);
+        setState(() {
+          _loginSubWorkflow = LoginSubWorkflow.signUp;
+        });
         break;
       default:
         throw InvalidLoginWorkFlowException('This workflow should not exist.');
@@ -141,32 +153,13 @@ class _LoginScreenState extends State<LoginScreen>
                         height: LoginScreen.fieldsButtonsSpacing,
                       ),
                       Visibility(
-                        visible: _isResetWorkflow,
-                        child: ButtonAlignmentWrapper(
-                          height: 30,
-                          child: FlatButton(
-                            key: Key('cancel_reset'),
-                            onPressed: () {
-                              _switchWorkFlow(LoginSubWorkflow.login);
-                            },
-                            child: Text(
-                              'CANCEL RESET',
-                              style: TextStyle(
-                                color: BasicColors.blue,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
                         visible: _isLoginWorkFlow,
                         child: ButtonAlignmentWrapper(
                           height: 30,
                           child: FlatButton(
                             key: Key('forgot_password_button'),
-                            onPressed: () {
-                              _switchWorkFlow(LoginSubWorkflow.passwordReset);
-                            },
+                            onPressed: () =>
+                              _switchWorkFlow(LoginSubWorkflow.passwordReset),
                             child: Text(
                               'Forgot, huh?',
                               style: TextStyle(
@@ -185,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen>
                           height: 30,
                           child: FlatButton(
                             key: Key('signup_button'),
-                            onPressed: () {},
+                            onPressed: () => _switchWorkFlow(LoginSubWorkflow.signUp),
                             child: Text(
                               'SIGN UP',
                               style: TextStyle(
@@ -220,11 +213,29 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isResetWorkflow,
                         child: ButtonAlignmentWrapper(
+                          height: 30,
+                          child: FlatButton(
+                            key: Key('cancel_reset_button'),
+                            onPressed: () {
+                              _switchWorkFlow(LoginSubWorkflow.login);
+                            },
+                            child: Text(
+                              'CANCEL RESET',
+                              style: TextStyle(
+                                color: BasicColors.blue,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: _isResetWorkflow,
+                        child: ButtonAlignmentWrapper(
                           height: 40, 
                           child: SizedBox(
                             width: 165,
                             child: RaisedButton(
-                              key: Key('send_password_verification'),
+                              key: Key('send_password_verification_button'),
                               elevation: AuxiliaryTheming.raisedButtonElevation,
                               color: BasicColors.blue,
                               textColor: BasicColors.white,
