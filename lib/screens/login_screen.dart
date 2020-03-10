@@ -23,15 +23,17 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
 
   bool get _isLoginWorkFlow => _loginSubWorkflow == LoginSubWorkflow.login;
-  bool get _isResetWorkflow => _loginSubWorkflow == LoginSubWorkflow.passwordReset;
+  bool get _isResetWorkflow =>
+      _loginSubWorkflow == LoginSubWorkflow.passwordReset;
   bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signUp;
 
-  void _switchWorkFlow(LoginSubWorkflow loginSubWorkflow){
-    switch (loginSubWorkflow){
+  void _switchWorkFlow(LoginSubWorkflow loginSubWorkflow) {
+    switch (loginSubWorkflow) {
       case LoginSubWorkflow.login:
         setState(() => _loginSubWorkflow = LoginSubWorkflow.login);
         break;
@@ -44,6 +46,38 @@ class _LoginScreenState extends State<LoginScreen> {
         throw InvalidLoginWorkFlowException('This workflow should not exist.');
     }
   }
+
+  // AnimationController controller;
+  // Animation<Offset> offset;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // controller =
+    //     AnimationController(vsync: this, duration: Duration(seconds: 5));
+
+    // offset = Tween<Offset>(begin: Offset.zero, end: Offset(0, 1))
+    //     .animate(controller);
+  }
+
+  @override
+  void dispose() {
+    // controller.dispose();
+    super.dispose();
+  }
+
+  Widget _myAnimatedWidget = AuthTextFormField(
+    key: Key('password_field'),
+    keyboardType: TextInputType.visiblePassword,
+    hintText: 'password',
+    hintTextOnFocus: 'your password',
+    labelText: 'password',
+    icon: Icons.lock,
+    obscureText: true,
+  );
+
+  static const Widget _nullBox = SizedBox.shrink();
 
   @override
   Widget build(BuildContext context) {
@@ -71,18 +105,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: LoginScreen.fieldsSpacing,
                       ),
-                      Visibility(
-                        visible: _isLoginWorkFlow,
-                        child: AuthTextFormField(
-                          key: Key('password_field'),
-                          keyboardType: TextInputType.visiblePassword,
-                          hintText: 'password',
-                          hintTextOnFocus: 'your password',
-                          labelText: 'password',
-                          icon: Icons.lock,
-                          obscureText: true,
-                        ),
+                      AnimatedSwitcher(
+                        duration: Duration(seconds: 1),
+                        child: _myAnimatedWidget,
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          final  offsetAnimation =
+                            Tween<Offset>(
+                              begin: Offset(0, 0), 
+                              end: Offset(0, -0.5)).animate(animation);
+
+                          return SlideTransition(
+                            child: child,
+                            position: offsetAnimation,
+                          );
+                        },
                       ),
+                      // Visibility(
+                      //   visible: _isLoginWorkFlow,
+                      //   child: AuthTextFormField(
+                      //     key: Key('password_field'),
+                      //     keyboardType: TextInputType.visiblePassword,
+                      //     hintText: 'password',
+                      //     hintTextOnFocus: 'your password',
+                      //     labelText: 'password',
+                      //     icon: Icons.lock,
+                      //     obscureText: true,
+                      //   ),
+                      // ),
                       SizedBox(
                         height: LoginScreen.fieldsButtonsSpacing,
                       ),
@@ -90,10 +140,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         visible: _isResetWorkflow,
                         maintainState: true,
                         child: ButtonAlignmentWrapper(
-                          height: 30, 
+                          height: 30,
                           child: FlatButton(
                             key: Key('cancel_reset'),
-                            onPressed: () => _switchWorkFlow(LoginSubWorkflow.login),
+                            onPressed: () {
+                              _switchWorkFlow(LoginSubWorkflow.login);
+                              setState(() {
+                                _myAnimatedWidget = _nullBox;
+                              });
+                            },
                             child: Text(
                               'CANCEL RESET',
                               style: TextStyle(
@@ -107,7 +162,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 30,
                         child: FlatButton(
                           key: Key('forgot_password_button'),
-                          onPressed: () => _switchWorkFlow(LoginSubWorkflow.passwordReset),
+                          onPressed: () =>
+                              _switchWorkFlow(LoginSubWorkflow.passwordReset),
                           child: Text(
                             'Forgot, huh?',
                             style: TextStyle(
@@ -176,13 +232,12 @@ class ButtonAlignmentWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          child,
-        ],
-      )
-    );
+        height: height,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            child,
+          ],
+        ));
   }
 }

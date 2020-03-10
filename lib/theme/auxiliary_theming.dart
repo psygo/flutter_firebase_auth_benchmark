@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-class AuxiliaryTheming{
+class AuxiliaryTheming {
   static final BoxShadow containerBoxShadow = BoxShadow(
     color: LoginContainerColors.containerShadowGrey,
     blurRadius: 4,
@@ -27,4 +27,3 @@ class AuxiliaryTheming{
 
   static const double raisedButtonElevation = 5;
 }
-

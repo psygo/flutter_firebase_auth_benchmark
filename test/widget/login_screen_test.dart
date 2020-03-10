@@ -57,8 +57,9 @@ void main() {
     });
   });
 
-  group('Changing the Login Screen to Password Reset', (){
-    testWidgets('Clicking the *Forgot* Button "deletes" the password field', (tester) async {
+  group('Changing the Login Screen to Password Reset', () {
+    testWidgets('Clicking the *Forgot* Button "deletes" the password field',
+        (tester) async {
       await tester.pumpWidget(wrappedLoginScreen);
 
       await tester.tap(find.byKey(Key('forgot_password_button')));

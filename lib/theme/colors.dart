@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BasicColors{
+class BasicColors {
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
   static final Color grey600 = Colors.grey[600];
@@ -9,11 +9,11 @@ class BasicColors{
   static const Color transparent = Colors.transparent;
 }
 
-class LoginContainerColors{
+class LoginContainerColors {
   static final Color containerShadowGrey = BasicColors.grey800;
 }
 
-class AuthTextFormFieldColors{
+class AuthTextFormFieldColors {
   static final Color prefixIconColor = BasicColors.grey600;
   static final Color suffixIconColor = BasicColors.grey600;
   static final Color labelTextColor = BasicColors.grey800;

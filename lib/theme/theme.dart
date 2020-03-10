@@ -47,4 +47,3 @@ class Theming {
     padding: EdgeInsets.all(0),
   );
 }
-
