@@ -51,20 +51,21 @@ class WidgetExtractor {
         stackElement as MultiChildRenderObjectElement;
 
     final List<Widget> widgets = [];
-    void findWidgetsInStack(dynamic stack) {
-      if (stack is SingleChildRenderObjectElement) {
-        stack.visitChildren((Element stackElement) {
-          widgets.add(stackElement.widget);
-        });
-      } else {
-        stack.visitChildren((Element stackElement) {
-          findWidgetsInStack(stackElement);
-        });
-      }
-    }
-    findWidgetsInStack(stack);
+    findWidgetsInStack(stack, widgets);
 
     return widgets;
+  }
+
+  static void findWidgetsInStack<El extends Element>(El stack, List<Widget> widgets) {
+    if (stack is SingleChildRenderObjectElement) {
+      stack.visitChildren((Element stackElement) {
+        widgets.add(stackElement.widget);
+      });
+    } else {
+      stack.visitChildren((Element stackElement) {
+        findWidgetsInStack(stackElement, widgets);
+      });
+    }
   }
 }
 
