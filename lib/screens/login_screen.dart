@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_benchmark/exceptions/login.dart';
+import 'package:flutter_firebase_auth_benchmark/widgets/utils/null_widget.dart';
 
 import '../theme/auxiliary_theming.dart';
 import '../theme/colors.dart';
@@ -25,6 +26,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
+  static final NullWidget _nullWidget = NullWidget();
+
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
 
   bool get _isLoginWorkFlow => _loginSubWorkflow == LoginSubWorkflow.login;
@@ -35,39 +38,28 @@ class _LoginScreenState extends State<LoginScreen>
   void _switchWorkFlow(LoginSubWorkflow loginSubWorkflow) {
     switch (loginSubWorkflow) {
       case LoginSubWorkflow.login:
-        setState(() => _loginSubWorkflow = LoginSubWorkflow.login);
+        setState((){
+          _loginSubWorkflow = LoginSubWorkflow.login;
+          _animatedPasswordField = _passwordField;
+        });
         break;
       case LoginSubWorkflow.passwordReset:
-        setState(() => _loginSubWorkflow = LoginSubWorkflow.passwordReset);
+        setState((){
+          _animatedPasswordField = _nullWidget;
+          _loginSubWorkflow = LoginSubWorkflow.passwordReset;
+        });
         break;
       case LoginSubWorkflow.signUp:
+        setState(() => _loginSubWorkflow = LoginSubWorkflow.signUp);
         break;
       default:
         throw InvalidLoginWorkFlowException('This workflow should not exist.');
     }
   }
 
-  // AnimationController controller;
-  // Animation<Offset> offset;
+  Widget _animatedPasswordField = _passwordField;
 
-  @override
-  void initState() {
-    super.initState();
-
-    // controller =
-    //     AnimationController(vsync: this, duration: Duration(seconds: 5));
-
-    // offset = Tween<Offset>(begin: Offset.zero, end: Offset(0, 1))
-    //     .animate(controller);
-  }
-
-  @override
-  void dispose() {
-    // controller.dispose();
-    super.dispose();
-  }
-
-  Widget _myAnimatedWidget = AuthTextFormField(
+  static const AuthTextFormField _passwordField = AuthTextFormField(
     key: Key('password_field'),
     keyboardType: TextInputType.visiblePassword,
     hintText: 'password',
@@ -76,8 +68,6 @@ class _LoginScreenState extends State<LoginScreen>
     icon: Icons.lock,
     obscureText: true,
   );
-
-  static const Widget _nullBox = SizedBox.shrink();
 
   @override
   Widget build(BuildContext context) {
@@ -106,14 +96,16 @@ class _LoginScreenState extends State<LoginScreen>
                         height: LoginScreen.fieldsSpacing,
                       ),
                       AnimatedSwitcher(
-                        duration: Duration(seconds: 1),
-                        child: _myAnimatedWidget,
+                        duration: Duration(milliseconds: 1500),
+                        switchInCurve: Curves.elasticOut,
+                        switchOutCurve: Curves.easeInOutCirc,
+                        child: _animatedPasswordField,
                         transitionBuilder:
                             (Widget child, Animation<double> animation) {
-                          final  offsetAnimation =
+                          final offsetAnimation =
                             Tween<Offset>(
-                              begin: Offset(0, 0), 
-                              end: Offset(0, -0.5)).animate(animation);
+                              begin: Offset(2, 0), 
+                              end: Offset.zero).animate(animation);
 
                           return SlideTransition(
                             child: child,
@@ -121,33 +113,17 @@ class _LoginScreenState extends State<LoginScreen>
                           );
                         },
                       ),
-                      // Visibility(
-                      //   visible: _isLoginWorkFlow,
-                      //   child: AuthTextFormField(
-                      //     key: Key('password_field'),
-                      //     keyboardType: TextInputType.visiblePassword,
-                      //     hintText: 'password',
-                      //     hintTextOnFocus: 'your password',
-                      //     labelText: 'password',
-                      //     icon: Icons.lock,
-                      //     obscureText: true,
-                      //   ),
-                      // ),
                       SizedBox(
                         height: LoginScreen.fieldsButtonsSpacing,
                       ),
                       Visibility(
                         visible: _isResetWorkflow,
-                        maintainState: true,
                         child: ButtonAlignmentWrapper(
                           height: 30,
                           child: FlatButton(
                             key: Key('cancel_reset'),
                             onPressed: () {
                               _switchWorkFlow(LoginSubWorkflow.login);
-                              setState(() {
-                                _myAnimatedWidget = _nullBox;
-                              });
                             },
                             child: Text(
                               'CANCEL RESET',
@@ -162,8 +138,9 @@ class _LoginScreenState extends State<LoginScreen>
                         height: 30,
                         child: FlatButton(
                           key: Key('forgot_password_button'),
-                          onPressed: () =>
-                              _switchWorkFlow(LoginSubWorkflow.passwordReset),
+                          onPressed: () {
+                            _switchWorkFlow(LoginSubWorkflow.passwordReset);
+                          },
                           child: Text(
                             'Forgot, huh?',
                             style: TextStyle(

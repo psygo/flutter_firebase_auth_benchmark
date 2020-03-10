@@ -31,6 +31,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   IconData _visibilityIcon;
   FocusNode _focusNode;
 
+  @visibleForTesting
   bool get textIsVisible => !_passwordIsNotVisible;
 
   @override
