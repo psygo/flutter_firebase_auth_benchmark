@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_benchmark/widgets/utils/null_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_firebase_auth_benchmark/screens/login_screen.dart';
@@ -58,14 +59,32 @@ void main() {
   });
 
   group('Changing the Login Screen to Password Reset', () {
-    testWidgets('Clicking the *Forgot* Button "deletes" the password field',
+    testWidgets(
+      'Clicking the *Forgot* Button '
+      '"deletes" the password field in an animation',
+        (tester) async {
+      await tester.pumpWidget(wrappedLoginScreen);
+
+      await tester.tap(find.byKey(Key('forgot_password_button')));
+      await tester.pump(Duration(seconds: 2));
+
+      final List<Widget> widgets = WidgetExtractor.extractWidgetsFromStackByKey(tester, Key('password_animation_stack'));
+
+      expect(widgets.length, 2);
+      expect(widgets.first.key, Key('password_field'));
+      expect(widgets.last, isInstanceOf<NullWidget>());
+    });
+
+    testWidgets(
+      'Clicking the *Forgot* Button '
+      '"deletes" the *Forgot* Button itself',
         (tester) async {
       await tester.pumpWidget(wrappedLoginScreen);
 
       await tester.tap(find.byKey(Key('forgot_password_button')));
       await tester.pump();
 
-      expect(find.byKey(Key('password_field')), findsNothing);
+      expect(find.byKey(Key('forgot_password_button')), findsNothing);
     });
 
     testWidgets('Back Button for when in Password Reset Mode', (tester) async {

@@ -13,6 +13,10 @@ class WidgetExtractor {
           WidgetTester tester, Type type) =>
       tester.element(find.byType(type));
 
+  static T extractElementByKey<T extends Element>(
+          WidgetTester tester, Key key) =>
+      tester.element(find.byKey(key));
+
   static St extractStateFromElement<St extends State<StatefulWidget>,
           El extends StatefulElement>(El element) =>
       element.state as St;
@@ -28,10 +32,32 @@ class WidgetExtractor {
     return extractStateFromElement(element);
   }
 
-  static StatelessWidget extractStatelessWidget(
+  static StatelessWidget extractStatelessWidgetByType(
       WidgetTester tester, Type type) {
     final StatelessElement element = extractElementByType(tester, type);
     return extractStatelessWidgetFromElement(element);
+  }
+
+  static StatelessWidget extractStatelessWidgetByKey(
+      WidgetTester tester, Key key) {
+    final StatelessElement element = extractElementByKey(tester, key);
+    return extractStatelessWidgetFromElement(element);
+  }
+
+  static List<Widget> extractWidgetsFromStackByKey(WidgetTester tester, Key key){
+    final Element stackElement = extractElementByKey(tester, key);
+    final MultiChildRenderObjectElement stack = stackElement as MultiChildRenderObjectElement;
+    final List<Widget> widgets = [];
+    stack.visitChildren((Element el){
+      el.visitChildren((Element el){
+        el.visitChildren((Element el){
+          el.visitChildren((Element el){
+            widgets.add(el.widget);
+          });
+        });
+      });
+    });
+    return widgets;
   }
 }
 

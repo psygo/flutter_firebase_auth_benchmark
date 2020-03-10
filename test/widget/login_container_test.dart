@@ -12,7 +12,7 @@ void main() {
     await tester.pumpWidget(loginContainer);
 
     final LoginContainer extractedLoginContainer =
-        WidgetExtractor.extractStatelessWidget(tester, LoginContainer);
+        WidgetExtractor.extractStatelessWidgetByType(tester, LoginContainer);
 
     expect(loginContainer, equals(extractedLoginContainer));
   });

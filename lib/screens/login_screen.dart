@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen>
         break;
       case LoginSubWorkflow.passwordReset:
         setState((){
-          _animatedPasswordField = _nullWidget;
+          _animatedPasswordField = _passwordResetMsg;
           _loginSubWorkflow = LoginSubWorkflow.passwordReset;
         });
         break;
@@ -57,9 +57,24 @@ class _LoginScreenState extends State<LoginScreen>
     }
   }
 
-  Widget _animatedPasswordField = _passwordField;
+  @override
+  void initState() {
+    super.initState();
+    _animatedPasswordField = _passwordField;
+  }
 
-  static const AuthTextFormField _passwordField = AuthTextFormField(
+  Widget _animatedPasswordField;
+
+  final Widget _passwordResetMsg = SizedBox(
+    height: AuxiliaryTheming.textFieldHeight,
+    child: Center(
+      child: Text(
+        'Please type your recovery email.',
+      ),
+    ),
+  );
+
+  final AuthTextFormField _passwordField = AuthTextFormField(
     key: Key('password_field'),
     keyboardType: TextInputType.visiblePassword,
     hintText: 'password',
@@ -102,14 +117,24 @@ class _LoginScreenState extends State<LoginScreen>
                         child: _animatedPasswordField,
                         transitionBuilder:
                             (Widget child, Animation<double> animation) {
-                          final offsetAnimation =
+                          final Animation<Offset> offsetAnimation =
                             Tween<Offset>(
                               begin: Offset(2, 0), 
                               end: Offset.zero).animate(animation);
 
                           return SlideTransition(
-                            child: child,
                             position: offsetAnimation,
+                            child: child,
+                          );
+                        },
+                        layoutBuilder: (Widget currentChild, List<Widget> previousChildren){
+                          return Stack(
+                            key: Key('password_animation_stack'),
+                            children: <Widget>[
+                              ...previousChildren,
+                              if (currentChild != null) currentChild,
+                            ],
+                            alignment: Alignment.center,
                           );
                         },
                       ),
@@ -134,17 +159,20 @@ class _LoginScreenState extends State<LoginScreen>
                           ),
                         ),
                       ),
-                      ButtonAlignmentWrapper(
-                        height: 30,
-                        child: FlatButton(
-                          key: Key('forgot_password_button'),
-                          onPressed: () {
-                            _switchWorkFlow(LoginSubWorkflow.passwordReset);
-                          },
-                          child: Text(
-                            'Forgot, huh?',
-                            style: TextStyle(
-                              color: BasicColors.grey600,
+                      Visibility(
+                        visible: _isLoginWorkFlow,
+                        child: ButtonAlignmentWrapper(
+                          height: 30,
+                          child: FlatButton(
+                            key: Key('forgot_password_button'),
+                            onPressed: () {
+                              _switchWorkFlow(LoginSubWorkflow.passwordReset);
+                            },
+                            child: Text(
+                              'Forgot, huh?',
+                              style: TextStyle(
+                                color: BasicColors.grey600,
+                              ),
                             ),
                           ),
                         ),
