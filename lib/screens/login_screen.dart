@@ -26,14 +26,40 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
-  static final NullWidget _nullWidget = NullWidget();
+  final Widget _passwordResetMsg = SizedBox(
+    key: Key('password_reset_msg'),
+    height: AuxiliaryTheming.textFieldHeight,
+    child: Center(
+      child: Text(
+        'Please type your recovery email.',
+      ),
+    ),
+  );
 
-  LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
+  final AuthTextFormField _passwordField = AuthTextFormField(
+    key: Key('password_field'),
+    keyboardType: TextInputType.visiblePassword,
+    hintText: 'password',
+    hintTextOnFocus: 'your password',
+    labelText: 'password',
+    icon: Icons.lock,
+    obscureText: true,
+  );
+
+  LoginSubWorkflow _loginSubWorkflow;
+  Widget _animatedPasswordField;
 
   bool get _isLoginWorkFlow => _loginSubWorkflow == LoginSubWorkflow.login;
   bool get _isResetWorkflow =>
       _loginSubWorkflow == LoginSubWorkflow.passwordReset;
   bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signUp;
+
+  @override
+  void initState() {
+    super.initState();
+    _loginSubWorkflow = LoginSubWorkflow.login;
+    _animatedPasswordField = _passwordField;
+  }
 
   void _switchWorkFlow(LoginSubWorkflow loginSubWorkflow) {
     switch (loginSubWorkflow) {
@@ -56,33 +82,6 @@ class _LoginScreenState extends State<LoginScreen>
         throw InvalidLoginWorkFlowException('This workflow should not exist.');
     }
   }
-
-  @override
-  void initState() {
-    super.initState();
-    _animatedPasswordField = _passwordField;
-  }
-
-  Widget _animatedPasswordField;
-
-  final Widget _passwordResetMsg = SizedBox(
-    height: AuxiliaryTheming.textFieldHeight,
-    child: Center(
-      child: Text(
-        'Please type your recovery email.',
-      ),
-    ),
-  );
-
-  final AuthTextFormField _passwordField = AuthTextFormField(
-    key: Key('password_field'),
-    keyboardType: TextInputType.visiblePassword,
-    hintText: 'password',
-    hintTextOnFocus: 'your password',
-    labelText: 'password',
-    icon: Icons.lock,
-    obscureText: true,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen>
                             (Widget child, Animation<double> animation) {
                           final Animation<Offset> offsetAnimation =
                             Tween<Offset>(
-                              begin: Offset(2, 0), 
+                              begin: Offset(5, 0), 
                               end: Offset.zero).animate(animation);
 
                           return SlideTransition(
@@ -180,15 +179,18 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                         height: LoginScreen.buttonsSpacing,
                       ),
-                      ButtonAlignmentWrapper(
-                        height: 30,
-                        child: FlatButton(
-                          key: Key('signup_button'),
-                          onPressed: () {},
-                          child: Text(
-                            'SIGN UP',
-                            style: TextStyle(
-                              color: BasicColors.blue,
+                      Visibility(
+                        visible: _isLoginWorkFlow,
+                        child: ButtonAlignmentWrapper(
+                          height: 30,
+                          child: FlatButton(
+                            key: Key('signup_button'),
+                            onPressed: () {},
+                            child: Text(
+                              'SIGN UP',
+                              style: TextStyle(
+                                color: BasicColors.blue,
+                              ),
                             ),
                           ),
                         ),
@@ -196,18 +198,43 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                         height: LoginScreen.buttonsSpacing,
                       ),
-                      ButtonAlignmentWrapper(
-                        height: 40,
-                        child: RaisedButton(
-                          key: Key('login_button'),
-                          elevation: AuxiliaryTheming.raisedButtonElevation,
-                          color: BasicColors.blue,
-                          textColor: BasicColors.white,
-                          onPressed: () {},
-                          child: Text(
-                            'LOGIN',
-                            style: TextStyle(
-                              fontSize: 14.5,
+                      Visibility(
+                        visible: _isLoginWorkFlow,
+                        child: ButtonAlignmentWrapper(
+                          height: 40,
+                          child: RaisedButton(
+                            key: Key('login_button'),
+                            elevation: AuxiliaryTheming.raisedButtonElevation,
+                            color: BasicColors.blue,
+                            textColor: BasicColors.white,
+                            onPressed: () {},
+                            child: Text(
+                              'LOGIN',
+                              style: TextStyle(
+                                fontSize: 14.5,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: _isResetWorkflow,
+                        child: ButtonAlignmentWrapper(
+                          height: 40, 
+                          child: SizedBox(
+                            width: 165,
+                            child: RaisedButton(
+                              key: Key('send_password_verification'),
+                              elevation: AuxiliaryTheming.raisedButtonElevation,
+                              color: BasicColors.blue,
+                              textColor: BasicColors.white,
+                              onPressed: () {},
+                              child: Text(
+                                'SEND RESET EMAIL',
+                                style: TextStyle(
+                                  fontSize: 14.5,
+                                ),
+                              ),
                             ),
                           ),
                         ),

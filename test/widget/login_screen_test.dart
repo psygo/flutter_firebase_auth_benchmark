@@ -72,28 +72,47 @@ void main() {
 
       expect(widgets.length, 2);
       expect(widgets.first.key, Key('password_field'));
-      expect(widgets.last, isInstanceOf<NullWidget>());
+      expect(widgets.last.key, Key('password_reset_msg'));
     });
 
     testWidgets(
       'Clicking the *Forgot* Button '
-      '"deletes" the *Forgot* Button itself',
+      '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
         (tester) async {
       await tester.pumpWidget(wrappedLoginScreen);
 
       await tester.tap(find.byKey(Key('forgot_password_button')));
       await tester.pump();
 
-      expect(find.byKey(Key('forgot_password_button')), findsNothing);
+      final List<Key> shouldNotExistButtonsKeys = [
+        Key('forgot_password_button'),
+        Key('signup_button'),
+        Key('login_button'),
+      ];
+
+      shouldNotExistButtonsKeys.forEach((Key key){
+        expect(find.byKey(key), findsNothing);
+      });
     });
 
-    testWidgets('Back Button for when in Password Reset Mode', (tester) async {
+    testWidgets(
+      'Checks if the Back Button '
+      'for when in Password Reset Mode exists', (tester) async {
       await tester.pumpWidget(wrappedLoginScreen);
 
       await tester.tap(find.byKey(Key('forgot_password_button')));
       await tester.pump();
 
       expect(find.byKey(Key('cancel_reset')), findsOneWidget);
+    });
+
+    testWidgets('Checks if a *Send Reset Email* button exists', (tester) async {
+      await tester.pumpWidget(wrappedLoginScreen);
+
+      await tester.tap(find.byKey(Key('forgot_password_button')));
+      await tester.pump();
+
+      expect(find.byKey(Key('send_password_verification')), findsOneWidget);
     });
   });
 }
