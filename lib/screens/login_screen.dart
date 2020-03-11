@@ -5,16 +5,12 @@ import '../theme/colors.dart';
 import '../widgets/login/login_container.dart';
 import '../widgets/login/auth_textformfield.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
+  static const String id = 'login_screen';
   static const double widgetSpacing = 10;
 
   const LoginScreen({Key key}) : super(key: key);
 
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

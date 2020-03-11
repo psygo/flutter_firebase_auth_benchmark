@@ -16,7 +16,10 @@ class FirebaseAuthenticationApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: Theming.appTheme,
-        home: LoginScreen(),
+        initialRoute: LoginScreen.id,
+        routes: {
+          LoginScreen.id: (_) => LoginScreen(),
+        }
       ),
     );
   }
