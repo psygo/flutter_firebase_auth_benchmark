@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/login_workflow_provider.dart';
 import '../../exceptions/login.dart';
+import '../../providers/login_workflow_provider.dart';
 
 class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
   const LoginWorkflowAnimatedSwitcher({Key key}) : super(key: key);
@@ -19,10 +19,6 @@ class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
           transitionBuilder: (Widget child, Animation<double> animation) {
             final Animation<Offset> outOffsetAnimation =
                 Tween<Offset>(begin: Offset(1, 0), end: Offset.zero)
-                    .animate(animation);
-
-            final Animation<Offset> inOffsetAnimation =
-                Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero)
                     .animate(animation);
 
             final Animation<double> inFadeAnimation =
