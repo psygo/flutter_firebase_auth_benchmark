@@ -11,6 +11,15 @@ class SignupWorkflow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        AuthTextFormField(
+          key: Key('confirm_password_field'),
+          keyboardType: TextInputType.visiblePassword,
+          hintText: 'confirm your password',
+          hintTextOnFocus: 'your password again',
+          labelText: 'confirm password',
+          icon: Icons.lock,
+          obscureText: true,
+        ),
         ButtonAlignmentWrapper(
           height: 30,
           child: FlatButton(

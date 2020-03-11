@@ -11,12 +11,6 @@ import '../widgets/login/login_container.dart';
 import '../widgets/login/auth_textformfield.dart';
 import '../widgets/login/button_alignment_wrapper.dart';
 
-enum LoginSubWorkflow {
-  login,
-  passwordReset,
-  signup,
-}
-
 class LoginScreen extends StatefulWidget {
   static const double widgetSpacing = 10;
 
@@ -26,59 +20,7 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with SingleTickerProviderStateMixin {
-  final AuthTextFormField _confirmPasswordField = AuthTextFormField(
-    key: Key('confirm_password_field'),
-    keyboardType: TextInputType.visiblePassword,
-    hintText: 'confirm your password',
-    hintTextOnFocus: 'your password again',
-    labelText: 'confirm password',
-    icon: Icons.lock,
-    obscureText: true,
-  );
-
-  LoginSubWorkflow _loginSubWorkflow;
-  PasswordOrMsg _passwordFieldOrResetMsg;
-
-  bool get _isLoginWorkFlow => _loginSubWorkflow == LoginSubWorkflow.login;
-  bool get _isResetWorkflow =>
-      _loginSubWorkflow == LoginSubWorkflow.passwordReset;
-  bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signup;
-  bool get _isLoginOrResetWorkFlow =>
-    _loginSubWorkflow == LoginSubWorkflow.login || _loginSubWorkflow == LoginSubWorkflow.passwordReset;
-
-  @override
-  void initState() {
-    super.initState();
-    _loginSubWorkflow = LoginSubWorkflow.login;
-    _passwordFieldOrResetMsg = PasswordOrMsg.password;
-  }
-
-  void _switchWorkFlow(LoginSubWorkflow loginSubWorkflow) {
-    switch (loginSubWorkflow) {
-      case LoginSubWorkflow.login:
-        setState(() {
-          _passwordFieldOrResetMsg = PasswordOrMsg.password;
-          _loginSubWorkflow = LoginSubWorkflow.login;
-        });
-        break;
-      case LoginSubWorkflow.passwordReset:
-        setState(() {
-          _passwordFieldOrResetMsg = PasswordOrMsg.msg;
-          _loginSubWorkflow = LoginSubWorkflow.passwordReset;
-        });
-        break;
-      case LoginSubWorkflow.signup:
-        setState(() {
-          _loginSubWorkflow = LoginSubWorkflow.signup;
-        });
-        break;
-      default:
-        throw InvalidLoginWorkFlowException('This workflow should not exist.');
-    }
-  }
-
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
