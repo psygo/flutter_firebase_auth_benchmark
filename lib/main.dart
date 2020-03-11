@@ -12,7 +12,7 @@ class FirebaseAuthenticationApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LoginWorkflowProvider()),
+        ChangeNotifierProvider(create: (_) => LoginWorkflowHandler()),
       ],
       child: MaterialApp(
           theme: Theming.appTheme,

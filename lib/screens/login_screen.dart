@@ -15,63 +15,64 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: BasicColors.blue,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Row(
+    return Consumer<LoginWorkflowHandler>(
+      builder: (context, loginWorkflowProvider, _) {
+        return Scaffold(
+          body: Container(
+            color: BasicColors.blue,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                LoginContainer(
-                  child: ListView(
-                    children: <Widget>[
-                      AuthTextFormField(
-                        key: Key('email_field'),
-                        keyboardType: TextInputType.emailAddress,
-                        hintText: 'email',
-                        hintTextOnFocus: 'your email',
-                        labelText: 'email',
-                        icon: Icons.account_circle,
-                      ),
-                      SizedBox(
-                        height: LoginScreen.widgetSpacing,
-                      ),
-                      Consumer<LoginWorkflowProvider>(
-                          builder: (context, loginWorkflowProvider, _) {
-                        return Visibility(
-                          visible: loginWorkflowProvider.isLoginOrSignup,
-                          child: Column(
-                            children: <Widget>[
-                              AuthTextFormField(
-                                key: Key('password_field'),
-                                keyboardType: TextInputType.visiblePassword,
-                                hintText: 'password',
-                                hintTextOnFocus: 'your password',
-                                labelText: 'password',
-                                icon: Icons.lock,
-                                obscureText: true,
-                              ),
-                              SizedBox(
-                                height: LoginScreen.widgetSpacing,
-                              ),
-                            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    LoginContainer(
+                      child: ListView(
+                        children: <Widget>[
+                          AuthTextFormField(
+                            key: Key('email_field'),
+                            keyboardType: TextInputType.emailAddress,
+                            hintText: 'email',
+                            hintTextOnFocus: 'your email',
+                            labelText: 'email',
+                            icon: Icons.account_circle,
                           ),
-                        );
-                      }),
-                      LoginWorkflowAnimatedSwitcher(
-                        key: Key('login_workflow_animated_switcher'),
+                          SizedBox(
+                            height: LoginScreen.widgetSpacing,
+                          ),
+                          Visibility(
+                            visible: loginWorkflowProvider.isLoginOrSignup,
+                            child: Column(
+                              children: <Widget>[
+                                AuthTextFormField(
+                                  key: Key('password_field'),
+                                  keyboardType: TextInputType.visiblePassword,
+                                  hintText: 'password',
+                                  hintTextOnFocus: 'your password',
+                                  labelText: 'password',
+                                  icon: Icons.lock,
+                                  obscureText: true,
+                                ),
+                                SizedBox(
+                                  height: LoginScreen.widgetSpacing,
+                                ),
+                              ],
+                            ),
+                          ),
+                          LoginWorkflowAnimatedSwitcher(
+                            key: Key('login_workflow_animated_switcher'),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }

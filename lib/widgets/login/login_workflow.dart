@@ -12,7 +12,7 @@ class LoginWorkflow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginWorkflowProvider>(
+    return Consumer<LoginWorkflowHandler>(
       builder: (context, loginWorkflowProvider, _) {
         return Column(
           children: <Widget>[

@@ -9,13 +9,13 @@ class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginWorkflowProvider>(
-      builder: (context, loginWorkflowProvider, child) {
+    return Consumer<LoginWorkflowHandler>(
+      builder: (context, LoginWorkflowHandler, child) {
         return AnimatedSwitcher(
           duration: Duration(milliseconds: 1500),
           switchInCurve: Curves.bounceOut,
           switchOutCurve: Curves.easeInExpo,
-          child: loginWorkflowProvider.widget,
+          child: LoginWorkflowHandler.widget,
           transitionBuilder: (Widget child, Animation<double> animation) {
             final Animation<Offset> outOffsetAnimation =
                 Tween<Offset>(begin: Offset(1, 0), end: Offset.zero)

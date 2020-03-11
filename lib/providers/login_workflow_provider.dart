@@ -11,10 +11,10 @@ enum LoginSubWorkflow {
   signup,
 }
 
-class LoginWorkflowProvider extends ChangeNotifier {
+class LoginWorkflowHandler extends ChangeNotifier {
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
 
-  LoginWorkflowProvider();
+  LoginWorkflowHandler();
 
   bool get isLoginOrSignup =>
       _loginSubWorkflow == LoginSubWorkflow.login ||

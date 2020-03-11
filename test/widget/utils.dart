@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+
+import 'package:flutter_firebase_auth_benchmark/providers/login_workflow_provider.dart';
 
 class WidgetWrappers {
   static MaterialApp materialWrapper(Widget widget) =>
       MaterialApp(home: Material(child: widget));
+
+  static MultiProvider materialWrapperWithLoginWorkflowProvider(Widget widget) =>
+      MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => LoginWorkflowHandler())],
+        child: MaterialApp(home: Material(child: widget))
+      );
 }
 
 class WidgetExtractor {
