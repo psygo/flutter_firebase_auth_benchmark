@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_benchmark/widgets/login/password_reset_workflow.dart';
+import 'package:flutter_firebase_auth_benchmark/widgets/login/signup_workflow.dart';
 
+import '../widgets/login/login_workflow.dart';
 import '../widgets/login/password_field_reset_msg_animated_switcher.dart';
 import '../exceptions/login.dart';
 import '../theme/auxiliary_theming.dart';
@@ -11,7 +14,7 @@ import '../widgets/login/button_alignment_wrapper.dart';
 enum LoginSubWorkflow {
   login,
   passwordReset,
-  signUp,
+  signup,
 }
 
 class LoginScreen extends StatefulWidget {
@@ -41,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen>
   bool get _isLoginWorkFlow => _loginSubWorkflow == LoginSubWorkflow.login;
   bool get _isResetWorkflow =>
       _loginSubWorkflow == LoginSubWorkflow.passwordReset;
-  bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signUp;
+  bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signup;
   bool get _isLoginOrResetWorkFlow =>
     _loginSubWorkflow == LoginSubWorkflow.login || _loginSubWorkflow == LoginSubWorkflow.passwordReset;
 
@@ -66,9 +69,9 @@ class _LoginScreenState extends State<LoginScreen>
           _loginSubWorkflow = LoginSubWorkflow.passwordReset;
         });
         break;
-      case LoginSubWorkflow.signUp:
+      case LoginSubWorkflow.signup:
         setState(() {
-          _loginSubWorkflow = LoginSubWorkflow.signUp;
+          _loginSubWorkflow = LoginSubWorkflow.signup;
         });
         break;
       default:
@@ -102,186 +105,9 @@ class _LoginScreenState extends State<LoginScreen>
                       SizedBox(
                         height: LoginScreen.widgetSpacing,
                       ),
-                      PasswordFieldResetMsgAnimatedSwitcher(
-                        passwordOrMsg: _passwordFieldOrResetMsg
-                      ),
-                      Visibility(
-                        visible: _isLoginOrResetWorkFlow,
-                        child: SizedBox(
-                          height: LoginScreen.widgetSpacing,
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isLoginWorkFlow,
-                        child: ButtonAlignmentWrapper(
-                          height: 30,
-                          child: FlatButton(
-                            key: Key('forgot_password_button'),
-                            onPressed: () =>
-                                _switchWorkFlow(LoginSubWorkflow.passwordReset),
-                            child: Text(
-                              'Forgot, huh?',
-                              style: TextStyle(
-                                color: BasicColors.grey600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isLoginWorkFlow,
-                        child: SizedBox(
-                          height: LoginScreen.widgetSpacing,
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isLoginWorkFlow,
-                        child: ButtonAlignmentWrapper(
-                          height: 30,
-                          child: FlatButton(
-                            key: Key('signup_button'),
-                            onPressed: () =>
-                                _switchWorkFlow(LoginSubWorkflow.signUp),
-                            child: Text(
-                              'SIGN UP',
-                              style: TextStyle(
-                                color: BasicColors.blue,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isLoginWorkFlow,
-                        child: SizedBox(
-                          height: LoginScreen.widgetSpacing,
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isLoginWorkFlow,
-                        child: ButtonAlignmentWrapper(
-                          height: 40,
-                          child: RaisedButton(
-                            key: Key('login_button'),
-                            elevation: AuxiliaryTheming.raisedButtonElevation,
-                            color: BasicColors.blue,
-                            textColor: BasicColors.white,
-                            onPressed: () {},
-                            child: Text(
-                              'LOGIN',
-                              style: TextStyle(
-                                fontSize: 14.5,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isResetWorkflow,
-                        child: ButtonAlignmentWrapper(
-                          height: 30,
-                          child: FlatButton(
-                            key: Key('cancel_reset_button'),
-                            onPressed: () =>
-                              _switchWorkFlow(LoginSubWorkflow.login),
-                            child: Text(
-                              'CANCEL RESET',
-                              style: TextStyle(
-                                color: BasicColors.blue,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isResetWorkflow,
-                        child: SizedBox(
-                          height: LoginScreen.widgetSpacing,
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isResetWorkflow,
-                        child: ButtonAlignmentWrapper(
-                          height: 40,
-                          child: SizedBox(
-                            width: 165,
-                            child: RaisedButton(
-                              key: Key('send_password_verification_button'),
-                              elevation: AuxiliaryTheming.raisedButtonElevation,
-                              color: BasicColors.blue,
-                              textColor: BasicColors.white,
-                              onPressed: () {},
-                              child: Text(
-                                'SEND RESET EMAIL',
-                                style: TextStyle(
-                                  fontSize: 14.5,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isSignUpWorkflow,
-                        child: SizedBox(
-                          height: LoginScreen.widgetSpacing,
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isSignUpWorkflow,
-                        child: _confirmPasswordField,
-                      ),
-                      Visibility(
-                        visible: _isSignUpWorkflow,
-                        child: SizedBox(
-                          height: LoginScreen.widgetSpacing,
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isSignUpWorkflow,
-                        child: ButtonAlignmentWrapper(
-                          height: 30,
-                          child: FlatButton(
-                            key: Key('cancel_signup_button'),
-                            onPressed: () =>
-                              _switchWorkFlow(LoginSubWorkflow.login),
-                            child: Text(
-                              'CANCEL SIGN UP',
-                              style: TextStyle(
-                                color: BasicColors.blue,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isSignUpWorkflow,
-                        child: SizedBox(
-                          height: LoginScreen.widgetSpacing,
-                        ),
-                      ),
-                      Visibility(
-                        visible: _isSignUpWorkflow,
-                        child: ButtonAlignmentWrapper(
-                          height: 40,
-                          child: SizedBox(
-                            width: 165,
-                            child: RaisedButton(
-                              key: Key('create_account_button'),
-                              elevation: AuxiliaryTheming.raisedButtonElevation,
-                              color: BasicColors.blue,
-                              textColor: BasicColors.white,
-                              onPressed: () {},
-                              child: Text(
-                                'CREATE ACCOUNT',
-                                style: TextStyle(
-                                  fontSize: 14.5,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      LoginWorkFlow(),
+                      SignupWorkflow(),
+                      PasswordResetWorkflow(),
                     ],
                   ),
                 ),
