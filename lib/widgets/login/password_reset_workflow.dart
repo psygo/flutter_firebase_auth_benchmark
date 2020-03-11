@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'button_alignment_wrapper.dart';
 import '../../providers/login_workflow_provider.dart';
+import '../../screens/login_screen.dart';
 import '../../theme/auxiliary_theming.dart';
 import '../../theme/colors.dart';
 
@@ -24,6 +25,9 @@ class PasswordResetWorkflow extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: LoginScreen.widgetSpacing,
+          ),
           ButtonAlignmentWrapper(
             height: 30,
             child: FlatButton(
@@ -37,6 +41,9 @@ class PasswordResetWorkflow extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          SizedBox(
+            height: LoginScreen.widgetSpacing,
           ),
           ButtonAlignmentWrapper(
             height: 40,

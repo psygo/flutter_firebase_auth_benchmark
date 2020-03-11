@@ -43,14 +43,21 @@ class LoginScreen extends StatelessWidget {
                           builder: (context, loginWorkflowProvider, _) {
                         return Visibility(
                           visible: loginWorkflowProvider.isLoginOrSignup,
-                          child: AuthTextFormField(
-                            key: Key('password_field'),
-                            keyboardType: TextInputType.visiblePassword,
-                            hintText: 'password',
-                            hintTextOnFocus: 'your password',
-                            labelText: 'password',
-                            icon: Icons.lock,
-                            obscureText: true,
+                          child: Column(
+                            children: <Widget>[
+                              AuthTextFormField(
+                                key: Key('password_field'),
+                                keyboardType: TextInputType.visiblePassword,
+                                hintText: 'password',
+                                hintTextOnFocus: 'your password',
+                                labelText: 'password',
+                                icon: Icons.lock,
+                                obscureText: true,
+                              ),
+                              SizedBox(
+                                height: LoginScreen.widgetSpacing,
+                              ),
+                            ],
                           ),
                         );
                       }),
