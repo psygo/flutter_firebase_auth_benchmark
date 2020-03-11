@@ -12,54 +12,53 @@ class PasswordResetWorkflow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginWorkflowProvider>(
-      builder: (context, loginWorkflowProvider, _){
-        return Column(
-          children: <Widget>[
-            SizedBox(
-              key: Key('password_reset_msg'),
-              height: AuxiliaryTheming.textFieldHeight,
-              child: Center(
-                child: Text(
-                  'Please type your recovery email.',
-                ),
+        builder: (context, loginWorkflowProvider, _) {
+      return Column(
+        children: <Widget>[
+          SizedBox(
+            key: Key('password_reset_msg'),
+            height: AuxiliaryTheming.textFieldHeight,
+            child: Center(
+              child: Text(
+                'Please type your recovery email.',
               ),
             ),
-            ButtonAlignmentWrapper(
-              height: 30,
-              child: FlatButton(
-                key: Key('cancel_reset_button'),
-                onPressed: () => loginWorkflowProvider
-                  .switchWorkFlow(LoginSubWorkflow.login),
-                child: Text(
-                  'CANCEL RESET',
-                  style: TextStyle(
-                    color: BasicColors.blue,
-                  ),
-                ),
-              ),
-            ),
-            ButtonAlignmentWrapper(
-              height: 40,
-              child: SizedBox(
-                width: 165,
-                child: RaisedButton(
-                  key: Key('send_password_verification_button'),
-                  elevation: AuxiliaryTheming.raisedButtonElevation,
+          ),
+          ButtonAlignmentWrapper(
+            height: 30,
+            child: FlatButton(
+              key: Key('cancel_reset_button'),
+              onPressed: () =>
+                  loginWorkflowProvider.switchWorkFlow(LoginSubWorkflow.login),
+              child: Text(
+                'CANCEL RESET',
+                style: TextStyle(
                   color: BasicColors.blue,
-                  textColor: BasicColors.white,
-                  onPressed: () {},
-                  child: Text(
-                    'SEND RESET EMAIL',
-                    style: TextStyle(
-                      fontSize: 14.5,
-                    ),
+                ),
+              ),
+            ),
+          ),
+          ButtonAlignmentWrapper(
+            height: 40,
+            child: SizedBox(
+              width: 165,
+              child: RaisedButton(
+                key: Key('send_password_verification_button'),
+                elevation: AuxiliaryTheming.raisedButtonElevation,
+                color: BasicColors.blue,
+                textColor: BasicColors.white,
+                onPressed: () {},
+                child: Text(
+                  'SEND RESET EMAIL',
+                  style: TextStyle(
+                    fontSize: 14.5,
                   ),
                 ),
               ),
             ),
-          ],
-        );
-      }
-    );
+          ),
+        ],
+      );
+    });
   }
 }

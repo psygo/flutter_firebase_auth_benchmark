@@ -11,35 +11,30 @@ class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginWorkflowProvider>(
-      builder: (context, loginWorkflowProvider, child){
+      builder: (context, loginWorkflowProvider, child) {
         return AnimatedSwitcher(
           duration: Duration(milliseconds: 1500),
           switchInCurve: Curves.bounceOut,
           switchOutCurve: Curves.easeInExpo,
           child: loginWorkflowProvider.widget,
           transitionBuilder: (Widget child, Animation<double> animation) {
-            final Animation<Offset> outOffsetAnimation = Tween<Offset>(
-              begin: Offset(1, 0), 
-              end: Offset.zero
-            ).animate(animation);
+            final Animation<Offset> outOffsetAnimation =
+                Tween<Offset>(begin: Offset(1, 0), end: Offset.zero)
+                    .animate(animation);
 
-            final Animation<Offset> inOffsetAnimation = Tween<Offset>(
-              begin: Offset(-1, 0), 
-              end: Offset.zero
-            ).animate(animation);
+            final Animation<Offset> inOffsetAnimation =
+                Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero)
+                    .animate(animation);
 
-            final Animation<double> inFadeAnimation = Tween<double>(
-              begin: 0,
-              end: 1
-            ).animate(animation);
+            final Animation<double> inFadeAnimation =
+                Tween<double>(begin: 0, end: 1).animate(animation);
 
-            if (child.key == Key('login_workflow')){
+            if (child.key == Key('login_workflow')) {
               return ClipRect(
-                child: FadeTransition(
-                  opacity: inFadeAnimation,
-                  child: child,
-                )
-              );
+                  child: FadeTransition(
+                opacity: inFadeAnimation,
+                child: child,
+              ));
             } else if (child.key == Key('password_reset_workflow')) {
               return ClipRect(
                 child: SlideTransition(
@@ -56,7 +51,7 @@ class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
               );
             } else {
               throw InvalidAnimationAttempt(
-                'There should be only 2 animation cases.');
+                  'There should be only 2 animation cases.');
             }
           },
           layoutBuilder: (Widget currentChild, List<Widget> previousChildren) {

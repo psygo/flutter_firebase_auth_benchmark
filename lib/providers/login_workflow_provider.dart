@@ -17,7 +17,7 @@ class LoginWorkflowProvider extends ChangeNotifier {
   LoginWorkflowProvider();
 
   Widget get widget {
-    switch (_loginSubWorkflow){
+    switch (_loginSubWorkflow) {
       case LoginSubWorkflow.login:
         return LoginWorkflow(key: Key('login_workflow'));
         break;
@@ -29,7 +29,7 @@ class LoginWorkflowProvider extends ChangeNotifier {
         break;
       default:
         throw InvalidLoginWorkFlowException(
-          'There should only be 3 types of login sub workflows.');
+            'There should only be 3 types of login sub workflows.');
     }
   }
 
@@ -46,7 +46,7 @@ class LoginWorkflowProvider extends ChangeNotifier {
         break;
       default:
         throw InvalidLoginWorkFlowException(
-          'There should only be 3 types of login sub workflows.');
+            'There should only be 3 types of login sub workflows.');
     }
 
     notifyListeners();

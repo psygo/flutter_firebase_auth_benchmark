@@ -15,12 +15,11 @@ class FirebaseAuthenticationApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginWorkflowProvider()),
       ],
       child: MaterialApp(
-        theme: Theming.appTheme,
-        initialRoute: LoginScreen.id,
-        routes: {
-          LoginScreen.id: (_) => LoginScreen(),
-        }
-      ),
+          theme: Theming.appTheme,
+          initialRoute: LoginScreen.id,
+          routes: {
+            LoginScreen.id: (_) => LoginScreen(),
+          }),
     );
   }
 }

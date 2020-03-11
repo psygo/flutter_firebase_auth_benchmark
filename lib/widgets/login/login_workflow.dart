@@ -13,7 +13,7 @@ class LoginWorkflow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginWorkflowProvider>(
-      builder: (context, loginWorkflowProvider, _){
+      builder: (context, loginWorkflowProvider, _) {
         return Column(
           children: <Widget>[
             AuthTextFormField(
@@ -30,7 +30,7 @@ class LoginWorkflow extends StatelessWidget {
               child: FlatButton(
                 key: Key('forgot_password_button'),
                 onPressed: () => loginWorkflowProvider
-                  .switchWorkFlow(LoginSubWorkflow.passwordReset),
+                    .switchWorkFlow(LoginSubWorkflow.passwordReset),
                 child: Text(
                   'Forgot, huh?',
                   style: TextStyle(

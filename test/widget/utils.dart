@@ -56,7 +56,8 @@ class WidgetExtractor {
     return widgets;
   }
 
-  static void findWidgetsInStack<El extends Element>(El stack, List<Widget> widgets) {
+  static void findWidgetsInStack<El extends Element>(
+      El stack, List<Widget> widgets) {
     if (stack is SingleChildRenderObjectElement) {
       stack.visitChildren((Element stackElement) {
         widgets.add(stackElement.widget);
