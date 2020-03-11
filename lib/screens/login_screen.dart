@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_benchmark/widgets/login/login_workflow_animated_switcher.dart';
 import 'package:flutter_firebase_auth_benchmark/widgets/login/password_reset_workflow.dart';
 import 'package:flutter_firebase_auth_benchmark/widgets/login/signup_workflow.dart';
 
@@ -47,9 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: LoginScreen.widgetSpacing,
                       ),
-                      LoginWorkFlow(),
-                      SignupWorkflow(),
-                      PasswordResetWorkflow(),
+                      LoginWorkflowAnimatedSwitcher(),
+                      // LoginWorkflow(),
+                      // SignupWorkflow(),
+                      // PasswordResetWorkflow(),
                     ],
                   ),
                 ),
