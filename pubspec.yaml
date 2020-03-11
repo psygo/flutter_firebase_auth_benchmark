@@ -3,6 +3,14 @@ name: flutter_firebase_auth_benchmark
 description: >-
   A benchmark for Authentication through Firebase in Flutter.
 
+homepage: https://github.com/psygo/flutter_firebase_auth_benchmark
+
+repository: https://github.com/psygo/flutter_firebase_auth_benchmark
+
+documentation: https://github.com/psygo/flutter_firebase_auth_benchmark
+
+issue_tracker: https://github.com/psygo/flutter_firebase_auth_benchmark/issues
+
 version: 1.0.0
 
 environment:

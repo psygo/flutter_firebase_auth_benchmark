@@ -8,7 +8,6 @@ class WidgetWrappers {
 }
 
 class WidgetExtractor {
-  // inspired by https://github.com/flutter/flutter/blob/77fb28b3da19dcf2b718ce963a23c2e4917c55f0/packages/flutter/test/widgets/stateful_components_test.dart#L47-L62
   static T extractElementByType<T extends Element>(
           WidgetTester tester, Type type) =>
       tester.element(find.byType(type));
@@ -71,7 +70,6 @@ class WidgetExtractor {
 }
 
 class RenderUtils {
-  // from https://github.com/flutter/flutter/blob/714d579839cc306b88288e4f25dbee74bf3a4f5d/packages/flutter/test/material/text_field_test.dart#L145-L160
   static RenderEditable findRenderEditable(WidgetTester tester) {
     final RenderObject root = tester.renderObject(find.byType(EditableText));
     expect(root, isNotNull);
