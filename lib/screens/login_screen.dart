@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_benchmark/exceptions/login.dart';
 
+import '../exceptions/animations.dart';
+import '../exceptions/login.dart';
 import '../theme/auxiliary_theming.dart';
 import '../theme/colors.dart';
 import '../widgets/login/login_container.dart';
@@ -64,9 +65,9 @@ class _LoginScreenState extends State<LoginScreen>
       _loginSubWorkflow == LoginSubWorkflow.passwordReset;
   bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signUp;
   bool get _isLoginOrSignUpWorkflow => 
-    _loginSubWorkflow == LoginSubWorkflow.login ||  _loginSubWorkflow == LoginSubWorkflow.signUp;
+    _loginSubWorkflow == LoginSubWorkflow.login || _loginSubWorkflow == LoginSubWorkflow.signUp;
   bool get _isLoginOrResetWorkFlow =>
-    _loginSubWorkflow == LoginSubWorkflow.login ||  _loginSubWorkflow == LoginSubWorkflow.passwordReset;
+    _loginSubWorkflow == LoginSubWorkflow.login || _loginSubWorkflow == LoginSubWorkflow.passwordReset;
 
   @override
   void initState() {
@@ -128,22 +129,63 @@ class _LoginScreenState extends State<LoginScreen>
                           height: LoginScreen.fieldsSpacing,
                         ),
                       ),
+                      Visibility(
+                        visible: _isResetWorkflow,
+                        child: SizedBox(
+                          height: LoginScreen.fieldsButtonsSpacing,
+                        ),
+                      ),
                       AnimatedSwitcher(
                         duration: Duration(milliseconds: 1500),
-                        switchInCurve: Curves.elasticOut,
-                        switchOutCurve: Curves.easeInOutCirc,
+                        switchInCurve: Curves.bounceOut,
+                        switchOutCurve: Curves.easeInExpo,
                         child: _animatedPasswordField,
                         transitionBuilder:
                             (Widget child, Animation<double> animation) {
-                          final Animation<Offset> offsetAnimation =
+                          final Animation<Offset> outOffsetAnimation =
                               Tween<Offset>(
-                                      begin: Offset(5, 0), end: Offset.zero)
-                                  .animate(animation);
+                                begin: Offset(1, 0), 
+                                end: Offset.zero
+                              ).animate(animation);
 
-                          return SlideTransition(
-                            position: offsetAnimation,
-                            child: child,
-                          );
+                          final Animation<Offset> inOffsetAnimation =
+                              Tween<Offset>(
+                                begin: Offset(-1, 0), 
+                                end: Offset.zero
+                              ).animate(animation);
+
+                          final Animation<double> inFadeAnimation =
+                              Tween<double>(
+                                begin: 0,
+                                end: 1
+                              ).animate(animation);
+
+                          if (child.key == Key('password_reset_msg')){
+                            // return ClipRect(
+                            //   child: SlideTransition(
+                            //     position: inOffsetAnimation,
+                            //     child: child,
+                            //   ),
+                            // );
+
+                            return ClipRect(
+                              child: FadeTransition(
+                                opacity: inFadeAnimation,
+                                child: child,
+                              )
+                            );
+                          }
+                          else if (child.key == Key('password_field')){
+                            return ClipRect(
+                              child: SlideTransition(
+                                position: outOffsetAnimation,
+                                child: child,
+                              ),
+                            );
+                          }
+                          else {
+                            throw InvalidAnimationAttempt('There should be only 2 animation cases.');
+                          }
                         },
                         layoutBuilder: (Widget currentChild,
                             List<Widget> previousChildren) {
