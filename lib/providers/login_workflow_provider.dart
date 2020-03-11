@@ -16,6 +16,10 @@ class LoginWorkflowProvider extends ChangeNotifier {
 
   LoginWorkflowProvider();
 
+  bool get isLoginOrSignup =>
+      _loginSubWorkflow == LoginSubWorkflow.login ||
+      _loginSubWorkflow == LoginSubWorkflow.signup;
+
   Widget get widget {
     switch (_loginSubWorkflow) {
       case LoginSubWorkflow.login:

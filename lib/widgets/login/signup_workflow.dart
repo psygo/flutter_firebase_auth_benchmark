@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/login_workflow_provider.dart';
-import '../../widgets/login/auth_textformfield.dart';
-import '../../theme/colors.dart';
-import '../../theme/auxiliary_theming.dart';
 import 'button_alignment_wrapper.dart';
+import '../../providers/login_workflow_provider.dart';
+import '../../theme/auxiliary_theming.dart';
+import '../../theme/colors.dart';
 
 class SignupWorkflow extends StatelessWidget {
   const SignupWorkflow({Key key}) : super(key: key);
@@ -16,15 +15,6 @@ class SignupWorkflow extends StatelessWidget {
         builder: (context, loginWorkflowProvider, _) {
       return Column(
         children: <Widget>[
-          AuthTextFormField(
-            key: Key('confirm_password_field'),
-            keyboardType: TextInputType.visiblePassword,
-            hintText: 'confirm your password',
-            hintTextOnFocus: 'your password again',
-            labelText: 'confirm password',
-            icon: Icons.lock,
-            obscureText: true,
-          ),
           ButtonAlignmentWrapper(
             height: 30,
             child: FlatButton(

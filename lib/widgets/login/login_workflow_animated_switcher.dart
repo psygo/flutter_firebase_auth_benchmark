@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/login_workflow_provider.dart';
-import '../../providers/login_workflow_provider.dart';
 import '../../exceptions/login.dart';
 
 class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
@@ -56,7 +55,7 @@ class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
           },
           layoutBuilder: (Widget currentChild, List<Widget> previousChildren) {
             return Stack(
-              key: Key('password_animation_stack'),
+              key: Key('login_workflow_stack'),
               children: <Widget>[
                 ...previousChildren,
                 if (currentChild != null) currentChild,

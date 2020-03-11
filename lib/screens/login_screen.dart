@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../widgets/login/login_workflow_animated_switcher.dart';
+import '../providers/login_workflow_provider.dart';
 import '../theme/colors.dart';
-import '../widgets/login/login_container.dart';
 import '../widgets/login/auth_textformfield.dart';
+import '../widgets/login/login_container.dart';
+import '../widgets/login/login_workflow_animated_switcher.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String id = 'login_screen';
@@ -37,6 +39,21 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: LoginScreen.widgetSpacing,
                       ),
+                      Consumer<LoginWorkflowProvider>(
+                          builder: (context, loginWorkflowProvider, _) {
+                        return Visibility(
+                          visible: loginWorkflowProvider.isLoginOrSignup,
+                          child: AuthTextFormField(
+                            key: Key('password_field'),
+                            keyboardType: TextInputType.visiblePassword,
+                            hintText: 'password',
+                            hintTextOnFocus: 'your password',
+                            labelText: 'password',
+                            icon: Icons.lock,
+                            obscureText: true,
+                          ),
+                        );
+                      }),
                       LoginWorkflowAnimatedSwitcher(
                         key: Key('login_workflow_animated_switcher'),
                       ),

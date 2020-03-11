@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/login_workflow_provider.dart';
-import '../../theme/colors.dart';
-import '../../theme/auxiliary_theming.dart';
 import 'button_alignment_wrapper.dart';
+import '../../providers/login_workflow_provider.dart';
+import '../../theme/auxiliary_theming.dart';
+import '../../theme/colors.dart';
 
 class PasswordResetWorkflow extends StatelessWidget {
   const PasswordResetWorkflow({Key key}) : super(key: key);
