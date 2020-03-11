@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../exceptions/animations.dart';
+import '../widgets/login/password_field_reset_msg_animated_switcher.dart';
 import '../exceptions/login.dart';
 import '../theme/auxiliary_theming.dart';
 import '../theme/colors.dart';
@@ -15,9 +15,7 @@ enum LoginSubWorkflow {
 }
 
 class LoginScreen extends StatefulWidget {
-  static const double fieldsSpacing = 10;
-  static const double fieldsButtonsSpacing = 10;
-  static const double buttonsSpacing = 10;
+  static const double widgetSpacing = 10;
 
   const LoginScreen({Key key}) : super(key: key);
 
@@ -27,26 +25,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
-  final Widget _passwordResetMsg = SizedBox(
-    key: Key('password_reset_msg'),
-    height: AuxiliaryTheming.textFieldHeight,
-    child: Center(
-      child: Text(
-        'Please type your recovery email.',
-      ),
-    ),
-  );
-
-  final AuthTextFormField _passwordField = AuthTextFormField(
-    key: Key('password_field'),
-    keyboardType: TextInputType.visiblePassword,
-    hintText: 'password',
-    hintTextOnFocus: 'your password',
-    labelText: 'password',
-    icon: Icons.lock,
-    obscureText: true,
-  );
-
   final AuthTextFormField _confirmPasswordField = AuthTextFormField(
     key: Key('confirm_password_field'),
     keyboardType: TextInputType.visiblePassword,
@@ -58,14 +36,12 @@ class _LoginScreenState extends State<LoginScreen>
   );
 
   LoginSubWorkflow _loginSubWorkflow;
-  Widget _animatedPasswordField;
+  PasswordOrMsg _passwordFieldOrResetMsg;
 
   bool get _isLoginWorkFlow => _loginSubWorkflow == LoginSubWorkflow.login;
   bool get _isResetWorkflow =>
       _loginSubWorkflow == LoginSubWorkflow.passwordReset;
   bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signUp;
-  bool get _isLoginOrSignUpWorkflow => 
-    _loginSubWorkflow == LoginSubWorkflow.login || _loginSubWorkflow == LoginSubWorkflow.signUp;
   bool get _isLoginOrResetWorkFlow =>
     _loginSubWorkflow == LoginSubWorkflow.login || _loginSubWorkflow == LoginSubWorkflow.passwordReset;
 
@@ -73,20 +49,20 @@ class _LoginScreenState extends State<LoginScreen>
   void initState() {
     super.initState();
     _loginSubWorkflow = LoginSubWorkflow.login;
-    _animatedPasswordField = _passwordField;
+    _passwordFieldOrResetMsg = PasswordOrMsg.password;
   }
 
   void _switchWorkFlow(LoginSubWorkflow loginSubWorkflow) {
     switch (loginSubWorkflow) {
       case LoginSubWorkflow.login:
         setState(() {
-          _animatedPasswordField = _passwordField;
+          _passwordFieldOrResetMsg = PasswordOrMsg.password;
           _loginSubWorkflow = LoginSubWorkflow.login;
         });
         break;
       case LoginSubWorkflow.passwordReset:
         setState(() {
-          _animatedPasswordField = _passwordResetMsg;
+          _passwordFieldOrResetMsg = PasswordOrMsg.msg;
           _loginSubWorkflow = LoginSubWorkflow.passwordReset;
         });
         break;
@@ -123,86 +99,16 @@ class _LoginScreenState extends State<LoginScreen>
                         labelText: 'email',
                         icon: Icons.account_circle,
                       ),
-                      Visibility(
-                        visible: _isLoginOrSignUpWorkflow,
-                        child: SizedBox(
-                          height: LoginScreen.fieldsSpacing,
-                        ),
+                      SizedBox(
+                        height: LoginScreen.widgetSpacing,
                       ),
-                      Visibility(
-                        visible: _isResetWorkflow,
-                        child: SizedBox(
-                          height: LoginScreen.fieldsButtonsSpacing,
-                        ),
-                      ),
-                      AnimatedSwitcher(
-                        duration: Duration(milliseconds: 1500),
-                        switchInCurve: Curves.bounceOut,
-                        switchOutCurve: Curves.easeInExpo,
-                        child: _animatedPasswordField,
-                        transitionBuilder:
-                            (Widget child, Animation<double> animation) {
-                          final Animation<Offset> outOffsetAnimation =
-                              Tween<Offset>(
-                                begin: Offset(1, 0), 
-                                end: Offset.zero
-                              ).animate(animation);
-
-                          final Animation<Offset> inOffsetAnimation =
-                              Tween<Offset>(
-                                begin: Offset(-1, 0), 
-                                end: Offset.zero
-                              ).animate(animation);
-
-                          final Animation<double> inFadeAnimation =
-                              Tween<double>(
-                                begin: 0,
-                                end: 1
-                              ).animate(animation);
-
-                          if (child.key == Key('password_reset_msg')){
-                            // return ClipRect(
-                            //   child: SlideTransition(
-                            //     position: inOffsetAnimation,
-                            //     child: child,
-                            //   ),
-                            // );
-
-                            return ClipRect(
-                              child: FadeTransition(
-                                opacity: inFadeAnimation,
-                                child: child,
-                              )
-                            );
-                          }
-                          else if (child.key == Key('password_field')){
-                            return ClipRect(
-                              child: SlideTransition(
-                                position: outOffsetAnimation,
-                                child: child,
-                              ),
-                            );
-                          }
-                          else {
-                            throw InvalidAnimationAttempt('There should be only 2 animation cases.');
-                          }
-                        },
-                        layoutBuilder: (Widget currentChild,
-                            List<Widget> previousChildren) {
-                          return Stack(
-                            key: Key('password_animation_stack'),
-                            children: <Widget>[
-                              ...previousChildren,
-                              if (currentChild != null) currentChild,
-                            ],
-                            alignment: Alignment.center,
-                          );
-                        },
+                      PasswordFieldResetMsgAnimatedSwitcher(
+                        passwordOrMsg: _passwordFieldOrResetMsg
                       ),
                       Visibility(
                         visible: _isLoginOrResetWorkFlow,
                         child: SizedBox(
-                          height: LoginScreen.fieldsButtonsSpacing,
+                          height: LoginScreen.widgetSpacing,
                         ),
                       ),
                       Visibility(
@@ -225,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isLoginWorkFlow,
                         child: SizedBox(
-                          height: LoginScreen.buttonsSpacing,
+                          height: LoginScreen.widgetSpacing,
                         ),
                       ),
                       Visibility(
@@ -248,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isLoginWorkFlow,
                         child: SizedBox(
-                          height: LoginScreen.buttonsSpacing,
+                          height: LoginScreen.widgetSpacing,
                         ),
                       ),
                       Visibility(
@@ -290,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isResetWorkflow,
                         child: SizedBox(
-                          height: LoginScreen.buttonsSpacing,
+                          height: LoginScreen.widgetSpacing,
                         ),
                       ),
                       Visibility(
@@ -318,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isSignUpWorkflow,
                         child: SizedBox(
-                          height: LoginScreen.fieldsSpacing,
+                          height: LoginScreen.widgetSpacing,
                         ),
                       ),
                       Visibility(
@@ -328,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isSignUpWorkflow,
                         child: SizedBox(
-                          height: LoginScreen.fieldsButtonsSpacing,
+                          height: LoginScreen.widgetSpacing,
                         ),
                       ),
                       Visibility(
@@ -351,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Visibility(
                         visible: _isSignUpWorkflow,
                         child: SizedBox(
-                          height: LoginScreen.buttonsSpacing,
+                          height: LoginScreen.widgetSpacing,
                         ),
                       ),
                       Visibility(
@@ -387,3 +293,4 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 }
+
