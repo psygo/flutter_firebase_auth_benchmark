@@ -12,27 +12,20 @@ enum LoginSubWorkflow {
 }
 
 class LoginWorkflowProvider extends ChangeNotifier {
-  LoginSubWorkflow _loginSubWorkflow;
+  LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
 
-  LoginWorkflowProvider() : _loginSubWorkflow = LoginSubWorkflow.login;
-
-  // bool get _isLoginWorkFlow => _loginSubWorkflow == LoginSubWorkflow.login;
-  // bool get _isResetWorkflow =>
-  //     _loginSubWorkflow == LoginSubWorkflow.passwordReset;
-  // bool get _isSignUpWorkflow => _loginSubWorkflow == LoginSubWorkflow.signup;
-  // bool get _isLoginOrResetWorkFlow =>
-  //   _loginSubWorkflow == LoginSubWorkflow.login || _loginSubWorkflow == LoginSubWorkflow.passwordReset;
+  LoginWorkflowProvider();
 
   Widget get widget {
     switch (_loginSubWorkflow){
       case LoginSubWorkflow.login:
-        return LoginWorkflow();
+        return LoginWorkflow(key: Key('login_workflow'));
         break;
       case LoginSubWorkflow.passwordReset:
-        return PasswordResetWorkflow();
+        return PasswordResetWorkflow(key: Key('password_reset_workflow'));
         break;
       case LoginSubWorkflow.signup:
-        return SignupWorkflow();
+        return SignupWorkflow(key: Key('signup_workflow'));
         break;
       default:
         throw InvalidLoginWorkFlowException(

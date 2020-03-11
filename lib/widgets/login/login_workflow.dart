@@ -5,14 +5,15 @@ import '../../providers/login_workflow_provider.dart';
 import '../../widgets/login/auth_textformfield.dart';
 import '../../theme/colors.dart';
 import '../../theme/auxiliary_theming.dart';
-import '../../screens/login_screen.dart';
 import 'button_alignment_wrapper.dart';
 
 class LoginWorkflow extends StatelessWidget {
+  const LoginWorkflow({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginWorkflowProvider>(
-      builder: (context, loginWorkflowProvider, child){
+      builder: (context, loginWorkflowProvider, _){
         return Column(
           children: <Widget>[
             AuthTextFormField(

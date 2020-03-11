@@ -2,38 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/login_workflow_provider.dart';
-import 'login_workflow.dart';
-import 'password_reset_workflow.dart';
-import 'signup_workflow.dart';
 import '../../providers/login_workflow_provider.dart';
 import '../../exceptions/login.dart';
 
 class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
-  // final Widget _loginSubWorkflow;
-
-  LoginWorkflowAnimatedSwitcher({
-    Key key,
-    // LoginSubWorkflow loginSubWorkflow,
-  }) : 
-    // _loginSubWorkflow = _selectLoginSubWorkflow(loginSubWorkflow),
-    super(key: key);
-
-  // static Widget _selectLoginSubWorkflow(LoginSubWorkflow passwordOrMsg){
-  //   switch (passwordOrMsg){
-  //     case LoginSubWorkflow.login:
-  //       return LoginWorkFlow();
-  //       break;
-  //     case LoginSubWorkflow.passwordReset:
-  //       return PasswordResetWorkflow();
-  //       break;
-  //     case LoginSubWorkflow.signup:
-  //       return SignupWorkflow();
-  //       break;
-  //     default:
-  //       throw InvalidLoginWorkFlowException(
-  //         'There should only be 3 types of login sub workflows.');
-  //   }
-  // }
+  const LoginWorkflowAnimatedSwitcher({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +17,60 @@ class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
           switchInCurve: Curves.bounceOut,
           switchOutCurve: Curves.easeInExpo,
           child: loginWorkflowProvider.widget,
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            final Animation<Offset> outOffsetAnimation = Tween<Offset>(
+              begin: Offset(1, 0), 
+              end: Offset.zero
+            ).animate(animation);
+
+            final Animation<Offset> inOffsetAnimation = Tween<Offset>(
+              begin: Offset(-1, 0), 
+              end: Offset.zero
+            ).animate(animation);
+
+            final Animation<double> inFadeAnimation = Tween<double>(
+              begin: 0,
+              end: 1
+            ).animate(animation);
+
+            if (child.key == Key('login_workflow')){
+              return ClipRect(
+                child: FadeTransition(
+                  opacity: inFadeAnimation,
+                  child: child,
+                )
+              );
+            } else if (child.key == Key('password_reset_workflow')) {
+              return ClipRect(
+                child: SlideTransition(
+                  position: outOffsetAnimation,
+                  child: child,
+                ),
+              );
+            } else if (child.key == Key('signup_workflow')) {
+              return ClipRect(
+                child: SlideTransition(
+                  position: outOffsetAnimation,
+                  child: child,
+                ),
+              );
+            } else {
+              throw InvalidAnimationAttempt(
+                'There should be only 2 animation cases.');
+            }
+          },
+          layoutBuilder: (Widget currentChild, List<Widget> previousChildren) {
+            return Stack(
+              key: Key('password_animation_stack'),
+              children: <Widget>[
+                ...previousChildren,
+                if (currentChild != null) currentChild,
+              ],
+              alignment: Alignment.center,
+            );
+          },
         );
-      }
+      },
     );
   }
 }
