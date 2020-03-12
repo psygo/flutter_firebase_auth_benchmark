@@ -92,37 +92,56 @@ void main() {
       expect(topOfStack.key, Key('password_reset_workflow'));
     });
 
-//     testWidgets(
-//         'Clicking the *Forgot* Button '
-//         '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
-//         (tester) async {
-//       await setUpResetScenario(tester);
+    testWidgets(
+        'Clicking the *Forgot* Button '
+        'puts the *Forgot*, *Sign Up* and *Login* buttons '
+        'on the bottom of the stack',
+        (tester) async {
+      await setUpResetScenario(tester);
 
-//       final List<Key> shouldNotExistButtonsKeys = [
-//         Key('forgot_password_button'),
-//         Key('signup_button'),
-//         Key('login_button'),
-//       ];
+      final List<Element> elements = WidgetExtractor
+        .extractElementsFromStackByKey(tester, Key('login_workflow_stack'));
 
-//       shouldNotExistButtonsKeys.forEach((Key key) {
-//         expect(find.byKey(key), findsNothing);
-//       });
-//     });
+      final List<Widget> bottomOfStackWidgets = [];
+      elements.first.visitChildren((Element childElement){
+        childElement.visitChildren((Element childElement){
+          childElement.visitChildren((Element childElement){
+            childElement.visitChildren((Element childElement){
+              childElement.visitChildren((Element childElement){
+                bottomOfStackWidgets.add(childElement.widget);
+              });
+            });
+          });
+        });
+      });
 
-//     testWidgets(
-//         'Checks if the Back Button and the *Send Reset Email* '
-//         'for when in Password Reset Mode exist', (tester) async {
-//       await setUpResetScenario(tester);
+      print(bottomOfStackWidgets);
 
-//       final List<Key> signUpButtonKeys = [
-//         Key('cancel_reset_button'),
-//         Key('send_password_verification_button')
-//       ];
+      final List<Key> shouldNotExistButtonsKeys = [
+        Key('forgot_password_button'),
+        Key('signup_button'),
+        Key('login_button'),
+      ];
 
-//       signUpButtonKeys.forEach((Key key) {
-//         expect(find.byKey(key), findsOneWidget);
-//       });
-//     });
+      // shouldNotExistButtonsKeys.forEach((Key key) {
+      //   expect(find.byKey(key), findsNothing);
+      // });
+    });
+
+    testWidgets(
+        'Checks if the Back Button and the *Send Reset Email* '
+        'for when in Password Reset Mode exist', (tester) async {
+      await setUpResetScenario(tester);
+
+      final List<Key> signUpButtonKeys = [
+        Key('cancel_reset_button'),
+        Key('send_password_verification_button')
+      ];
+
+      signUpButtonKeys.forEach((Key key) {
+        expect(find.byKey(key), findsOneWidget);
+      });
+    });
   });
 
 //   group('Changing the Login Screen to Sign Up', () {
