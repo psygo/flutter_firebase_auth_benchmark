@@ -9,7 +9,7 @@ class AuthTextFormField extends StatefulWidget {
   final String labelText;
   final IconData icon;
   final bool obscureText;
-  final String Function(String string) validator;
+  final String Function(String) validator;
 
   const AuthTextFormField({
     Key key,
