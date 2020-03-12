@@ -93,42 +93,6 @@ void main() {
     });
 
     testWidgets(
-        'Clicking the *Forgot* Button '
-        'puts the *Forgot*, *Sign Up* and *Login* buttons '
-        'on the bottom of the stack',
-        (tester) async {
-      await setUpResetScenario(tester);
-
-      final List<Element> elements = WidgetExtractor
-        .extractElementsFromStackByKey(tester, Key('login_workflow_stack'));
-
-      final List<Widget> bottomOfStackWidgets = [];
-      elements.first.visitChildren((Element childElement){
-        childElement.visitChildren((Element childElement){
-          childElement.visitChildren((Element childElement){
-            childElement.visitChildren((Element childElement){
-              childElement.visitChildren((Element childElement){
-                bottomOfStackWidgets.add(childElement.widget);
-              });
-            });
-          });
-        });
-      });
-
-      print(bottomOfStackWidgets);
-
-      final List<Key> shouldNotExistButtonsKeys = [
-        Key('forgot_password_button'),
-        Key('signup_button'),
-        Key('login_button'),
-      ];
-
-      // shouldNotExistButtonsKeys.forEach((Key key) {
-      //   expect(find.byKey(key), findsNothing);
-      // });
-    });
-
-    testWidgets(
         'Checks if the Back Button and the *Send Reset Email* '
         'for when in Password Reset Mode exist', (tester) async {
       await setUpResetScenario(tester);
