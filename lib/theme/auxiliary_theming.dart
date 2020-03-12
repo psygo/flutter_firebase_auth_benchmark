@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class AuxiliaryTheming {
-  static const double textFieldHeight = 50;
+  static const double textFieldHeight = 40;
 
   static final BoxShadow containerBoxShadow = BoxShadow(
     color: LoginContainerColors.containerShadowGrey,

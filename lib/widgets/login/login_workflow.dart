@@ -69,6 +69,9 @@ class LoginWorkflow extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
           ],
         );
       },
