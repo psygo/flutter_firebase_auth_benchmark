@@ -9,6 +9,7 @@ class AuthTextFormField extends StatefulWidget {
   final String labelText;
   final IconData icon;
   final bool obscureText;
+  final String Function(String string) validator;
 
   const AuthTextFormField({
     Key key,
@@ -18,6 +19,7 @@ class AuthTextFormField extends StatefulWidget {
     this.labelText,
     this.icon,
     this.obscureText = false,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -72,6 +74,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: widget.validator,
       keyboardType: widget.keyboardType,
       obscureText: _passwordIsNotVisible,
       focusNode: _focusNode,
