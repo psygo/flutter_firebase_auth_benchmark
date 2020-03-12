@@ -16,7 +16,7 @@ class LoginContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginWorkflowHandler>(
-      builder: (context, loginWorkflowProvider, _){
+      builder: (context, loginWorkflowProvider, _) {
         return AnimatedContainer(
           duration: Duration(milliseconds: 600),
           height: loginWorkflowProvider.workflowHeight,

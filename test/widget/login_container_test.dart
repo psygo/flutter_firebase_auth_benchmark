@@ -10,12 +10,12 @@ import 'utils.dart';
 void main() {
   final LoginContainer loginContainer = LoginContainer(
     child: Consumer<LoginWorkflowHandler>(
-      builder: (context, loginWorkflowProvider, _){
-        return AnimatedContainer(duration: Duration(milliseconds: 500));
-      }
-    ),
+        builder: (context, loginWorkflowProvider, _) {
+      return AnimatedContainer(duration: Duration(milliseconds: 500));
+    }),
   );
-  final wrappedLoginContainer = WidgetWrappers.materialWrapperWithLoginWorkflowProvider(loginContainer);
+  final wrappedLoginContainer =
+      WidgetWrappers.materialWrapperWithLoginWorkflowProvider(loginContainer);
 
   testWidgets('Tests LoginContainer Initialization', (tester) async {
     await tester.pumpWidget(wrappedLoginContainer);

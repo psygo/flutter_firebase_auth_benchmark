@@ -8,9 +8,10 @@ import '../../theme/auxiliary_theming.dart';
 import '../../theme/colors.dart';
 
 class LoginWorkflow extends StatelessWidget {
-  static final double height = 2 * LoginScreen.flatButtonHeight + 
-    LoginScreen.raisedButtonHeight + 2 * LoginScreen.widgetSpacing;
-  
+  static final double height = 2 * LoginScreen.flatButtonHeight +
+      LoginScreen.raisedButtonHeight +
+      2 * LoginScreen.widgetSpacing;
+
   const LoginWorkflow({Key key}) : super(key: key);
 
   @override
