@@ -69,20 +69,22 @@ void main() {
 
     testWidgets(
         'Clicking the *Forgot* Button '
-        'places the forgot password workflow on top of the stack', (tester) async {
+        'places the forgot password workflow on top of the stack',
+        (tester) async {
       await setUpResetScenario(tester);
 
-      final List<Element> elements = WidgetExtractor
-        .extractElementsFromStackByKey(tester, Key('login_workflow_stack'));
+      final List<Element> elements =
+          WidgetExtractor.extractElementsFromStackByKey(
+              tester, Key('login_workflow_stack'));
 
       Widget bottomOfStack;
-      elements.first.visitChildren((Element childElement){
+      elements.first.visitChildren((Element childElement) {
         bottomOfStack = childElement.widget;
       });
 
       Widget topOfStack;
-      elements.last.visitChildren((Element childElement){
-        childElement.visitChildren((Element childElement){
+      elements.last.visitChildren((Element childElement) {
+        childElement.visitChildren((Element childElement) {
           topOfStack = childElement.widget;
         });
       });
@@ -108,50 +110,59 @@ void main() {
     });
   });
 
-//   group('Changing the Login Screen to Sign Up', () {
-//     Future<void> setUpSignUpScenario(WidgetTester tester) async {
-//       await tester.pumpWidget(wrappedLoginScreen);
-//       await tester.tap(find.byKey(Key('signup_button')));
-//       await tester.pump(Duration(seconds: 2));
-//     }
+  group('Changing the Login Screen to Sign Up', () {
+    Future<void> setUpSignUpScenario(WidgetTester tester) async {
+      await tester.pumpWidget(wrappedLoginScreen);
+      await tester.tap(find.byKey(Key('signup_button')));
+      await tester.pump(Duration(seconds: 2));
+    }
 
-//     testWidgets(
-//         'Clicking the *Sign Up* Button '
-//         '"deletes" the *Forgot*, *Sign Up* and *Login* buttons',
-//         (tester) async {
-//       await setUpSignUpScenario(tester);
+    testWidgets(
+        'Clicking the *Sign Up* Button '
+        'places the sign up workflow on top of the stack', (tester) async {
+      await setUpSignUpScenario(tester);
 
-//       final List<Key> shouldNotExistButtonsKeys = [
-//         Key('forgot_password_button'),
-//         Key('signup_button'),
-//         Key('login_button'),
-//       ];
+      final List<Element> elements =
+          WidgetExtractor.extractElementsFromStackByKey(
+              tester, Key('login_workflow_stack'));
 
-//       shouldNotExistButtonsKeys.forEach((Key key) {
-//         expect(find.byKey(key), findsNothing);
-//       });
-//     });
+      Widget bottomOfStack;
+      elements.first.visitChildren((Element childElement) {
+        bottomOfStack = childElement.widget;
+      });
 
-//     testWidgets(
-//         'Checks if the Back and Create Account buttons exist. '
-//         'Also checks if the *confirm password* field exists', (tester) async {
-//       await setUpSignUpScenario(tester);
+      Widget topOfStack;
+      elements.last.visitChildren((Element childElement) {
+        childElement.visitChildren((Element childElement) {
+          topOfStack = childElement.widget;
+        });
+      });
 
-//       final List<Key> signUpButtonsKeys = [
-//         Key('cancel_signup_button'),
-//         Key('create_account_button'),
-//         Key('confirm_password_field'),
-//       ];
+      expect(elements.length, 2);
+      expect(bottomOfStack.key, Key('login_workflow'));
+      expect(topOfStack.key, Key('signup_workflow'));
+    });
 
-//       signUpButtonsKeys.forEach((Key key) {
-//         expect(find.byKey(key), findsOneWidget);
-//       });
-//     });
+    testWidgets(
+        'Checks if the Back and Create Account buttons exist. '
+        'Also checks if the *confirm password* field exists', (tester) async {
+      await setUpSignUpScenario(tester);
 
-//     testWidgets('There should be 3 text fields here', (tester) async {
-//       await setUpSignUpScenario(tester);
+      final List<Key> signUpButtonsKeys = [
+        Key('cancel_signup_button'),
+        Key('create_account_button'),
+        Key('confirm_password_field'),
+      ];
 
-//       expect(find.byType(AuthTextFormField), findsNWidgets(3));
-//     });
-//   });
+      signUpButtonsKeys.forEach((Key key) {
+        expect(find.byKey(key), findsOneWidget);
+      });
+    });
+
+    testWidgets('There should be 3 text fields here', (tester) async {
+      await setUpSignUpScenario(tester);
+
+      expect(find.byType(AuthTextFormField), findsNWidgets(3));
+    });
+  });
 }

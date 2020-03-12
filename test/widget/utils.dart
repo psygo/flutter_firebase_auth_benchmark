@@ -9,11 +9,11 @@ class WidgetWrappers {
   static MaterialApp materialWrapper(Widget widget) =>
       MaterialApp(home: Material(child: widget));
 
-  static MultiProvider materialWrapperWithLoginWorkflowProvider(Widget widget) =>
-      MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => LoginWorkflowHandler())],
-        child: MaterialApp(home: Material(child: widget))
-      );
+  static MultiProvider materialWrapperWithLoginWorkflowProvider(
+          Widget widget) =>
+      MultiProvider(providers: [
+        ChangeNotifierProvider(create: (_) => LoginWorkflowHandler())
+      ], child: MaterialApp(home: Material(child: widget)));
 }
 
 class WidgetExtractor {
