@@ -52,27 +52,27 @@ class WidgetExtractor {
     return extractStatelessWidgetFromElement(element);
   }
 
-  static List<Widget> extractWidgetsFromStackByKey(
+  static List<Element> extractElementsFromStackByKey(
       WidgetTester tester, Key key) {
     final Element stackElement = extractElementByKey(tester, key);
     final MultiChildRenderObjectElement stack =
         stackElement as MultiChildRenderObjectElement;
 
-    final List<Widget> widgets = [];
-    findWidgetsInStack(stack, widgets);
+    final List<Element> elements = [];
+    findElementsInStack(stack, elements);
 
-    return widgets;
+    return elements;
   }
 
-  static void findWidgetsInStack<El extends Element>(
-      El stack, List<Widget> widgets) {
+  static void findElementsInStack<El extends Element>(
+      El stack, List<Element> elements) {
     if (stack is SingleChildRenderObjectElement) {
       stack.visitChildren((Element stackElement) {
-        widgets.add(stackElement.widget);
+        elements.add(stackElement);
       });
     } else {
       stack.visitChildren((Element stackElement) {
-        findWidgetsInStack(stackElement, widgets);
+        findElementsInStack(stackElement, elements);
       });
     }
   }

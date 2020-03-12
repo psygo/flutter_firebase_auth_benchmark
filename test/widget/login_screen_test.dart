@@ -69,15 +69,27 @@ void main() {
 
     testWidgets(
         'Clicking the *Forgot* Button '
-        '"deletes" the password field in an animation', (tester) async {
+        'places the forgot password workflow on top of the stack', (tester) async {
       await setUpResetScenario(tester);
 
-      final List<Widget> widgets = WidgetExtractor.extractWidgetsFromStackByKey(
-          tester, Key('password_animation_stack'));
+      final List<Element> elements = WidgetExtractor
+        .extractElementsFromStackByKey(tester, Key('login_workflow_stack'));
 
-      expect(widgets.length, 2);
-      expect(widgets.first.key, Key('password_field'));
-      expect(widgets.last.key, Key('password_reset_msg'));
+      Widget bottomOfStack;
+      elements.first.visitChildren((Element childElement){
+        bottomOfStack = childElement.widget;
+      });
+
+      Widget topOfStack;
+      elements.last.visitChildren((Element childElement){
+        childElement.visitChildren((Element childElement){
+          topOfStack = childElement.widget;
+        });
+      });
+
+      expect(elements.length, 2);
+      expect(bottomOfStack.key, Key('login_workflow'));
+      expect(topOfStack.key, Key('password_reset_workflow'));
     });
 
 //     testWidgets(
