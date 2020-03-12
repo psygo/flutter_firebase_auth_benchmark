@@ -8,6 +8,10 @@ import '../../theme/auxiliary_theming.dart';
 import '../../theme/colors.dart';
 
 class PasswordResetWorkflow extends StatelessWidget {
+  static final double height = AuxiliaryTheming.textFieldHeight 
+    + LoginScreen.flatButtonHeight + LoginScreen.raisedButtonHeight 
+    + 2 * LoginScreen.widgetSpacing;
+
   const PasswordResetWorkflow({Key key}) : super(key: key);
 
   @override

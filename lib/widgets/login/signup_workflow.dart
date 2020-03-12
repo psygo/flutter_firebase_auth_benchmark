@@ -9,6 +9,10 @@ import '../../theme/auxiliary_theming.dart';
 import '../../theme/colors.dart';
 
 class SignupWorkflow extends StatelessWidget {
+  static final double height = LoginScreen.textFormFieldHeight
+    + LoginScreen.flatButtonHeight + LoginScreen.raisedButtonHeight 
+    + 2 * LoginScreen.widgetSpacing;
+
   const SignupWorkflow({Key key}) : super(key: key);
 
   @override

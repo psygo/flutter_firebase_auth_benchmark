@@ -10,6 +10,9 @@ import '../widgets/login/login_workflow_animated_switcher.dart';
 class LoginScreen extends StatelessWidget {
   static const String id = 'login_screen';
   static const double widgetSpacing = 10;
+  static const double flatButtonHeight = 30;
+  static const double raisedButtonHeight = 40;
+  static const double textFormFieldHeight = 50;
 
   const LoginScreen({Key key}) : super(key: key);
 

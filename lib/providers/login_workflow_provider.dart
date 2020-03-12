@@ -37,6 +37,30 @@ class LoginWorkflowHandler extends ChangeNotifier {
     }
   }
 
+  double get workflowHeight {
+    double height;
+    const double padding = 160;
+    
+    switch (_loginSubWorkflow) {
+      case LoginSubWorkflow.login:
+        height = LoginWorkflow.height;
+        break;
+      case LoginSubWorkflow.passwordReset:
+        height = PasswordResetWorkflow.height;
+        return height + 100;
+        break;
+      case LoginSubWorkflow.signup:
+        height = SignupWorkflow.height;
+        break;
+      default:
+        throw InvalidLoginWorkFlowException(
+            'There should only be 3 types of login sub workflows.');
+    }
+
+    height += padding;
+    return height;
+  }
+
   void switchWorkFlow(LoginSubWorkflow loginSubWorkflow) {
     switch (loginSubWorkflow) {
       case LoginSubWorkflow.login:

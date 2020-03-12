@@ -8,6 +8,9 @@ import '../../theme/auxiliary_theming.dart';
 import '../../theme/colors.dart';
 
 class LoginWorkflow extends StatelessWidget {
+  static final double height = 2 * LoginScreen.flatButtonHeight + 
+    LoginScreen.raisedButtonHeight + 2 * LoginScreen.widgetSpacing;
+  
   const LoginWorkflow({Key key}) : super(key: key);
 
   @override
@@ -17,7 +20,7 @@ class LoginWorkflow extends StatelessWidget {
         return Column(
           children: <Widget>[
             ButtonAlignmentWrapper(
-              height: 30,
+              height: LoginScreen.flatButtonHeight,
               child: FlatButton(
                 key: Key('forgot_password_button'),
                 onPressed: () => loginWorkflowProvider
@@ -34,7 +37,7 @@ class LoginWorkflow extends StatelessWidget {
               height: LoginScreen.widgetSpacing,
             ),
             ButtonAlignmentWrapper(
-              height: 30,
+              height: LoginScreen.flatButtonHeight,
               child: FlatButton(
                 key: Key('signup_button'),
                 onPressed: () => loginWorkflowProvider
@@ -51,7 +54,7 @@ class LoginWorkflow extends StatelessWidget {
               height: LoginScreen.widgetSpacing,
             ),
             ButtonAlignmentWrapper(
-              height: 40,
+              height: LoginScreen.raisedButtonHeight,
               child: RaisedButton(
                 key: Key('login_button'),
                 elevation: AuxiliaryTheming.raisedButtonElevation,
