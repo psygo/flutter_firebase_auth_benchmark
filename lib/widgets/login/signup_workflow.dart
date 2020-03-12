@@ -22,6 +22,9 @@ class SignupWorkflow extends StatelessWidget {
         builder: (context, loginWorkflowProvider, _) {
       return Column(
         children: <Widget>[
+          SizedBox(
+            height: LoginScreen.widgetSpacing,
+          ),
           AuthTextFormField(
             key: Key('confirm_password_field'),
             keyboardType: TextInputType.visiblePassword,

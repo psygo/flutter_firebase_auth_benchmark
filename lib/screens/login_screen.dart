@@ -57,9 +57,6 @@ class LoginScreen extends StatelessWidget {
                                 icon: Icons.lock,
                                 obscureText: true,
                               ),
-                              SizedBox(
-                                height: LoginScreen.widgetSpacing,
-                              ),
                             ],
                           ),
                         ),

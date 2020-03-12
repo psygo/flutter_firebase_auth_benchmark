@@ -20,6 +20,9 @@ class LoginWorkflow extends StatelessWidget {
       builder: (context, loginWorkflowProvider, _) {
         return Column(
           children: <Widget>[
+            SizedBox(
+              height: LoginScreen.widgetSpacing,
+            ),
             ButtonAlignmentWrapper(
               height: LoginScreen.flatButtonHeight,
               child: FlatButton(
@@ -71,7 +74,7 @@ class LoginWorkflow extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
           ],
         );
