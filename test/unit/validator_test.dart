@@ -44,14 +44,25 @@ void main() {
   });
 
   group('Confirm Password Validation', () {
-    test('Results in error when password and confirm password are different',
-        () {
-      final String confirmPasswordValidationResult =
-          AuthenticationValidator.validateConfirmPassword(
-              'asdfasdf', 'asdfasdfg');
+    test(
+        'Checks if passwords are equal, '
+        'regardless of internal pre-requisites for the passwords', () {
+      final Map<List<String>, String> passwordsByCorrectValidationResultMsg = {
+        ['asdfasdf', 'asdfasdfg']:
+            AuthenticationMsgs.confirmPasswordDoesNotMatch,
+        ['asdfasdf', 'asdfasdf']: null,
+      };
 
-      expect(confirmPasswordValidationResult,
-          AuthenticationMsgs.confirmPasswordDoesNotMatch);
+      passwordsByCorrectValidationResultMsg.forEach(
+          (List<String> passwordAndConfirmPassword,
+              String correctValidationResultMsg) {
+        final String confirmPassowrdValidationResult =
+            AuthenticationValidator.validateConfirmPassword(
+                passwordAndConfirmPassword.first,
+                passwordAndConfirmPassword.last);
+
+        expect(confirmPassowrdValidationResult, correctValidationResultMsg);
+      });
     });
   });
 }
