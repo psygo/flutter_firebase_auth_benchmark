@@ -8,7 +8,7 @@ void main(){
       final String emailValidationResult = AuthenticationValidator
         .validateEmail('');
 
-      expect(emailValidationResult, 'Please type your email.');
+      expect(emailValidationResult, AuthenticationValidator.emptyEmailMsg);
     });
 
     test('', (){
@@ -16,12 +16,21 @@ void main(){
     });
   });
 
+  group('Password Validation', (){
+    test('Password length is smaller than 6', (){
+      final String passwordValidationResult = AuthenticationValidator
+        .validatePassword('asdf');
+
+      expect(passwordValidationResult, AuthenticationValidator.passwordTooShortMsg);
+    });
+  });
+
   group('Confirm Password Validation', (){
     test('Results in error when password and confirm password are different', (){
-      final String confirmPasswordResult = AuthenticationValidator
+      final String confirmPasswordValidationResult = AuthenticationValidator
         .validateConfirmPassword('asdfasdf', 'asdfasdfg');
 
-      expect(confirmPasswordResult, 'Your password and your confirmation password don\'t match');
+      expect(confirmPasswordValidationResult, AuthenticationValidator.confirmPasswordDoesNotMatchMsg);
     });
   });
 }
