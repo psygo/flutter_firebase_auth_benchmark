@@ -10,6 +10,7 @@ class AuthTextFormField extends StatefulWidget {
   final IconData icon;
   final bool obscureText;
   final String Function(String) validator;
+  final String Function(String) errorTextValidator;
 
   const AuthTextFormField({
     Key key,
@@ -20,6 +21,7 @@ class AuthTextFormField extends StatefulWidget {
     this.icon,
     this.obscureText = false,
     this.validator,
+    this.errorTextValidator,
   }) : super(key: key);
 
   @override
@@ -28,10 +30,13 @@ class AuthTextFormField extends StatefulWidget {
 
 @visibleForTesting
 class AuthTextFormFieldState extends State<AuthTextFormField> {
+  final TextEditingController _textEditingController = TextEditingController();
+
   bool _passwordIsNotVisible;
   Key _visibilityIconKey;
   IconData _visibilityIcon;
   FocusNode _focusNode;
+  String Function(String) _errorTextValidator;
 
   @visibleForTesting
   bool get textIsVisible => !_passwordIsNotVisible;
@@ -42,11 +47,13 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _switchIcons();
     super.initState();
     _focusNode = FocusNode();
+    _errorTextValidator = widget.errorTextValidator;
   }
 
   @override
   void dispose() {
     _focusNode.dispose();
+    _textEditingController.dispose();
     super.dispose();
   }
 
@@ -71,15 +78,20 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
+  String _errorTextValidatorShieldCall(String text) =>
+      _errorTextValidator == null ? null : _errorTextValidator(text);
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: _textEditingController,
       validator: widget.validator,
       keyboardType: widget.keyboardType,
       obscureText: _passwordIsNotVisible,
       focusNode: _focusNode,
       onTap: _requestFocus,
       decoration: InputDecoration(
+        errorText: _errorTextValidatorShieldCall(_textEditingController.text),
         hintText:
             _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
         labelText: widget.labelText,

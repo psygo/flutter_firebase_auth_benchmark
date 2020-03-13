@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../authentication/validator.dart';
 import '../providers/login_workflow_provider.dart';
 import '../theme/colors.dart';
 import '../widgets/login/auth_textformfield.dart';
@@ -40,6 +41,8 @@ class LoginScreen extends StatelessWidget {
                           hintTextOnFocus: 'your email',
                           labelText: 'email',
                           icon: Icons.account_circle,
+                          validator: AuthenticationValidator.validateEmail,
+                          errorTextValidator: AuthenticationValidator.validateEmail,
                         ),
                         SizedBox(
                           height: LoginScreen.widgetSpacing,
@@ -56,6 +59,8 @@ class LoginScreen extends StatelessWidget {
                                 labelText: 'password',
                                 icon: Icons.lock,
                                 obscureText: true,
+                                validator: AuthenticationValidator.validatePassword,
+                                errorTextValidator: AuthenticationValidator.validatePassword,
                               ),
                             ],
                           ),
