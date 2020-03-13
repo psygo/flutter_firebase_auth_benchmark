@@ -25,10 +25,12 @@ void main() {
   });
 
   group('Password Validation', () {
-    test('Password length is smaller than 6', () {
+    test('Tests for different benchmarked passwords', () {
       final Map<String, String> passwordByCorrectValidationResultMsg = {
         '': AuthenticationMsgs.emptyPassword,
         'asdf': AuthenticationMsgs.passwordTooShort,
+        'asdfasdf': AuthenticationMsgs.invalidPassword,
+        'asdfA&4f': null,
       };
 
       passwordByCorrectValidationResultMsg
