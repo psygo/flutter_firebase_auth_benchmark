@@ -27,5 +27,13 @@ abstract class AuxiliaryTheming {
     ),
   );
 
+  static final OutlineInputBorder authTextFormFieldStandardBorder = 
+      OutlineInputBorder(
+    borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
+    borderSide: BorderSide(
+      color: AuthTextFormFieldColors.focusedBorderColor,
+    ),
+  );
+
   static const double raisedButtonElevation = 5;
 }

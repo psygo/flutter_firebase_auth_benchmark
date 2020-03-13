@@ -19,4 +19,8 @@ Email and Password Validation were both accomplished through the use of *regular
 
 - Email Validation uses [this regex](https://stackoverflow.com/a/16800541/4756173).
 - Password Validation uses [this regex](https://stackoverflow.com/a/21456918/4756173).
-    - Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.
+    - Minimum eight characters
+    - At least one uppercase letter
+    - One lowercase letter
+    - One number
+    - One special character

@@ -5,7 +5,7 @@ import 'colors.dart';
 
 abstract class Theming {
   static final ThemeData appTheme = ThemeData(
-    inputDecorationTheme: authenticationTextFormFieldTheme,
+    inputDecorationTheme: authTextFormFieldTheme,
     buttonTheme: flatButtonTheme,
     iconTheme: defaultIconTheme,
   );
@@ -14,28 +14,34 @@ abstract class Theming {
     color: BasicColors.grey,
   );
 
-  static final InputDecorationTheme authenticationTextFormFieldTheme =
+  static final InputDecorationTheme authTextFormFieldTheme =
       InputDecorationTheme(
+    contentPadding: EdgeInsets.symmetric(
+      vertical: 15,
+    ),
+    fillColor: AuthTextFormFieldColors.fillColor,
+    filled: true,
     labelStyle: TextStyle(
       color: AuthTextFormFieldColors.labelTextColor,
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
+        borderSide: BorderSide(
+          color: AuthTextFormFieldColors.enabledBorderColor,
+        ),
+    ),
+    focusedBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
+    errorBorder: OutlineInputBorder(
+      borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
       borderSide: BorderSide(
         color: AuthTextFormFieldColors.enabledBorderColor,
       ),
     ),
-    fillColor: AuthTextFormFieldColors.fillColor,
-    filled: true,
-    focusedBorder: OutlineInputBorder(
-      borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
-      borderSide: BorderSide(
-        color: AuthTextFormFieldColors.focusedBorderColor,
-      ),
+    errorStyle: TextStyle(
+      color: AuthTextFormFieldColors.labelTextColor,
     ),
-    contentPadding: EdgeInsets.symmetric(
-      vertical: 15,
-    ),
+    errorMaxLines: 3,
+    focusedErrorBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
   );
 
   static final ButtonThemeData flatButtonTheme = ButtonThemeData(
