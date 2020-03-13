@@ -10,7 +10,9 @@ abstract class AuthenticationValidator {
   }
 
   static String validatePassword(String password) {
-    if (AuthenticationUtils.passwordIsTooShort(password)) {
+    if (password.isEmpty) {
+      return AuthenticationMsgs.emptyPassword;
+    } else if (AuthenticationUtils.passwordIsTooShort(password)) {
       return AuthenticationMsgs.passwordTooShort;
     } else {
       return null;
@@ -27,10 +29,13 @@ abstract class AuthenticationValidator {
 abstract class AuthenticationMsgs {
   static const String emptyEmail = 'Your email cannot be blank.';
   static const String invalidEmail = 'Your email is invalid.';
-  static const String confirmPasswordDoesNotMatch =
-      'Your password and your confirmation password don\'t match.';
+
+  static const String emptyPassword = 'Your password cannot be blank.';
   static const String passwordTooShort =
       'Your password must be longer than 6 characters.';
+
+  static const String confirmPasswordDoesNotMatch =
+      'Your password and your confirmation password don\'t match.';
 }
 
 abstract class AuthenticationUtils {

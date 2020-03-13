@@ -16,20 +16,28 @@ void main() {
 
       emailByCorrectValidationResultMsg
           .forEach((String email, String correctValidationResultMsg) {
-        final String emailValidationResult =
+        final String emailValidationResultMsg =
             AuthenticationValidator.validateEmail(email);
 
-        expect(emailValidationResult, correctValidationResultMsg);
+        expect(emailValidationResultMsg, correctValidationResultMsg);
       });
     });
   });
 
   group('Password Validation', () {
     test('Password length is smaller than 6', () {
-      final String passwordValidationResult =
-          AuthenticationValidator.validatePassword('asdf');
+      final Map<String, String> passwordByCorrectValidationResultMsg = {
+        '': AuthenticationMsgs.emptyPassword,
+        'asdf': AuthenticationMsgs.passwordTooShort,
+      };
 
-      expect(passwordValidationResult, AuthenticationMsgs.passwordTooShort);
+      passwordByCorrectValidationResultMsg
+          .forEach((String password, String correctValidationResultMsg) {
+        final String passwordValidationResultMsg =
+            AuthenticationValidator.validatePassword(password);
+
+        expect(passwordValidationResultMsg, correctValidationResultMsg);
+      });
     });
   });
 
