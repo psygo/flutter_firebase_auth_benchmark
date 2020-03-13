@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_firebase_auth_benchmark/providers/login_workflow_provider.dart';
 
-class WidgetWrappers {
+abstract class WidgetWrappers {
   static MaterialApp materialWrapper(Widget widget) =>
       MaterialApp(home: Material(child: widget));
 
@@ -16,7 +16,7 @@ class WidgetWrappers {
       ], child: MaterialApp(home: Material(child: widget)));
 }
 
-class WidgetExtractor {
+abstract class WidgetExtractor {
   static T extractElementByType<T extends Element>(
           WidgetTester tester, Type type) =>
       tester.element(find.byType(type));
@@ -78,7 +78,7 @@ class WidgetExtractor {
   }
 }
 
-class RenderUtils {
+abstract class RenderUtils {
   static RenderEditable findRenderEditable(WidgetTester tester) {
     final RenderObject root = tester.renderObject(find.byType(EditableText));
     expect(root, isNotNull);

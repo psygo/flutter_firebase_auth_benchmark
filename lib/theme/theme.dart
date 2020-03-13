@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'auxiliary_theming.dart';
 import 'colors.dart';
 
-class Theming {
+abstract class Theming {
   static final ThemeData appTheme = ThemeData(
     inputDecorationTheme: authenticationTextFormFieldTheme,
     buttonTheme: flatButtonTheme,

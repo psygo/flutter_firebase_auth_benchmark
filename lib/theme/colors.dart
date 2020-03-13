@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BasicColors {
+abstract class BasicColors {
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
   static final Color grey600 = Colors.grey[600];

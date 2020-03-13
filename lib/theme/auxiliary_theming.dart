@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-class AuxiliaryTheming {
+abstract class AuxiliaryTheming {
   static const double textFieldHeight = 40;
 
   static final BoxShadow containerBoxShadow = BoxShadow(
