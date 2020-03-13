@@ -4,14 +4,20 @@ import 'package:flutter_firebase_auth_benchmark/authentication/validator.dart';
 
 void main() {
   group('Email Validation', () {
-    test('Can email validation handle an empty field?', () {
-      final String emailValidationResult =
-          AuthenticationValidator.validateEmail('');
+    test('Tests different benchmarked emails', () {
+      Map<String, String> emailByCorrectValidationResultMsg = {
+        '': AuthenticationMsgs.emptyEmail,
+        'johndoe@gmail.com': null,
+      };
 
-      expect(emailValidationResult, AuthenticationValidator.emptyEmailMsg);
+      emailByCorrectValidationResultMsg
+          .forEach((String email, String correctValidationResultMsg) {
+        final String emailValidationResult =
+            AuthenticationValidator.validateEmail(email);
+
+        expect(emailValidationResult, correctValidationResultMsg);
+      });
     });
-
-    test('', () {});
   });
 
   group('Password Validation', () {
@@ -19,8 +25,7 @@ void main() {
       final String passwordValidationResult =
           AuthenticationValidator.validatePassword('asdf');
 
-      expect(passwordValidationResult,
-          AuthenticationValidator.passwordTooShortMsg);
+      expect(passwordValidationResult, AuthenticationMsgs.passwordTooShort);
     });
   });
 
@@ -32,7 +37,7 @@ void main() {
               'asdfasdf', 'asdfasdfg');
 
       expect(confirmPasswordValidationResult,
-          AuthenticationValidator.confirmPasswordDoesNotMatchMsg);
+          AuthenticationMsgs.confirmPasswordDoesNotMatch);
     });
   });
 }
