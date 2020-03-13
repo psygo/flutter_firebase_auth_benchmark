@@ -5,7 +5,7 @@ import 'package:flutter_firebase_auth_benchmark/authentication/validator.dart';
 void main() {
   group('Email Validation', () {
     test('Tests different benchmarked emails', () {
-      final Map<String, String> emailByCorrectValidationResultMsg = {
+      const Map<String, String> emailByCorrectValidationResultMsg = {
         '': AuthenticationMsgs.emptyEmail,
         'johndoe@gmail.com': null,
         '.wooly@example.com': AuthenticationMsgs.invalidEmail,
@@ -26,7 +26,7 @@ void main() {
 
   group('Password Validation', () {
     test('Tests for different benchmarked passwords', () {
-      final Map<String, String> passwordByCorrectValidationResultMsg = {
+      const Map<String, String> passwordByCorrectValidationResultMsg = {
         '': AuthenticationMsgs.emptyPassword,
         'asdf': AuthenticationMsgs.passwordTooShort,
         'asdfasdf': AuthenticationMsgs.invalidPassword,
@@ -47,7 +47,7 @@ void main() {
     test(
         'Checks if passwords are equal, '
         'regardless of internal pre-requisites for the passwords', () {
-      final Map<List<String>, String> passwordsByCorrectValidationResultMsg = {
+      const Map<List<String>, String> passwordsByCorrectValidationResultMsg = {
         ['asdfasdf', 'asdfasdfg']:
             AuthenticationMsgs.confirmPasswordDoesNotMatch,
         ['asdfasdf', 'asdfasdf']: null,
