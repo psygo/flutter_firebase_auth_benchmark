@@ -13,7 +13,7 @@ abstract class AuthenticationValidator {
     if (password.isEmpty) {
       return AuthenticationMsgs.emptyPassword;
     } else if (AuthenticationUtils.passwordIsTooShort(password)) {
-      return AuthenticationMsgs.passwordTooShort;
+      return AuthenticationMsgs.atLeast8CharMsg;
     } else if (AuthenticationUtils.passwordHasNoNumber(password)) {
       return AuthenticationMsgs.atLeastOneNumberMsg;
     } else if (AuthenticationUtils.passwordHasNoUpperCase(password)) {
@@ -41,7 +41,7 @@ abstract class AuthenticationMsgs {
   static const String invalidEmail = 'Invalid email.';
 
   static const String emptyPassword = 'Can\'t be blank.';
-  static const String passwordTooShort = 'Min: 8 characters.';
+  static const String atLeast8CharMsg = 'Min: 8 characters.';
   static const String atLeastOneNumberMsg = 'Min: 1 number.';
   static const String atLeastOneUpperCaseMsg = 'Min: 1 upper case.';
   static const String atLeastOneSpecialCharacter = 'Min: 1 special char.';

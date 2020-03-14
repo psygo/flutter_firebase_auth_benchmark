@@ -28,9 +28,12 @@ void main() {
     test('Tests for different benchmarked passwords', () {
       const Map<String, String> passwordByCorrectValidationResultMsg = {
         '': AuthenticationMsgs.emptyPassword,
-        'asdf': AuthenticationMsgs.passwordTooShort,
-        'asdfasdf': AuthenticationMsgs.invalidPassword,
-        'asdfA&4f': null,
+        'asdf': AuthenticationMsgs.atLeast8CharMsg,
+        'asdfasdf': AuthenticationMsgs.atLeastOneNumberMsg,
+        'asdfasd1': AuthenticationMsgs.atLeastOneUpperCaseMsg,
+        'asdfasD1': AuthenticationMsgs.atLeastOneSpecialCharacter,
+        'ASDFA\$D1': AuthenticationMsgs.atLeastOneLowerCase,
+        'asdfa\$D1': null,
       };
 
       passwordByCorrectValidationResultMsg
