@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_benchmark/authentication/validator.dart';
 
 import '../../theme/colors.dart';
 
@@ -86,10 +85,10 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   String _labelTextValidatorShieldCall(String text) =>
       _errorTextValidator == null ? null : _errorTextValidator(text);
 
-  void _updateLabelText(String text){
+  void _updateLabelText(String text) {
     final String newLabelText = _labelTextValidatorShieldCall(text);
     setState(() {
-      if (newLabelText != null){
+      if (newLabelText != null) {
         _labelText = newLabelText;
         _labelTextColor = AuthTextFormFieldColors.labelTextErrorColor;
       } else {

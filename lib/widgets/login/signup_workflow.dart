@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import 'auth_textformfield.dart';
 import 'button_alignment_wrapper.dart';
-import '../../authentication/validator.dart';
 import '../../providers/login_workflow_provider.dart';
 import '../../screens/login_screen.dart';
 import '../../theme/auxiliary_theming.dart';

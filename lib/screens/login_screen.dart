@@ -59,7 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             labelText: 'email',
                             icon: Icons.account_circle,
                             validator: AuthenticationValidator.validateEmail,
-                            labelTextValidator: AuthenticationValidator.validateEmail,
+                            labelTextValidator:
+                                AuthenticationValidator.validateEmail,
                           ),
                           SizedBox(
                             height: LoginScreen.widgetSpacing,
@@ -78,7 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   obscureText: true,
                                   validator:
                                       AuthenticationValidator.validatePassword,
-                                  labelTextValidator: AuthenticationValidator.validatePassword,
+                                  labelTextValidator:
+                                      AuthenticationValidator.validatePassword,
                                 ),
                               ],
                             ),

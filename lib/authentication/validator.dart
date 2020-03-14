@@ -18,9 +18,9 @@ abstract class AuthenticationValidator {
       return AuthenticationMsgs.atLeastOneNumberMsg;
     } else if (AuthenticationUtils.passwordHasNoUpperCase(password)) {
       return AuthenticationMsgs.atLeastOneUpperCaseMsg;
-    } else if (AuthenticationUtils.passwordHasNoSpecialChar(password)){
+    } else if (AuthenticationUtils.passwordHasNoSpecialChar(password)) {
       return AuthenticationMsgs.atLeastOneSpecialCharacter;
-    } else if (AuthenticationUtils.passwordHasNoLowerCase(password)){
+    } else if (AuthenticationUtils.passwordHasNoLowerCase(password)) {
       return AuthenticationMsgs.atLeastOneLowerCase;
     } else if (AuthenticationUtils.invalidPassword(password)) {
       return AuthenticationMsgs.invalidPassword;
@@ -48,8 +48,7 @@ abstract class AuthenticationMsgs {
   static const String atLeastOneLowerCase = 'min 1 lower case';
   static const String invalidPassword = 'invalid Password';
 
-  static const String confirmPasswordDoesNotMatch =
-      'passwords don\'t match';
+  static const String confirmPasswordDoesNotMatch = 'passwords don\'t match';
 }
 
 abstract class AuthenticationUtils {
@@ -61,21 +60,23 @@ abstract class AuthenticationUtils {
       r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$');
   static final RegExp atLeastOneNumberRegExp = RegExp(r'^(?=.*\d)');
   static final RegExp atLeastOneUpperCaseRegExp = RegExp(r'^(?=.*[A-Z])');
-  static final RegExp atLeastOneSpecialCharRegExp = RegExp(r'^(?=.*[@$!%*?&#])');
+  static final RegExp atLeastOneSpecialCharRegExp =
+      RegExp(r'^(?=.*[@$!%*?&#])');
   static final RegExp atLeastOneLowerCaseRegExp = RegExp(r'^(?=.*[a-z])');
 
   static bool emailIsEmpty(String email) => email.isEmpty;
   static bool invalidEmail(String email) => !emailRegExp.hasMatch(email);
 
-  static bool passwordIsTooShort(String password) => password.length < passwordMinLength;
-  static bool passwordHasNoNumber(String password) => 
-    !atLeastOneNumberRegExp.hasMatch(password);
+  static bool passwordIsTooShort(String password) =>
+      password.length < passwordMinLength;
+  static bool passwordHasNoNumber(String password) =>
+      !atLeastOneNumberRegExp.hasMatch(password);
   static bool passwordHasNoUpperCase(String password) =>
-    !atLeastOneUpperCaseRegExp.hasMatch(password);
+      !atLeastOneUpperCaseRegExp.hasMatch(password);
   static bool passwordHasNoSpecialChar(String password) =>
-    !atLeastOneSpecialCharRegExp.hasMatch(password);
-  static bool passwordHasNoLowerCase(String password) => 
-    !atLeastOneLowerCaseRegExp.hasMatch(password);
-  static bool invalidPassword(String password) => 
-    !completePasswordRegExp.hasMatch(password);
+      !atLeastOneSpecialCharRegExp.hasMatch(password);
+  static bool passwordHasNoLowerCase(String password) =>
+      !atLeastOneLowerCaseRegExp.hasMatch(password);
+  static bool invalidPassword(String password) =>
+      !completePasswordRegExp.hasMatch(password);
 }
