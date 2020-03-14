@@ -23,12 +23,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final LoginWorkflowHandler loginWorkflowProvider = 
-      Provider.of<LoginWorkflowHandler>(context);
+    final LoginWorkflowHandler loginWorkflowProvider =
+        Provider.of<LoginWorkflowHandler>(context);
     loginWorkflowProvider.formKey = _formKey;
   }
 
@@ -76,7 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   labelText: 'password',
                                   icon: Icons.lock,
                                   obscureText: true,
-                                  validator: AuthenticationValidator.validatePassword,
+                                  validator:
+                                      AuthenticationValidator.validatePassword,
                                   // errorTextValidator: AuthenticationValidator.validatePassword,
                                 ),
                               ],

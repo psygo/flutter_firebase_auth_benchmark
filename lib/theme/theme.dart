@@ -26,9 +26,9 @@ abstract class Theming {
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
-        borderSide: BorderSide(
-          color: AuthTextFormFieldColors.enabledBorderColor,
-        ),
+      borderSide: BorderSide(
+        color: AuthTextFormFieldColors.enabledBorderColor,
+      ),
     ),
     focusedBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
     errorBorder: OutlineInputBorder(

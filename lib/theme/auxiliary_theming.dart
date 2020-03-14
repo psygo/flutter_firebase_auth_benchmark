@@ -27,7 +27,7 @@ abstract class AuxiliaryTheming {
     ),
   );
 
-  static final OutlineInputBorder authTextFormFieldStandardBorder = 
+  static final OutlineInputBorder authTextFormFieldStandardBorder =
       OutlineInputBorder(
     borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
     borderSide: BorderSide(

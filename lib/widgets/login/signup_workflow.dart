@@ -65,7 +65,7 @@ class SignupWorkflow extends StatelessWidget {
                 color: BasicColors.blue,
                 textColor: BasicColors.white,
                 onPressed: () {
-                  if (loginWorkflowProvider.formKey.currentState.validate()){
+                  if (loginWorkflowProvider.formKey.currentState.validate()) {
                     print('validated');
                   }
                 },
