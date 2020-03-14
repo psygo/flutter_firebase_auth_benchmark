@@ -13,8 +13,12 @@ enum LoginSubWorkflow {
 
 class LoginWorkflowHandler extends ChangeNotifier {
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
+  GlobalKey<FormState> _formKey;
 
   LoginWorkflowHandler();
+
+  GlobalKey<FormState> get formKey => _formKey;
+  set formKey(GlobalKey<FormState> formKey) => _formKey = formKey;
 
   bool get isLoginOrSignup =>
       _loginSubWorkflow == LoginSubWorkflow.login ||
