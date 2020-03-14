@@ -18,11 +18,11 @@ class LoginWorkflowHandler extends ChangeNotifier {
   LoginWorkflowHandler();
 
   GlobalKey<FormState> get formKey => _formKey;
-  set formKey(GlobalKey<FormState> formKey) => _formKey = formKey;
-
   bool get isLoginOrSignup =>
       _loginSubWorkflow == LoginSubWorkflow.login ||
       _loginSubWorkflow == LoginSubWorkflow.signup;
+
+  set formKey(GlobalKey<FormState> formKey) => _formKey = formKey;
 
   Widget get widget {
     switch (_loginSubWorkflow) {
@@ -43,7 +43,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
 
   double get workflowHeight {
     double height;
-    const double padding = 165;
+    const double padding = 160;
 
     switch (_loginSubWorkflow) {
       case LoginSubWorkflow.login:
