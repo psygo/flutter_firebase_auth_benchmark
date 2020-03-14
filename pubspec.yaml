@@ -1,5 +1,7 @@
 name: flutter_firebase_auth_benchmark
 
+author: Philippe Fanaro <philippefanaro@gmail.com>
+
 description: >-
   A benchmark for Authentication through Firebase in Flutter.
 

@@ -43,7 +43,7 @@ abstract class AuthenticationMsgs {
   static const String emptyPassword = 'can\'t be blank';
   static const String atLeast8CharMsg = 'min 8 characters';
   static const String atLeastOneNumberMsg = 'min 1 number';
-  static const String atLeastOneUpperCaseMsg = 'in 1 upper case';
+  static const String atLeastOneUpperCaseMsg = 'min 1 upper case';
   static const String atLeastOneSpecialCharacter = 'min 1 special char';
   static const String atLeastOneLowerCase = 'min 1 lower case';
   static const String invalidPassword = 'invalid Password';
