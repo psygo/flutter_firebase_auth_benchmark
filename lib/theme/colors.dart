@@ -6,6 +6,7 @@ abstract class BasicColors {
   static final Color grey600 = Colors.grey[600];
   static final Color grey800 = Colors.grey[800];
   static const Color blue = Colors.blue;
+  static const Color red = Colors.red;
   static const Color transparent = Colors.transparent;
 }
 
@@ -20,4 +21,5 @@ class AuthTextFormFieldColors {
   static final Color enabledBorderColor = BasicColors.transparent;
   static final Color focusedBorderColor = BasicColors.grey;
   static const Color fillColor = Color(0xFFEEF5FB);
+  static const Color errorTextColor = BasicColors.red;
 }

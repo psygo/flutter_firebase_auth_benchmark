@@ -64,7 +64,11 @@ class SignupWorkflow extends StatelessWidget {
                 elevation: AuxiliaryTheming.raisedButtonElevation,
                 color: BasicColors.blue,
                 textColor: BasicColors.white,
-                onPressed: () {},
+                onPressed: () {
+                  if (loginWorkflowProvider.formKey.currentState.validate()){
+                    print('validated');
+                  }
+                },
                 child: Text(
                   'CREATE ACCOUNT',
                   style: TextStyle(

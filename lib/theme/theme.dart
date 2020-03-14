@@ -38,9 +38,9 @@ abstract class Theming {
       ),
     ),
     errorStyle: TextStyle(
-      color: AuthTextFormFieldColors.labelTextColor,
+      color: AuthTextFormFieldColors.errorTextColor,
     ),
-    errorMaxLines: 3,
+    errorMaxLines: 1,
     focusedErrorBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
   );
 
