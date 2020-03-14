@@ -64,11 +64,7 @@ class LoginWorkflow extends StatelessWidget {
                 elevation: AuxiliaryTheming.raisedButtonElevation,
                 color: BasicColors.blue,
                 textColor: BasicColors.white,
-                onPressed: () {
-                  if (loginWorkflowProvider.formKey.currentState.validate()) {
-                    print('validated');
-                  }
-                },
+                onPressed: loginWorkflowProvider.validateForm,
                 child: Text(
                   'LOGIN',
                   style: TextStyle(

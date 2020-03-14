@@ -12,8 +12,11 @@ enum LoginSubWorkflow {
 }
 
 class LoginWorkflowHandler extends ChangeNotifier {
+  static const double initialLoginContainerPadding = 165;
+
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
   GlobalKey<FormState> _formKey;
+  double loginContainerPadding = initialLoginContainerPadding;
 
   LoginWorkflowHandler();
 
@@ -23,6 +26,17 @@ class LoginWorkflowHandler extends ChangeNotifier {
   bool get isLoginOrSignup =>
       _loginSubWorkflow == LoginSubWorkflow.login ||
       _loginSubWorkflow == LoginSubWorkflow.signup;
+
+  void validateForm() {
+    if (_formKey.currentState.validate()) {
+      loginContainerPadding = initialLoginContainerPadding;
+    } else {
+      loginContainerPadding += 30;
+      print('invalidated');
+    }
+
+    notifyListeners();
+  }
 
   Widget get widget {
     switch (_loginSubWorkflow) {
@@ -43,7 +57,6 @@ class LoginWorkflowHandler extends ChangeNotifier {
 
   double get workflowHeight {
     double height;
-    const double padding = 165;
 
     switch (_loginSubWorkflow) {
       case LoginSubWorkflow.login:
@@ -61,7 +74,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
             'There should only be 3 types of login sub workflows.');
     }
 
-    height += padding;
+    height += loginContainerPadding;
     return height;
   }
 
