@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_benchmark/authentication/validator.dart';
 import 'package:provider/provider.dart';
 
 import 'auth_textformfield.dart';
@@ -20,6 +21,11 @@ class SignupWorkflow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LoginWorkflowHandler>(
         builder: (context, loginWorkflowProvider, _) {
+
+      String partialValidateConfirmPassword(String confirmPassword) =>
+        AuthenticationValidator
+          .validateConfirmPassword(loginWorkflowProvider.password, confirmPassword);
+
       return Column(
         children: <Widget>[
           SizedBox(
@@ -33,6 +39,8 @@ class SignupWorkflow extends StatelessWidget {
             labelText: 'confirm password',
             icon: Icons.lock,
             obscureText: true,
+            validator: partialValidateConfirmPassword,
+            labelTextValidator: partialValidateConfirmPassword,
           ),
           SizedBox(
             height: LoginScreen.widgetSpacing,
