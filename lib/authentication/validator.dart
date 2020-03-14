@@ -31,25 +31,25 @@ abstract class AuthenticationValidator {
 
   static String validateConfirmPassword(
           String password, String confirmPassword) =>
-      password == confirmPassword
-          ? null
-          : AuthenticationMsgs.confirmPasswordDoesNotMatch;
+      password != confirmPassword
+          ? AuthenticationMsgs.confirmPasswordDoesNotMatch
+          : null;
 }
 
 abstract class AuthenticationMsgs {
-  static const String emptyEmail = 'Can\'t be blank.';
-  static const String invalidEmail = 'Invalid email.';
+  static const String emptyEmail = 'can\'t be blank';
+  static const String invalidEmail = 'invalid email';
 
-  static const String emptyPassword = 'Can\'t be blank.';
-  static const String atLeast8CharMsg = 'Min: 8 characters.';
-  static const String atLeastOneNumberMsg = 'Min: 1 number.';
-  static const String atLeastOneUpperCaseMsg = 'Min: 1 upper case.';
-  static const String atLeastOneSpecialCharacter = 'Min: 1 special char.';
-  static const String atLeastOneLowerCase = 'Min: 1 lower case.';
-  static const String invalidPassword = 'Invalid Password.';
+  static const String emptyPassword = 'can\'t be blank';
+  static const String atLeast8CharMsg = 'min 8 characters';
+  static const String atLeastOneNumberMsg = 'min 1 number';
+  static const String atLeastOneUpperCaseMsg = 'in 1 upper case';
+  static const String atLeastOneSpecialCharacter = 'min 1 special char';
+  static const String atLeastOneLowerCase = 'min 1 lower case';
+  static const String invalidPassword = 'invalid Password';
 
   static const String confirmPasswordDoesNotMatch =
-      'Your password and your confirmation password don\'t match.';
+      'passwords don\'t match';
 }
 
 abstract class AuthenticationUtils {
