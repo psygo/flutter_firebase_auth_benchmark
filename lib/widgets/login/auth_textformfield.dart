@@ -11,6 +11,7 @@ class AuthTextFormField extends StatefulWidget {
   final bool obscureText;
   final String Function(String) validator;
   final String Function(String) labelTextValidator;
+  final void Function(String) onChanged;
 
   const AuthTextFormField({
     Key key,
@@ -22,6 +23,7 @@ class AuthTextFormField extends StatefulWidget {
     this.obscureText = false,
     this.validator,
     this.labelTextValidator,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -36,7 +38,6 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   Key _visibilityIconKey;
   IconData _visibilityIcon;
   FocusNode _focusNode;
-  String Function(String) _errorTextValidator;
   String _labelText;
   Color _labelTextColor;
 
@@ -49,7 +50,6 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _switchIcons();
     super.initState();
     _focusNode = FocusNode();
-    _errorTextValidator = widget.labelTextValidator;
     _labelText = widget.labelText;
     _labelTextColor = AuthTextFormFieldColors.labelTextColor;
   }
@@ -83,7 +83,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   }
 
   String _labelTextValidatorShieldCall(String text) =>
-      _errorTextValidator == null ? null : _errorTextValidator(text);
+      widget.labelTextValidator != null ? widget.labelTextValidator(text) : null;
 
   void _updateLabelText(String text) {
     final String newLabelText = _labelTextValidatorShieldCall(text);
@@ -98,6 +98,15 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
+  void _onChangedShieldCall(String text) => 
+    widget.onChanged != null ? widget.onChanged(text) : null;
+
+
+  void _onChangedAndUpdateLabelText(String text){
+    _onChangedShieldCall(text);
+    _updateLabelText(text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -107,7 +116,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
       obscureText: _passwordIsNotVisible,
       focusNode: _focusNode,
       onTap: _requestFocus,
-      onChanged: (String text) => _updateLabelText(text),
+      onChanged: (String text) => _onChangedAndUpdateLabelText(text),
       decoration: InputDecoration(
         hintText:
             _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
