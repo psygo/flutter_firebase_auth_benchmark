@@ -21,10 +21,9 @@ class SignupWorkflow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LoginWorkflowHandler>(
         builder: (context, loginWorkflowProvider, _) {
-
       String partialValidateConfirmPassword(String confirmPassword) =>
-        AuthenticationValidator
-          .validateConfirmPassword(loginWorkflowProvider.password, confirmPassword);
+          AuthenticationValidator.validateConfirmPassword(
+              loginWorkflowProvider.password, confirmPassword);
 
       return Column(
         children: <Widget>[

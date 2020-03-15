@@ -84,7 +84,9 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   }
 
   String _labelTextValidatorShieldCall(String text) =>
-      widget.labelTextValidator != null ? widget.labelTextValidator(text) : null;
+      widget.labelTextValidator != null
+          ? widget.labelTextValidator(text)
+          : null;
 
   void _updateLabelText(String text) {
     final String newLabelText = _labelTextValidatorShieldCall(text);
@@ -99,10 +101,10 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
-  void _onChangedShieldCall(String text) => 
-    widget.onChanged != null ? widget.onChanged(text) : null;
+  void _onChangedShieldCall(String text) =>
+      widget.onChanged != null ? widget.onChanged(text) : null;
 
-  void _onChangedAndUpdateLabelText(String text){
+  void _onChangedAndUpdateLabelText(String text) {
     _onChangedShieldCall(text);
     _updateLabelText(text);
   }
@@ -110,6 +112,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormFieldWithoutErrorText(
+      errorTextPresent: false,
       controller: _textEditingController,
       validator: widget.validator,
       keyboardType: widget.keyboardType,

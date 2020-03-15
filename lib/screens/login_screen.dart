@@ -81,7 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       AuthenticationValidator.validatePassword,
                                   labelTextValidator:
                                       AuthenticationValidator.validatePassword,
-                                  onChanged: (String text) => loginWorkflowProvider.password = text,
+                                  onChanged: (String text) =>
+                                      loginWorkflowProvider.password = text,
                                 ),
                               ],
                             ),

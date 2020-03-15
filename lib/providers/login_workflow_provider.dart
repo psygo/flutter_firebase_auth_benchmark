@@ -25,7 +25,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
   String get password => _password;
 
   set formKey(GlobalKey<FormState> formKey) => _formKey = formKey;
-  set password(String newPassword){ 
+  set password(String newPassword) {
     _password = newPassword;
     notifyListeners();
   }

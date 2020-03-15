@@ -123,87 +123,93 @@ class TextFormFieldWithoutErrorText extends FormField<String> {
     EdgeInsets scrollPadding = const EdgeInsets.all(20.0),
     bool enableInteractiveSelection = true,
     InputCounterWidgetBuilder buildCounter,
-  }) : assert(initialValue == null || controller == null),
-       assert(textAlign != null),
-       assert(autofocus != null),
-       assert(readOnly != null),
-       assert(obscureText != null),
-       assert(autocorrect != null),
-       assert(enableSuggestions != null),
-       assert(autovalidate != null),
-       assert(maxLengthEnforced != null),
-       assert(scrollPadding != null),
-       assert(maxLines == null || maxLines > 0),
-       assert(minLines == null || minLines > 0),
-       assert(
-         (maxLines == null) || (minLines == null) || (maxLines >= minLines),
-         'minLines can\'t be greater than maxLines',
-       ),
-       assert(expands != null),
-       assert(
-         !expands || (maxLines == null && minLines == null),
-         'minLines and maxLines must be null when expands is true.',
-       ),
-       assert(!obscureText || maxLines == 1, 'Obscured fields cannot be multiline.'),
-       assert(maxLength == null || maxLength > 0),
-       assert(enableInteractiveSelection != null),
-       super(
-    key: key,
-    initialValue: controller != null ? controller.text : (initialValue ?? ''),
-    onSaved: onSaved,
-    validator: validator,
-    autovalidate: autovalidate,
-    enabled: enabled,
-    builder: (FormFieldState<String> field) {
-      final _TextFormFieldWithoutErrorTextState state = field;
-      final InputDecoration effectiveDecoration = (decoration ?? const InputDecoration())
-        .applyDefaults(Theme.of(field.context).inputDecorationTheme);
-      void onChangedHandler(String value) {
-        if (onChanged != null) {
-          onChanged(value);
-        }
-        field.didChange(value);
-      }
-      return TextField(
-        controller: state._effectiveController,
-        focusNode: focusNode,
-        decoration: effectiveDecoration.copyWith(errorText: null),
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        style: style,
-        strutStyle: strutStyle,
-        textAlign: textAlign,
-        textAlignVertical: textAlignVertical,
-        textDirection: textDirection,
-        textCapitalization: textCapitalization,
-        autofocus: autofocus,
-        toolbarOptions: toolbarOptions,
-        readOnly: readOnly,
-        showCursor: showCursor,
-        obscureText: obscureText,
-        autocorrect: autocorrect,
-        enableSuggestions: enableSuggestions,
-        maxLengthEnforced: maxLengthEnforced,
-        maxLines: maxLines,
-        minLines: minLines,
-        expands: expands,
-        maxLength: maxLength,
-        onChanged: onChangedHandler,
-        onTap: onTap,
-        onEditingComplete: onEditingComplete,
-        onSubmitted: onFieldSubmitted,
-        inputFormatters: inputFormatters,
-        enabled: enabled,
-        cursorWidth: cursorWidth,
-        cursorRadius: cursorRadius,
-        cursorColor: cursorColor,
-        scrollPadding: scrollPadding,
-        keyboardAppearance: keyboardAppearance,
-        enableInteractiveSelection: enableInteractiveSelection,
-        buildCounter: buildCounter,
-      );
-    },
-  );
+    bool errorTextPresent = true,
+  })  : assert(initialValue == null || controller == null),
+        assert(textAlign != null),
+        assert(autofocus != null),
+        assert(readOnly != null),
+        assert(obscureText != null),
+        assert(autocorrect != null),
+        assert(enableSuggestions != null),
+        assert(autovalidate != null),
+        assert(maxLengthEnforced != null),
+        assert(scrollPadding != null),
+        assert(maxLines == null || maxLines > 0),
+        assert(minLines == null || minLines > 0),
+        assert(
+          (maxLines == null) || (minLines == null) || (maxLines >= minLines),
+          'minLines can\'t be greater than maxLines',
+        ),
+        assert(expands != null),
+        assert(
+          !expands || (maxLines == null && minLines == null),
+          'minLines and maxLines must be null when expands is true.',
+        ),
+        assert(!obscureText || maxLines == 1,
+            'Obscured fields cannot be multiline.'),
+        assert(maxLength == null || maxLength > 0),
+        assert(enableInteractiveSelection != null),
+        super(
+          key: key,
+          initialValue:
+              controller != null ? controller.text : (initialValue ?? ''),
+          onSaved: onSaved,
+          validator: validator,
+          autovalidate: autovalidate,
+          enabled: enabled,
+          builder: (FormFieldState<String> field) {
+            final _TextFormFieldWithoutErrorTextState state = field;
+            final InputDecoration effectiveDecoration = (decoration ??
+                    const InputDecoration())
+                .applyDefaults(Theme.of(field.context).inputDecorationTheme);
+            void onChangedHandler(String value) {
+              if (onChanged != null) {
+                onChanged(value);
+              }
+              field.didChange(value);
+            }
+
+            return TextField(
+              controller: state._effectiveController,
+              focusNode: focusNode,
+              decoration: effectiveDecoration.copyWith(
+                  errorText: errorTextPresent ? field.errorText : null),
+              keyboardType: keyboardType,
+              textInputAction: textInputAction,
+              style: style,
+              strutStyle: strutStyle,
+              textAlign: textAlign,
+              textAlignVertical: textAlignVertical,
+              textDirection: textDirection,
+              textCapitalization: textCapitalization,
+              autofocus: autofocus,
+              toolbarOptions: toolbarOptions,
+              readOnly: readOnly,
+              showCursor: showCursor,
+              obscureText: obscureText,
+              autocorrect: autocorrect,
+              enableSuggestions: enableSuggestions,
+              maxLengthEnforced: maxLengthEnforced,
+              maxLines: maxLines,
+              minLines: minLines,
+              expands: expands,
+              maxLength: maxLength,
+              onChanged: onChangedHandler,
+              onTap: onTap,
+              onEditingComplete: onEditingComplete,
+              onSubmitted: onFieldSubmitted,
+              inputFormatters: inputFormatters,
+              enabled: enabled,
+              cursorWidth: cursorWidth,
+              cursorRadius: cursorRadius,
+              cursorColor: cursorColor,
+              scrollPadding: scrollPadding,
+              keyboardAppearance: keyboardAppearance,
+              enableInteractiveSelection: enableInteractiveSelection,
+              buildCounter: buildCounter,
+            );
+          },
+        );
 
   /// Controls the text being edited.
   ///
@@ -212,13 +218,15 @@ class TextFormFieldWithoutErrorText extends FormField<String> {
   final TextEditingController controller;
 
   @override
-  _TextFormFieldWithoutErrorTextState createState() => _TextFormFieldWithoutErrorTextState();
+  _TextFormFieldWithoutErrorTextState createState() =>
+      _TextFormFieldWithoutErrorTextState();
 }
 
 class _TextFormFieldWithoutErrorTextState extends FormFieldState<String> {
   TextEditingController _controller;
 
-  TextEditingController get _effectiveController => widget.controller ?? _controller;
+  TextEditingController get _effectiveController =>
+      widget.controller ?? _controller;
 
   @override
   TextFormFieldWithoutErrorText get widget => super.widget;
@@ -240,12 +248,14 @@ class _TextFormFieldWithoutErrorTextState extends FormFieldState<String> {
       oldWidget.controller?.removeListener(_handleControllerChanged);
       widget.controller?.addListener(_handleControllerChanged);
 
-      if (oldWidget.controller != null && widget.controller == null)
-        _controller = TextEditingController.fromValue(oldWidget.controller.value);
+      if (oldWidget.controller != null && widget.controller == null) {
+        _controller =
+            TextEditingController.fromValue(oldWidget.controller.value);
+      }
+
       if (widget.controller != null) {
         setValue(widget.controller.text);
-        if (oldWidget.controller == null)
-          _controller = null;
+        if (oldWidget.controller == null) _controller = null;
       }
     }
   }
@@ -272,7 +282,8 @@ class _TextFormFieldWithoutErrorTextState extends FormFieldState<String> {
     // notifications for changes originating from within this class -- for
     // example, the reset() method. In such cases, the FormField value will
     // already have been set.
-    if (_effectiveController.text != value)
+    if (_effectiveController.text != value) {
       didChange(_effectiveController.text);
+    }
   }
 }
