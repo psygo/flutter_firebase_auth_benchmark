@@ -39,14 +39,14 @@ import 'package:flutter/services.dart';
 ///
 /// {@tool sample}
 ///
-/// Creates a [TextFormFieldWithoutErrorText] with an [InputDecoration] and validator function.
+/// Creates a [TextFormFieldWithErrorTextOption] with an [InputDecoration] and validator function.
 ///
 /// ![If the user enters valid text, the TextField appears normally without any warnings to the user](https://flutter.github.io/assets-for-api-docs/assets/material/text_form_field.png)
 ///
 /// ![If the user enters invalid text, the error message returned from the validator function is displayed in dark red underneath the input](https://flutter.github.io/assets-for-api-docs/assets/material/text_form_field_error.png)
 ///
 /// ```dart
-/// TextFormFieldWithoutErrorText(
+/// TextFormFieldWithErrorTextOption(
 ///   decoration: const InputDecoration(
 ///     icon: Icon(Icons.person),
 ///     hintText: 'What do people call you?',
@@ -71,7 +71,7 @@ import 'package:flutter/services.dart';
 ///  * [InputDecorator], which shows the labels and other visual elements that
 ///    surround the actual text editing widget.
 ///  * Learn how to use a [TextEditingController] in one of our [cookbook recipe]s.(https://flutter.dev/docs/cookbook/forms/text-field-changes#2-use-a-texteditingcontroller)
-class TextFormFieldWithoutErrorText extends FormField<String> {
+class TextFormFieldWithErrorTextOption extends FormField<String> {
   /// Creates a [FormField] that contains a [TextField].
   ///
   /// When a [controller] is specified, [initialValue] must be null (the
@@ -81,7 +81,7 @@ class TextFormFieldWithoutErrorText extends FormField<String> {
   ///
   /// For documentation about the various parameters, see the [TextField] class
   /// and [new TextField], the constructor.
-  TextFormFieldWithoutErrorText({
+  TextFormFieldWithErrorTextOption({
     Key key,
     this.controller,
     String initialValue,
@@ -158,7 +158,7 @@ class TextFormFieldWithoutErrorText extends FormField<String> {
           autovalidate: autovalidate,
           enabled: enabled,
           builder: (FormFieldState<String> field) {
-            final _TextFormFieldWithoutErrorTextState state = field;
+            final _TextFormFieldWithErrorTextOptionState state = field;
             final InputDecoration effectiveDecoration = (decoration ??
                     const InputDecoration())
                 .applyDefaults(Theme.of(field.context).inputDecorationTheme);
@@ -218,18 +218,18 @@ class TextFormFieldWithoutErrorText extends FormField<String> {
   final TextEditingController controller;
 
   @override
-  _TextFormFieldWithoutErrorTextState createState() =>
-      _TextFormFieldWithoutErrorTextState();
+  _TextFormFieldWithErrorTextOptionState createState() =>
+      _TextFormFieldWithErrorTextOptionState();
 }
 
-class _TextFormFieldWithoutErrorTextState extends FormFieldState<String> {
+class _TextFormFieldWithErrorTextOptionState extends FormFieldState<String> {
   TextEditingController _controller;
 
   TextEditingController get _effectiveController =>
       widget.controller ?? _controller;
 
   @override
-  TextFormFieldWithoutErrorText get widget => super.widget;
+  TextFormFieldWithErrorTextOption get widget => super.widget;
 
   @override
   void initState() {
@@ -242,7 +242,7 @@ class _TextFormFieldWithoutErrorTextState extends FormFieldState<String> {
   }
 
   @override
-  void didUpdateWidget(TextFormFieldWithoutErrorText oldWidget) {
+  void didUpdateWidget(TextFormFieldWithErrorTextOption oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
       oldWidget.controller?.removeListener(_handleControllerChanged);

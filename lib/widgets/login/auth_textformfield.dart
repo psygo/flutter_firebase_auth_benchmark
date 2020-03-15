@@ -111,7 +111,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormFieldWithoutErrorText(
+    return TextFormFieldWithErrorTextOption(
       errorTextPresent: false,
       controller: _textEditingController,
       validator: widget.validator,
