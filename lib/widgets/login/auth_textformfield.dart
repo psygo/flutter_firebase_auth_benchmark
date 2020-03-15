@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/text_form_field_without_errortext.dart';
 import '../../theme/colors.dart';
 
 class AuthTextFormField extends StatefulWidget {
@@ -106,9 +107,14 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _updateLabelText(text);
   }
 
+  String _validatorWithoutErrorTextBelow(String text){
+    final String validatorText = widget.validator(text);
+    return validatorText != null ? '' : null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextFormFieldWithoutErrorText(
       controller: _textEditingController,
       validator: widget.validator,
       keyboardType: widget.keyboardType,
