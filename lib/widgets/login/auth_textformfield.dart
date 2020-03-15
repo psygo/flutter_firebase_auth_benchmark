@@ -107,11 +107,6 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _updateLabelText(text);
   }
 
-  String _validatorWithoutErrorTextBelow(String text){
-    final String validatorText = widget.validator(text);
-    return validatorText != null ? '' : null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextFormFieldWithoutErrorText(
