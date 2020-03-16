@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'authentication/firebase.dart';
 import 'providers/login_workflow_provider.dart';
 import 'screens/logged_in_screen.dart';
 import 'screens/login_screen.dart';
@@ -14,6 +15,7 @@ class FirebaseAuthenticationApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LoginWorkflowHandler()),
+        ChangeNotifierProvider(create: (_) => Auth()),
       ],
       child: MaterialApp(
           theme: Theming.appTheme,

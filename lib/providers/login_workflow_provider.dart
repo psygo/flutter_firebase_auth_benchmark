@@ -14,6 +14,7 @@ enum LoginSubWorkflow {
 class LoginWorkflowHandler extends ChangeNotifier {
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
   GlobalKey<FormState> _formKey;
+  String _email;
   String _password;
 
   LoginWorkflowHandler();
@@ -22,9 +23,11 @@ class LoginWorkflowHandler extends ChangeNotifier {
   bool get isLoginOrSignup =>
       _loginSubWorkflow == LoginSubWorkflow.login ||
       _loginSubWorkflow == LoginSubWorkflow.signup;
+  String get email => _email;
   String get password => _password;
 
   set formKey(GlobalKey<FormState> formKey) => _formKey = formKey;
+  set email(String newEmail) => _email = newEmail;
   set password(String newPassword) {
     _password = newPassword;
     notifyListeners();

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 import 'button_alignment_wrapper.dart';
+import '../../authentication/firebase.dart';
 import '../../providers/login_workflow_provider.dart';
 import '../../screens/logged_in_screen.dart';
 import '../../screens/login_screen.dart';
@@ -58,28 +60,41 @@ class LoginWorkflow extends StatelessWidget {
             SizedBox(
               height: LoginScreen.widgetSpacing,
             ),
-            ButtonAlignmentWrapper(
-              height: LoginScreen.raisedButtonHeight,
-              child: RaisedButton(
-                key: Key('login_button'),
-                elevation: AuxiliaryTheming.raisedButtonElevation,
-                color: BasicColors.blue,
-                textColor: BasicColors.white,
-                onPressed: () {
-                  if (loginWorkflowProvider.validate()) {
-                    Navigator.pushNamed(
-                      context,
-                      LoggedInScreen.id,
-                    );
-                  }
-                },
-                child: Text(
-                  'LOGIN',
-                  style: TextStyle(
-                    fontSize: 14.5,
+            Consumer<Auth>(
+              builder: (context, auth, _) {
+                return ButtonAlignmentWrapper(
+                  height: LoginScreen.raisedButtonHeight,
+                  child: RaisedButton(
+                    key: Key('login_button'),
+                    elevation: AuxiliaryTheming.raisedButtonElevation,
+                    color: BasicColors.blue,
+                    textColor: BasicColors.white,
+                    onPressed: () async {
+                      if (loginWorkflowProvider.validate()) {
+                        await auth.signInWithEmailAndPassword(
+                            email: loginWorkflowProvider.email,
+                            password: loginWorkflowProvider.password);
+
+                        FirebaseUser user = await auth.getCurrentUser();
+                        print(user.uid);
+                        print(user.displayName);
+                        print(user.email);
+
+                        await Navigator.pushNamed(
+                          context,
+                          LoggedInScreen.id,
+                        );
+                      }
+                    },
+                    child: Text(
+                      'LOGIN',
+                      style: TextStyle(
+                        fontSize: 14.5,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
             SizedBox(
               height: 19,

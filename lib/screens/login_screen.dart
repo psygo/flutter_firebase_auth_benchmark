@@ -61,6 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             validator: AuthenticationValidator.validateEmail,
                             labelTextValidator:
                                 AuthenticationValidator.validateEmail,
+                            onChanged: (String text) =>
+                                loginWorkflowProvider.email = text,
                           ),
                           SizedBox(
                             height: LoginScreen.widgetSpacing,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../authentication/firebase.dart';
 import '../theme/colors.dart';
 
 class LoggedInScreen extends StatelessWidget {
@@ -7,24 +9,66 @@ class LoggedInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: BasicColors.white,
-        child: Center(
-          child: Text(
-            'You\'re logged in!',
-            key: Key('logged_in_text'),
-            style: TextStyle(
-              fontSize: 30,
+    return Consumer<Auth>(
+      builder: (context, auth, _) {
+        return Scaffold(
+          body: Container(
+            color: BasicColors.white,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'You\'re logged in!',
+                  key: Key('logged_in_text'),
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          'email:',
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          '${auth.getCurrentUser()}',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          'uid:',
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          '',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-        ),
-      ),
-      appBar: AppBar(
-        title: Text(
-          'Logged In Screen',
-        ),
-      ),
+          appBar: AppBar(
+            title: Text(
+              'Logged In Screen',
+            ),
+          ),
+        );
+      },
     );
   }
 }

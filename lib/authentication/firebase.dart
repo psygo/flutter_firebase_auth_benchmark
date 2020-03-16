@@ -1,30 +1,44 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
-abstract class BaseAuth {
+enum AuthStatus { not_determined, not_logged_in, logged_in }
+
+abstract class BaseAuth extends ChangeNotifier {
   static final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future<bool> signIn({@required String email, @required String password});
-  Future<bool> signUp({@required String email, @required String password});
+  Future<void> signInWithEmailAndPassword(
+      {@required String email, @required String password});
+  Future<void> signUp({@required String email, @required String password});
   Future<FirebaseUser> getCurrentUser();
   Future<void> signOut();
 }
 
-class Auth implements BaseAuth {
+class Auth extends ChangeNotifier implements BaseAuth {
+  AuthStatus _authStatus = AuthStatus.not_determined;
+
+  Auth();
+
+  AuthStatus get authStatus => _authStatus;
+
+  AuthStatus userIsNullOrNot(FirebaseUser user) =>
+      user != null ? AuthStatus.logged_in : AuthStatus.not_logged_in;
+
   @override
-  Future<bool> signIn({String email, String password}) async {
+  Future<void> signInWithEmailAndPassword(
+      {String email, String password}) async {
     AuthResult authResult = await BaseAuth.firebaseAuth
         .signInWithEmailAndPassword(email: email, password: password);
     FirebaseUser user = authResult.user;
-    return user != null;
+    _authStatus = userIsNullOrNot(user);
   }
 
   @override
-  Future<bool> signUp({String email, String password}) async {
+  Future<void> signUp({String email, String password}) async {
     AuthResult authResult = await BaseAuth.firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password);
     FirebaseUser user = authResult.user;
-    return user != null;
+    _authStatus = userIsNullOrNot(user);
   }
 
   @override
