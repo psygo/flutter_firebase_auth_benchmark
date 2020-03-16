@@ -46,4 +46,4 @@ You can get rid of all of these errors by running `flutter run --enable-software
 
 > For more info, check out [this SO answer](https://stackoverflow.com/a/56621852/4756173).
 
-Apparently, having a `FormKey` demands that all related nested widgets be stateful.
+~~Apparently, having a `FormKey` demands that all related nested widgets be stateful.~~

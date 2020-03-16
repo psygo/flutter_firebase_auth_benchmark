@@ -4,14 +4,9 @@ import 'package:provider/provider.dart';
 import '../../exceptions/login.dart';
 import '../../providers/login_workflow_provider.dart';
 
-class LoginWorkflowAnimatedSwitcher extends StatefulWidget {
+class LoginWorkflowAnimatedSwitcher extends StatelessWidget {
   const LoginWorkflowAnimatedSwitcher({Key key}) : super(key: key);
 
-  @override
-  _LoginWorkflowAnimatedSwitcherState createState() => _LoginWorkflowAnimatedSwitcherState();
-}
-
-class _LoginWorkflowAnimatedSwitcherState extends State<LoginWorkflowAnimatedSwitcher> {
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginWorkflowHandler>(
