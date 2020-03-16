@@ -2,19 +2,19 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
+  FlutterDriver driver;
+
+  setUpAll(() async {
+    driver = await FlutterDriver.connect();
+  });
+
+  bool driverIsNotNull() => driver != null;
+
+  tearDownAll(() async {
+    if (driverIsNotNull()) await driver.close();
+  });
+
   group('Sign In', () {
-    FlutterDriver driver;
-
-    setUpAll(() async {
-      driver = await FlutterDriver.connect();
-    });
-
-    bool driverIsNotNull() => driver != null;
-
-    tearDownAll(() async {
-      if (driverIsNotNull()) await driver.close();
-    });
-
     test('Successful Sign In', () async {
       await driver.tap(find.byValueKey('email_field'));
       await driver.enterText('pf@gmail.com');
@@ -28,4 +28,8 @@ void main() {
           'You\'re logged in!');
     });
   });
+
+  group('Password Reset', () {});
+
+  group('Sign Up', () {});
 }
