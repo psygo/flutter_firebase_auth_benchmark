@@ -172,8 +172,9 @@ class TextFormFieldWithErrorTextOption extends FormField<String> {
             return TextField(
               controller: state._effectiveController,
               focusNode: focusNode,
-              decoration: effectiveDecoration.copyWith(
-                  errorText: errorTextPresent ? field.errorText : null),
+              decoration: errorTextPresent
+                  ? effectiveDecoration.copyWith(errorText: field.errorText)
+                  : effectiveDecoration,
               keyboardType: keyboardType,
               textInputAction: textInputAction,
               style: style,

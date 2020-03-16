@@ -49,10 +49,10 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   void initState() {
     _passwordIsNotVisible = widget.obscureText;
     _switchIcons();
-    super.initState();
     _focusNode = FocusNode();
     _labelText = widget.labelText;
     _labelTextColor = AuthTextFormFieldColors.labelTextColor;
+    super.initState();
   }
 
   @override
