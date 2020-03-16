@@ -5,7 +5,7 @@ class LoginData {
   final String name;
   final String password;
 
-  LoginData({
+  const LoginData({
     @required this.name,
     @required this.password,
   });
@@ -13,9 +13,11 @@ class LoginData {
   @override
   String toString() => '$runtimeType($name, $password)';
 
-  bool operator ==(Object otherObject) => otherObject is LoginData
-      ? name == otherObject.name && password == otherObject.password
-      : false;
+  @override
+  bool operator ==(Object otherObject) =>
+      otherObject is LoginData &&
+      (name == otherObject.name && password == otherObject.password);
 
+  @override
   int get hashCode => hash2(name, password);
 }
