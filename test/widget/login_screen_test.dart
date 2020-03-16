@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_firebase_auth_benchmark/screens/login_screen.dart';
 import 'package:flutter_firebase_auth_benchmark/widgets/login/auth_textformfield.dart';
+import 'package:flutter_firebase_auth_benchmark/widgets/utils/text_form_field_without_errortext.dart';
 
 import 'utils.dart';
 
@@ -12,7 +13,7 @@ void main() {
   final MultiProvider wrappedLoginScreen =
       WidgetWrappers.materialWrapperWithLoginWorkflowProvider(loginScreen);
 
-  group('Login Screen Components Check', () {
+  group('Login Screen Login Check', () {
     void checkEachKeyOneWidget(List<Key> keys) {
       for (final Key key in keys) {
         expect(find.byKey(key), findsOneWidget);
@@ -24,7 +25,7 @@ void main() {
       await tester.pumpWidget(wrappedLoginScreen);
 
       const Map<Type, int> typesByNumberOfWidgets = {
-        TextFormField: 2,
+        TextFormFieldWithErrorTextOption: 2,
         FlatButton: 2,
         RaisedButton: 1,
       };
