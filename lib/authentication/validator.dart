@@ -1,11 +1,11 @@
 abstract class AuthenticationValidator {
   static String validateEmail(String email) {
-    if (email.isEmpty) {
+    if (AuthenticationUtils.emailIsEmpty(email)) {
       return AuthenticationMsgs.emptyEmail;
-    } else if (AuthenticationUtils.emailRegExp.hasMatch(email)) {
-      return null;
-    } else {
+    } else if (AuthenticationUtils.invalidEmail(email)) {
       return AuthenticationMsgs.invalidEmail;
+    } else {
+      return null;
     }
   }
 
@@ -13,40 +13,70 @@ abstract class AuthenticationValidator {
     if (password.isEmpty) {
       return AuthenticationMsgs.emptyPassword;
     } else if (AuthenticationUtils.passwordIsTooShort(password)) {
-      return AuthenticationMsgs.passwordTooShort;
-    } else if (AuthenticationUtils.passwordRegExp.hasMatch(password)) {
-      return null;
-    } else {
+      return AuthenticationMsgs.atLeast8CharMsg;
+    } else if (AuthenticationUtils.passwordHasNoNumber(password)) {
+      return AuthenticationMsgs.atLeastOneNumberMsg;
+    } else if (AuthenticationUtils.passwordHasNoUpperCase(password)) {
+      return AuthenticationMsgs.atLeastOneUpperCaseMsg;
+    } else if (AuthenticationUtils.passwordHasNoSpecialChar(password)) {
+      return AuthenticationMsgs.atLeastOneSpecialCharacter;
+    } else if (AuthenticationUtils.passwordHasNoLowerCase(password)) {
+      return AuthenticationMsgs.atLeastOneLowerCase;
+    } else if (AuthenticationUtils.invalidPassword(password)) {
       return AuthenticationMsgs.invalidPassword;
+    } else {
+      return null;
     }
   }
 
   static String validateConfirmPassword(
           String password, String confirmPassword) =>
-      password == confirmPassword
-          ? null
-          : AuthenticationMsgs.confirmPasswordDoesNotMatch;
+      password != confirmPassword
+          ? AuthenticationMsgs.confirmPasswordDoesNotMatch
+          : null;
 }
 
 abstract class AuthenticationMsgs {
-  static const String emptyEmail = 'Your email cannot be blank.';
-  static const String invalidEmail = 'Your email is invalid.';
+  static const String emptyEmail = 'can\'t be blank';
+  static const String invalidEmail = 'invalid email';
 
-  static const String emptyPassword = 'Your password cannot be blank.';
-  static const String passwordTooShort =
-      'Your password must be longer than 8 characters.';
-  static const String invalidPassword =
-      'Your password needs at least 8 characters, on uppercase letter, one lowercase letter, one number and one special character.';
+  static const String emptyPassword = 'can\'t be blank';
+  static const String atLeast8CharMsg = 'min 8 characters';
+  static const String atLeastOneNumberMsg = 'min 1 number';
+  static const String atLeastOneUpperCaseMsg = 'min 1 upper case';
+  static const String atLeastOneSpecialCharacter = 'min 1 special char';
+  static const String atLeastOneLowerCase = 'min 1 lower case';
+  static const String invalidPassword = 'invalid Password';
 
-  static const String confirmPasswordDoesNotMatch =
-      'Your password and your confirmation password don\'t match.';
+  static const String confirmPasswordDoesNotMatch = 'passwords don\'t match';
 }
 
 abstract class AuthenticationUtils {
+  static const passwordMinLength = 8;
+
   static final RegExp emailRegExp = RegExp(
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
-  static final RegExp passwordRegExp = RegExp(
-      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+  static final RegExp completePasswordRegExp = RegExp(
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$');
+  static final RegExp atLeastOneNumberRegExp = RegExp(r'^(?=.*\d)');
+  static final RegExp atLeastOneUpperCaseRegExp = RegExp(r'^(?=.*[A-Z])');
+  static final RegExp atLeastOneSpecialCharRegExp =
+      RegExp(r'^(?=.*[@$!%*?&#])');
+  static final RegExp atLeastOneLowerCaseRegExp = RegExp(r'^(?=.*[a-z])');
 
-  static bool passwordIsTooShort(String password) => password.length < 6;
+  static bool emailIsEmpty(String email) => email.isEmpty;
+  static bool invalidEmail(String email) => !emailRegExp.hasMatch(email);
+
+  static bool passwordIsTooShort(String password) =>
+      password.length < passwordMinLength;
+  static bool passwordHasNoNumber(String password) =>
+      !atLeastOneNumberRegExp.hasMatch(password);
+  static bool passwordHasNoUpperCase(String password) =>
+      !atLeastOneUpperCaseRegExp.hasMatch(password);
+  static bool passwordHasNoSpecialChar(String password) =>
+      !atLeastOneSpecialCharRegExp.hasMatch(password);
+  static bool passwordHasNoLowerCase(String password) =>
+      !atLeastOneLowerCaseRegExp.hasMatch(password);
+  static bool invalidPassword(String password) =>
+      !completePasswordRegExp.hasMatch(password);
 }

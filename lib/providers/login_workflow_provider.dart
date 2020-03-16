@@ -12,36 +12,21 @@ enum LoginSubWorkflow {
 }
 
 class LoginWorkflowHandler extends ChangeNotifier {
-  static const double initialLoginContainerPadding = 160;
-  static const double extraPadding = 30;
-
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
   GlobalKey<FormState> _formKey;
-  bool _formIsValidated = true;
-  double loginContainerPadding = initialLoginContainerPadding;
+  String _password;
 
   LoginWorkflowHandler();
 
   GlobalKey<FormState> get formKey => _formKey;
-
-  set formKey(GlobalKey<FormState> formKey) => _formKey = formKey;
-
   bool get isLoginOrSignup =>
       _loginSubWorkflow == LoginSubWorkflow.login ||
       _loginSubWorkflow == LoginSubWorkflow.signup;
+  String get password => _password;
 
-  void _resetFormvalidation() => _formIsValidated = true;
-
-  void validateForm() {
-    if (_formKey.currentState.validate()) {
-      _formIsValidated = true;
-      // loginContainerPadding = initialLoginContainerPadding;
-    } else {
-      _formIsValidated = false;
-      // loginContainerPadding = extraPaddedLoginContainer;
-      print('invalidated');
-    }
-
+  set formKey(GlobalKey<FormState> formKey) => _formKey = formKey;
+  set password(String newPassword) {
+    _password = newPassword;
     notifyListeners();
   }
 
@@ -64,13 +49,14 @@ class LoginWorkflowHandler extends ChangeNotifier {
 
   double get workflowHeight {
     double height;
+    const double padding = 160;
 
     switch (_loginSubWorkflow) {
       case LoginSubWorkflow.login:
-        height = _formIsValidated ? LoginWorkflow.height : LoginWorkflow.height + extraPadding;
+        height = LoginWorkflow.height;
         break;
       case LoginSubWorkflow.passwordReset:
-        height = _formIsValidated ? PasswordResetWorkflow.height : PasswordResetWorkflow.height + extraPadding;
+        height = PasswordResetWorkflow.height;
         return height + 100;
         break;
       case LoginSubWorkflow.signup:
@@ -81,7 +67,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
             'There should only be 3 types of login sub workflows.');
     }
 
-    height += loginContainerPadding;
+    height += padding;
     return height;
   }
 
@@ -101,7 +87,6 @@ class LoginWorkflowHandler extends ChangeNotifier {
             'There should only be 3 types of login sub workflows.');
     }
 
-    _resetFormvalidation();
     notifyListeners();
   }
 }

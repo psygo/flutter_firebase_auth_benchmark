@@ -64,7 +64,11 @@ class LoginWorkflow extends StatelessWidget {
                 elevation: AuxiliaryTheming.raisedButtonElevation,
                 color: BasicColors.blue,
                 textColor: BasicColors.white,
-                onPressed: loginWorkflowProvider.validateForm,
+                onPressed: () {
+                  if (loginWorkflowProvider.formKey.currentState.validate()) {
+                    print('validated');
+                  }
+                },
                 child: Text(
                   'LOGIN',
                   style: TextStyle(
@@ -74,7 +78,7 @@ class LoginWorkflow extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 19,
             ),
           ],
         );

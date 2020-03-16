@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/text_form_field_without_errortext.dart';
 import '../../theme/colors.dart';
 
 class AuthTextFormField extends StatefulWidget {
@@ -10,7 +11,8 @@ class AuthTextFormField extends StatefulWidget {
   final IconData icon;
   final bool obscureText;
   final String Function(String) validator;
-  final String Function(String) errorTextValidator;
+  final String Function(String) labelTextValidator;
+  final void Function(String) onChanged;
 
   const AuthTextFormField({
     Key key,
@@ -21,7 +23,8 @@ class AuthTextFormField extends StatefulWidget {
     this.icon,
     this.obscureText = false,
     this.validator,
-    this.errorTextValidator,
+    this.labelTextValidator,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -36,7 +39,8 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   Key _visibilityIconKey;
   IconData _visibilityIcon;
   FocusNode _focusNode;
-  String Function(String) _errorTextValidator;
+  String _labelText;
+  Color _labelTextColor;
 
   @visibleForTesting
   bool get textIsVisible => !_passwordIsNotVisible;
@@ -47,7 +51,8 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _switchIcons();
     super.initState();
     _focusNode = FocusNode();
-    _errorTextValidator = widget.errorTextValidator;
+    _labelText = widget.labelText;
+    _labelTextColor = AuthTextFormFieldColors.labelTextColor;
   }
 
   @override
@@ -78,23 +83,50 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
-  String _errorTextValidatorShieldCall(String text) =>
-      _errorTextValidator == null ? null : _errorTextValidator(text);
+  String _labelTextValidatorShieldCall(String text) =>
+      widget.labelTextValidator != null
+          ? widget.labelTextValidator(text)
+          : null;
+
+  void _updateLabelText(String text) {
+    final String newLabelText = _labelTextValidatorShieldCall(text);
+    setState(() {
+      if (newLabelText != null) {
+        _labelText = newLabelText;
+        _labelTextColor = AuthTextFormFieldColors.labelTextErrorColor;
+      } else {
+        _labelText = widget.labelText;
+        _labelTextColor = AuthTextFormFieldColors.labelTextColor;
+      }
+    });
+  }
+
+  void _onChangedShieldCall(String text) =>
+      widget.onChanged != null ? widget.onChanged(text) : null;
+
+  void _onChangedAndUpdateLabelText(String text) {
+    _onChangedShieldCall(text);
+    _updateLabelText(text);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextFormFieldWithErrorTextOption(
+      errorTextPresent: false,
       controller: _textEditingController,
       validator: widget.validator,
       keyboardType: widget.keyboardType,
       obscureText: _passwordIsNotVisible,
       focusNode: _focusNode,
       onTap: _requestFocus,
+      onChanged: (String text) => _onChangedAndUpdateLabelText(text),
       decoration: InputDecoration(
-        errorText: _errorTextValidatorShieldCall(_textEditingController.text),
         hintText:
             _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
-        labelText: widget.labelText,
+        labelText: _labelText,
+        labelStyle: TextStyle(
+          color: _labelTextColor,
+        ),
         prefixIcon: Icon(
           widget.icon,
           color: AuthTextFormFieldColors.prefixIconColor,

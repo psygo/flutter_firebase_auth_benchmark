@@ -1,5 +1,7 @@
 name: flutter_firebase_auth_benchmark
 
+author: Philippe Fanaro <philippefanaro@gmail.com>
+
 description: >-
   A benchmark for Authentication through Firebase in Flutter.
 
@@ -34,4 +36,6 @@ dependencies:
   cupertino_icons: ^0.1.2
   meta: ^1.1.8
   provider: ^4.0.4
+  firebase_core: ^0.4.4+3
   firebase_auth: ^0.15.5+2
+  cloud_firestore: ^0.13.4+2

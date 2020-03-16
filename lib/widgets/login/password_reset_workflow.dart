@@ -59,7 +59,11 @@ class PasswordResetWorkflow extends StatelessWidget {
                 elevation: AuxiliaryTheming.raisedButtonElevation,
                 color: BasicColors.blue,
                 textColor: BasicColors.white,
-                onPressed: loginWorkflowProvider.validateForm,
+                onPressed: () {
+                  if (loginWorkflowProvider.formKey.currentState.validate()) {
+                    print('validated');
+                  }
+                },
                 child: Text(
                   'SEND RESET EMAIL',
                   style: TextStyle(
@@ -70,7 +74,7 @@ class PasswordResetWorkflow extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 19,
           )
         ],
       );

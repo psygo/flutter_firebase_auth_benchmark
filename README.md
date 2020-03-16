@@ -2,7 +2,13 @@
 
 A benchmark for Authentication through Firebase in Flutter.
 
-Heavily inspired by the [`flutter_login`](https://pub.dev/packages/flutter_login) package, by Near Huscarl. Even though it is not as pretty or so intensely parameterized, the overall structure of the code is much more simple and accessible &mdash; in part, this is due to using `AnimatedSwitcher` and `Visibility` widgets to handle animations, instead of customized raw animations.
+Heavily inspired design by the [`flutter_login`](https://pub.dev/packages/flutter_login) package, by Near Huscarl. Even though it is not as pretty or so intensely parameterized, the overall structure of the code is much more simple and accessible &mdash; in part, this is due to using `AnimatedSwitcher` and `Visibility` widgets to handle animations, instead of customized raw animations.
+
+## Firebase
+
+Firebase is enabled, however, for security reasons, I chose to omit the `json` settings files. They are listed inside the `.gitignore` file.
+
+More info can be found in the `docs/` folder.
 
 ## Tests
 
@@ -24,3 +30,7 @@ Email and Password Validation were both accomplished through the use of *regular
     - One lowercase letter
     - One number
     - One special character
+
+## The `TextFormField` Problem
+
+Unfortunately, the source's `TextFormField` doesn't allow us to disable the `errorText`, which, in my case, can mess up the design quite badly, since I chose to present the errors in the `labelText`. However, there seems to be a more or less easy way of fixing this if we add a parameter to the original `TextFormField`, which is what I did. You can find out more about it in [this SO answer](https://stackoverflow.com/a/60695612/4756173) (or in Issue [#52634](https://github.com/flutter/flutter/issues/52634)).
