@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/login_workflow_provider.dart';
+import 'screens/logged_in_screen.dart';
 import 'screens/login_screen.dart';
 import 'theme/theme.dart';
 
@@ -19,6 +20,7 @@ class FirebaseAuthenticationApp extends StatelessWidget {
           initialRoute: LoginScreen.id,
           routes: {
             LoginScreen.id: (_) => LoginScreen(),
+            LoggedInScreen.id: (_) => LoggedInScreen(),
           }),
     );
   }

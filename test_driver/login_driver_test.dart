@@ -8,10 +8,10 @@ void main() {
     driver = await FlutterDriver.connect();
   });
 
-  bool driverIsNotNull() => driver != null;
+  // bool driverIsNotNull() => driver != null;
 
   tearDownAll(() async {
-    if (driverIsNotNull()) await driver.close();
+    await driver?.close();
   });
 
   group('Sign In', () {
