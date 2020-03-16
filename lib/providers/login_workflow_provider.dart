@@ -30,6 +30,8 @@ class LoginWorkflowHandler extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool validate() => _formKey.currentState.validate();
+
   Widget get widget {
     switch (_loginSubWorkflow) {
       case LoginSubWorkflow.login:

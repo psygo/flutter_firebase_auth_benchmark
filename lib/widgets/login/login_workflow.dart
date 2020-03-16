@@ -66,9 +66,7 @@ class LoginWorkflow extends StatelessWidget {
                 color: BasicColors.blue,
                 textColor: BasicColors.white,
                 onPressed: () {
-                  if (loginWorkflowProvider.formKey.currentState.validate()) {
-                    print('validated');
-
+                  if (loginWorkflowProvider.validate()) {
                     Navigator.pushNamed(
                       context,
                       LoggedInScreen.id,

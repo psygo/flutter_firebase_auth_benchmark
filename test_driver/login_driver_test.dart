@@ -8,8 +8,6 @@ void main() {
     driver = await FlutterDriver.connect();
   });
 
-  // bool driverIsNotNull() => driver != null;
-
   tearDownAll(() async {
     await driver?.close();
   });
