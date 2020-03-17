@@ -16,6 +16,7 @@ abstract class BaseAuth extends ChangeNotifier {
   Future<void> signUp({@required String email, @required String password});
   Future<FirebaseUser> getCurrentUserFromFirebase();
   Future<void> signOut();
+  Future<void> deleteUser();
 }
 
 class Auth extends ChangeNotifier implements BaseAuth {
@@ -56,5 +57,16 @@ class Auth extends ChangeNotifier implements BaseAuth {
       await BaseAuth.firebaseAuth.currentUser();
 
   @override
-  Future<void> signOut() async => await BaseAuth.firebaseAuth.signOut();
+  Future<void> signOut() async{
+    await BaseAuth.firebaseAuth.signOut();
+    _user = null;
+    _authStatus = _userIsLoggedInOrNot();
+  } 
+
+  @override
+  Future<void> deleteUser() async {
+    await _user?.delete();
+    _user = null;
+    _authStatus = AuthStatus.not_determined;
+  }
 }

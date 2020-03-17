@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_firebase_auth_benchmark/widgets/utils/text_form_field_without_errortext.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_firebase_auth_benchmark/main.dart';
 
 void main() {
+  const String dummyEmail = 'ppsf@gmail.com';
+  const String dummyPassword = 'asdfA\$D1';
   FirebaseAuthenticationApp app;
 
   setUp(() {
@@ -15,18 +18,22 @@ void main() {
       await tester.pumpWidget(app);
 
       await tester.tap(find.byKey(Key('signup_button')));
+      await tester.pump();
 
-      const String email = 'pst@gmail.com';
-      const String password = 'asdfA\$D1';
-
-      await tester.enterText(find.byKey(Key('email_field')), email);
-      await tester.enterText(find.byKey(Key('password_field')), password);
+      await tester.enterText(find.byKey(Key('email_field')), dummyEmail);
+      await tester.pump();
+      await tester.enterText(find.byKey(Key('password_field')), dummyPassword);
+      await tester.pump();
       await tester.enterText(
-          find.byKey(Key('confirm_password_field')), password);
+          find.byKey(Key('confirm_password_field')), dummyPassword);
+      await tester.pump();
 
       await tester.tap(find.byKey(Key('create_account_button')));
+      await tester.pump();
 
-      expect(find.text('pst@gmail.com'), findsOneWidget);
+      // expect(find.byKey(Key('user_email_text')), findsOneWidget);
+      // expect(find.text('ppsf@gmail.com'), findsOneWidget);
+      // expect(find.byKey(Key('user_uid_text')), findsOneWidget);
     });
 
     tearDown(() {});

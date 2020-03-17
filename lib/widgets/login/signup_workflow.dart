@@ -80,10 +80,7 @@ class SignupWorkflow extends StatelessWidget {
                             email: loginWorkflowProvider.email,
                             password: loginWorkflowProvider.password);
 
-                        await Navigator.pushNamed(
-                          context,
-                          LoggedInScreen.id,
-                        );
+                        await Navigator.pushNamed(context, LoggedInScreen.id);
                       }
                     },
                     child: Text(

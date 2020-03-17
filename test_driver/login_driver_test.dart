@@ -12,7 +12,28 @@ void main() {
     await driver?.close();
   });
 
-  group('Sign Up', () {});
+  group('Sign Up', () {
+    const String dummyEmail = 'ppsf@gmail.com';
+    const String dummyPassword = 'asdfA\$D1';
+
+    test('Successful Sign Up', () async {
+      await driver.tap(find.byValueKey('signup_button'));
+
+      await driver.tap(find.byValueKey('email_field'));
+      await driver.enterText(dummyEmail);
+
+      await driver.tap(find.byValueKey('password_field'));
+      await driver.enterText(dummyPassword);
+
+      await driver.tap(find.byValueKey('confirm_password_field'));
+      await driver.enterText(dummyPassword);
+
+      await driver.tap(find.byValueKey('create_account_button'));
+
+      expect(await driver.getText(find.byValueKey('user_email_text')),
+          dummyEmail);
+    });
+  });
 
   group('Sign In', () {
     test('Successful Sign In', () async {
@@ -24,7 +45,9 @@ void main() {
 
       await driver.tap(find.byValueKey('login_button'));
 
-      expect(await driver.getText(find.byValueKey(('logged_in_text'))),
+      await 
+
+      expect(await driver.getText(find.byValueKey('logged_in_text')),
           'You\'re logged in!');
     });
   });

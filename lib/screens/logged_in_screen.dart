@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../authentication/firebase_auth.dart';
+import '../screens/login_screen.dart';
 import '../theme/colors.dart';
 
 class LoggedInScreen extends StatelessWidget {
@@ -39,7 +40,8 @@ class LoggedInScreen extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          '${auth.user.email}',
+                          '${auth.user?.email}',
+                          key: Key('user_email_text'),
                         ),
                       ],
                     ),
@@ -57,7 +59,8 @@ class LoggedInScreen extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          '${auth.user.uid}',
+                          '${auth.user?.uid}',
+                          key: Key('user_uid_text'),
                         ),
                       ],
                     ),
@@ -67,10 +70,73 @@ class LoggedInScreen extends StatelessWidget {
             ),
           ),
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Text(
               'Logged In Screen',
             ),
           ),
+          floatingActionButton: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              FloatingActionButton(
+                heroTag: 'delete_account_button',
+                key: Key('delete_account_button'),
+                child: Icon(
+                  Icons.delete,
+                ),
+                onPressed: () async {
+                  await auth.deleteUser();
+
+                  await Navigator.pushNamed(context, LoginScreen.id);
+                },
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              FloatingActionButton(
+                heroTag: 'sign_out_button',
+                key: Key('sign_out_button'),
+                child: Icon(
+                  Icons.arrow_back,
+                ),
+                onPressed: () async {
+                  await auth.signOut();
+
+                  await Navigator.pushNamed(context, LoginScreen.id);
+                },
+              ),
+            ],
+          ),
+          // floatingActionButton: Row(
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children: <Widget>[
+          //     FloatingActionButton(
+          //       key: Key('delete_account'),
+          //       child: Icon(
+          //         Icons.delete,
+          //       ),
+          //       onPressed: () async {
+          //         await auth.deleteUser();
+
+          //         await Navigator.pushNamed(context, LoginScreen.id);
+          //       },
+          //     ),
+          //     SizedBox(
+          //       width: 10,
+          //     ),
+          //     FloatingActionButton(
+          //       key: Key('sign_out'),
+          //       child: Icon(
+          //         Icons.arrow_back,
+          //       ),
+          //       onPressed: () async {
+          //         await auth.signOut();
+
+          //         await Navigator.pushNamed(context, LoginScreen.id);
+          //       },
+          //     )
+          //   ],
+          // ),
         );
       },
     );
