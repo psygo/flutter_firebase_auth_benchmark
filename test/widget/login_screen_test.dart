@@ -11,7 +11,7 @@ import 'utils.dart';
 void main() {
   final LoginScreen loginScreen = LoginScreen();
   final MultiProvider wrappedLoginScreen =
-      WidgetWrappers.materialWrapperWithLoginWorkflowProvider(loginScreen);
+      WidgetWrappers.materialWrapperWithLoginWorkflowProviderAndAuth(loginScreen);
 
   group('Login Screen Login Check', () {
     void checkEachKeyOneWidget(List<Key> keys) {

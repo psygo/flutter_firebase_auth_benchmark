@@ -33,7 +33,7 @@ class Auth extends ChangeNotifier implements BaseAuth {
 
   @override
   Future<void> signInWithEmailAndPassword(
-      {String email, String password}) async {
+      {@required String email, @required String password}) async {
     AuthResult authResult = await BaseAuth.firebaseAuth
         .signInWithEmailAndPassword(email: email, password: password);
 
@@ -42,7 +42,7 @@ class Auth extends ChangeNotifier implements BaseAuth {
   }
 
   @override
-  Future<void> signUp({String email, String password}) async {
+  Future<void> signUp({@required String email, @required String password}) async {
     AuthResult authResult = await BaseAuth.firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password);
         

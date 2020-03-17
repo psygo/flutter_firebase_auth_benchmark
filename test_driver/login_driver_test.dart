@@ -12,6 +12,8 @@ void main() {
     await driver?.close();
   });
 
+  group('Sign Up', () {});
+
   group('Sign In', () {
     test('Successful Sign In', () async {
       await driver.tap(find.byValueKey('email_field'));
@@ -28,6 +30,4 @@ void main() {
   });
 
   group('Password Reset', () {});
-
-  group('Sign Up', () {});
 }
