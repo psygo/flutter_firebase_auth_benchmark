@@ -15,6 +15,7 @@ class LoggedInScreen extends StatelessWidget {
           body: Container(
             color: BasicColors.white,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   'You\'re logged in!',
@@ -22,6 +23,9 @@ class LoggedInScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 30,
                   ),
+                ),
+                SizedBox(
+                  height: 50,
                 ),
                 Row(
                   children: <Widget>[

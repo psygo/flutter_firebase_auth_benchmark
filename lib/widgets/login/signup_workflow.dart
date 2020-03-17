@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_benchmark/authentication/validator.dart';
 import 'package:provider/provider.dart';
 
 import 'auth_textformfield.dart';
 import 'button_alignment_wrapper.dart';
+import '../../authentication/firebase_auth.dart';
+import '../../authentication/validator.dart';
 import '../../providers/login_workflow_provider.dart';
+import '../../screens/logged_in_screen.dart';
 import '../../screens/login_screen.dart';
 import '../../theme/auxiliary_theming.dart';
 import '../../theme/colors.dart';
@@ -61,28 +63,39 @@ class SignupWorkflow extends StatelessWidget {
           SizedBox(
             height: LoginScreen.widgetSpacing,
           ),
-          ButtonAlignmentWrapper(
-            height: 40,
-            child: SizedBox(
-              width: 165,
-              child: RaisedButton(
-                key: Key('create_account_button'),
-                elevation: AuxiliaryTheming.raisedButtonElevation,
-                color: BasicColors.blue,
-                textColor: BasicColors.white,
-                onPressed: () {
-                  if (loginWorkflowProvider.formKey.currentState.validate()) {
-                    print('validated');
-                  }
-                },
-                child: Text(
-                  'CREATE ACCOUNT',
-                  style: TextStyle(
-                    fontSize: 14.5,
+          Consumer<Auth>(
+            builder: (context, auth, _) {
+              return ButtonAlignmentWrapper(
+                height: 40,
+                child: SizedBox(
+                  width: 165,
+                  child: RaisedButton(
+                    key: Key('create_account_button'),
+                    elevation: AuxiliaryTheming.raisedButtonElevation,
+                    color: BasicColors.blue,
+                    textColor: BasicColors.white,
+                    onPressed: () async {
+                      if (loginWorkflowProvider.validate()) {
+                        await auth.signUp(
+                            email: loginWorkflowProvider.email,
+                            password: loginWorkflowProvider.password);
+
+                        await Navigator.pushNamed(
+                          context,
+                          LoggedInScreen.id,
+                        );
+                      }
+                    },
+                    child: Text(
+                      'CREATE ACCOUNT',
+                      style: TextStyle(
+                        fontSize: 14.5,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       );

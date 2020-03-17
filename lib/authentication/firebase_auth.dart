@@ -42,10 +42,11 @@ class Auth extends ChangeNotifier implements BaseAuth {
   }
 
   @override
-  Future<void> signUp({@required String email, @required String password}) async {
+  Future<void> signUp(
+      {@required String email, @required String password}) async {
     AuthResult authResult = await BaseAuth.firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password);
-        
+
     _user = authResult.user;
     _authStatus = _userIsLoggedInOrNot();
   }

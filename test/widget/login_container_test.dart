@@ -15,7 +15,8 @@ void main() {
     }),
   );
   final wrappedLoginContainer =
-      WidgetWrappers.materialWrapperWithLoginWorkflowProviderAndAuth(loginContainer);
+      WidgetWrappers.materialWrapperWithLoginWorkflowProviderAndAuth(
+          loginContainer);
 
   testWidgets('Tests LoginContainer Initialization', (tester) async {
     await tester.pumpWidget(wrappedLoginContainer);
