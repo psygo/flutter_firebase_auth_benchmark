@@ -35,7 +35,7 @@ class LoggedInScreen extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          '${auth.getCurrentUser()}',
+                          '',
                         ),
                       ],
                     ),

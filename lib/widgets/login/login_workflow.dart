@@ -75,7 +75,7 @@ class LoginWorkflow extends StatelessWidget {
                             email: loginWorkflowProvider.email,
                             password: loginWorkflowProvider.password);
 
-                        FirebaseUser user = await auth.getCurrentUser();
+                        FirebaseUser user = await auth.getCurrentUserFromFirebase();
                         print(user.uid);
                         print(user.displayName);
                         print(user.email);
