@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../authentication/firebase.dart';
+import '../authentication/firebase_auth.dart';
 import '../theme/colors.dart';
 
 class LoggedInScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'authentication/firebase.dart';
+import 'authentication/firebase_auth.dart';
 import 'providers/login_workflow_provider.dart';
 import 'screens/logged_in_screen.dart';
 import 'screens/login_screen.dart';
