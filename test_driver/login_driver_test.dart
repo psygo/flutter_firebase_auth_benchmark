@@ -30,8 +30,8 @@ void main() {
 
       await driver.tap(find.byValueKey('create_account_button'));
 
-      expect(await driver.getText(find.byValueKey('user_email_text')),
-          dummyEmail);
+      expect(
+          await driver.getText(find.byValueKey('user_email_text')), dummyEmail);
 
       await driver.tap(find.byValueKey('delete_account_button'));
     });
@@ -45,10 +45,14 @@ void main() {
         createAccountButton != null;
 
     test('Successful Sign In', () async {
-      final SerializableFinder createAccountButton = find.byValueKey('create_account_button');
-      final SerializableFinder cancelSignupButton = find.byValueKey('cancel_signup_button');
-      if (createAccountButtonExists(createAccountButton)) await driver.tap(cancelSignupButton);
-
+      final SerializableFinder createAccountButton =
+          find.byValueKey('create_account_button');
+      final SerializableFinder cancelSignupButton =
+          find.byValueKey('cancel_signup_button');
+      if (createAccountButtonExists(createAccountButton)){
+        await driver.tap(cancelSignupButton);
+      }
+      
       await driver.tap(find.byValueKey('email_field'));
       await driver.enterText(dummyPermanentEmail);
 

@@ -57,11 +57,11 @@ class Auth extends ChangeNotifier implements BaseAuth {
       await BaseAuth.firebaseAuth.currentUser();
 
   @override
-  Future<void> signOut() async{
+  Future<void> signOut() async {
     await BaseAuth.firebaseAuth.signOut();
     _user = null;
     _authStatus = _userIsLoggedInOrNot();
-  } 
+  }
 
   @override
   Future<void> deleteUser() async {
