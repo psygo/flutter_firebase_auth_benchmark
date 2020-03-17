@@ -14,6 +14,7 @@ abstract class BaseAuth extends ChangeNotifier {
   Future<void> signInWithEmailAndPassword(
       {@required String email, @required String password});
   Future<void> signUp({@required String email, @required String password});
+  Future<void> sendPasswordResetWithEmail({@required String email});
   Future<FirebaseUser> getCurrentUserFromFirebase();
   Future<void> signOut();
   Future<void> deleteUser();
@@ -22,11 +23,13 @@ abstract class BaseAuth extends ChangeNotifier {
 class Auth extends ChangeNotifier implements BaseAuth {
   AuthStatus _authStatus = AuthStatus.not_determined;
   FirebaseUser _user;
+  String _resetEmail;
 
   Auth();
 
   AuthStatus get authStatus => _authStatus;
   FirebaseUser get user => _user;
+  String get resetEmail => _resetEmail;
 
   bool _userIsNotNull() => _user != null;
   AuthStatus _userIsLoggedInOrNot() =>
@@ -50,6 +53,12 @@ class Auth extends ChangeNotifier implements BaseAuth {
 
     _user = authResult.user;
     _authStatus = _userIsLoggedInOrNot();
+  }
+
+  @override
+  Future<void> sendPasswordResetWithEmail({@required String email}) async {
+    await BaseAuth.firebaseAuth.sendPasswordResetEmail(email: email);
+    _resetEmail = email;
   }
 
   @override
