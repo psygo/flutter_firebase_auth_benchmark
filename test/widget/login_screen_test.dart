@@ -102,7 +102,7 @@ void main() {
 
       final List<Key> signUpButtonKeys = [
         Key('cancel_reset_button'),
-        Key('send_password_verification_button')
+        Key('send_password_reset_button')
       ];
 
       signUpButtonKeys.forEach((Key key) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'button_alignment_wrapper.dart';
+import '../../authentication/firebase_auth.dart';
 import '../../providers/login_workflow_provider.dart';
 import '../../screens/login_screen.dart';
 import '../../theme/auxiliary_theming.dart';
@@ -50,28 +51,33 @@ class PasswordResetWorkflow extends StatelessWidget {
           SizedBox(
             height: LoginScreen.widgetSpacing,
           ),
-          ButtonAlignmentWrapper(
-            height: 40,
-            child: SizedBox(
-              width: 165,
-              child: RaisedButton(
-                key: Key('send_password_verification_button'),
-                elevation: AuxiliaryTheming.raisedButtonElevation,
-                color: BasicColors.blue,
-                textColor: BasicColors.white,
-                onPressed: () {
-                  if (loginWorkflowProvider.formKey.currentState.validate()) {
-                    print('validated');
-                  }
-                },
-                child: Text(
-                  'SEND RESET EMAIL',
-                  style: TextStyle(
-                    fontSize: 14.5,
+          Consumer<Auth>(
+            builder: (context, auth, _){
+              return ButtonAlignmentWrapper(
+                height: 40,
+                child: SizedBox(
+                  width: 165,
+                  child: RaisedButton(
+                    key: Key('send_password_reset_button'),
+                    elevation: AuxiliaryTheming.raisedButtonElevation,
+                    color: BasicColors.blue,
+                    textColor: BasicColors.white,
+                    onPressed: () async {
+                      if (loginWorkflowProvider.validate()) {
+                        await auth.sendPasswordResetWithEmail(
+                          email: loginWorkflowProvider.email);
+                      }
+                    },
+                    child: Text(
+                      'SEND RESET EMAIL',
+                      style: TextStyle(
+                        fontSize: 14.5,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
           SizedBox(
             height: 19,

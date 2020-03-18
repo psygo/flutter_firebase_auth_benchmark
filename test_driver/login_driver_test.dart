@@ -68,5 +68,16 @@ void main() {
     });
   });
 
-  group('Password Reset', () {});
+  group('Password Reset', () {
+    const String dummyPermanentEmail = 'philippefanaro@gmail.com';
+
+    test('Simple password reset', () async {
+      await driver.tap(find.byValueKey('forgot_password_button'));
+
+      await driver.tap(find.byValueKey('email_field'));
+      await driver.enterText(dummyPermanentEmail);
+
+      await driver.tap(find.byValueKey('send_password_reset_button'));
+    });
+  });
 }
