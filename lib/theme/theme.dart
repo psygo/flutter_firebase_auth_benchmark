@@ -4,17 +4,17 @@ import 'auxiliary_theming.dart';
 import 'colors.dart';
 
 abstract class Theming {
-  static final ThemeData appTheme = ThemeData(
-    inputDecorationTheme: authTextFormFieldTheme,
-    buttonTheme: flatButtonTheme,
-    iconTheme: defaultIconTheme,
+  static final ThemeData app = ThemeData(
+    inputDecorationTheme: authTextFormField,
+    buttonTheme: flatButton,
+    iconTheme: defaultIcon,
   );
 
-  static const IconThemeData defaultIconTheme = IconThemeData(
+  static const IconThemeData defaultIcon = IconThemeData(
     color: BasicColors.grey,
   );
 
-  static final InputDecorationTheme authTextFormFieldTheme =
+  static final InputDecorationTheme authTextFormField =
       InputDecorationTheme(
     contentPadding: EdgeInsets.symmetric(
       vertical: 15,
@@ -31,20 +31,9 @@ abstract class Theming {
       ),
     ),
     focusedBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
-    errorBorder: OutlineInputBorder(
-      borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
-      borderSide: BorderSide(
-        color: AuthTextFormFieldColors.enabledBorder,
-      ),
-    ),
-    errorStyle: TextStyle(
-      color: AuthTextFormFieldColors.errorText,
-    ),
-    errorMaxLines: 1,
-    focusedErrorBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
   );
 
-  static const ButtonThemeData flatButtonTheme = ButtonThemeData(
+  static const ButtonThemeData flatButton = ButtonThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
     ),

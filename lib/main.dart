@@ -19,7 +19,7 @@ class FirebaseAuthenticationApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => Auth()),
       ],
       child: MaterialApp(
-          theme: Theming.appTheme,
+          theme: Theming.app,
           initialRoute: AuthStateRedirector.id,
           routes: {
             AuthStateRedirector.id: (_) => AuthStateRedirector(),
