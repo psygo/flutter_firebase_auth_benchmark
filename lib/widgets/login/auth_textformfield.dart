@@ -34,6 +34,8 @@ class AuthTextFormField extends StatefulWidget {
 
 @visibleForTesting
 class AuthTextFormFieldState extends State<AuthTextFormField> {
+  static const String tickSymbol = '\u{2713}';
+
   final TextEditingController _textEditingController = TextEditingController();
 
   bool _passwordIsNotVisible;
@@ -41,7 +43,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   IconData _visibilityIcon;
   FocusNode _focusNode;
   String _labelText;
-  Color _labelTextColor;
+  Color _borderColor;
 
   @visibleForTesting
   bool get textIsVisible => !_passwordIsNotVisible;
@@ -52,7 +54,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _switchIcons();
     _focusNode = FocusNode();
     _labelText = widget.labelText;
-    _labelTextColor = AuthTextFormFieldColors.labelTextColor;
+    _borderColor = AuthTextFormFieldColors.borderColor;
     super.initState();
   }
 
@@ -89,10 +91,10 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     setState(() {
       if (newLabelText != null) {
         _labelText = newLabelText;
-        _labelTextColor = AuthTextFormFieldColors.labelTextErrorColor;
+        _borderColor = AuthTextFormFieldColors.borderErrorColor;
       } else {
-        _labelText = widget.labelText;
-        _labelTextColor = AuthTextFormFieldColors.labelTextColor;
+        _labelText = tickSymbol;
+        _borderColor = AuthTextFormFieldColors.borderSuccessColor;
       }
     });
   }
@@ -114,13 +116,14 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
       onTap: _requestFocus,
       onChanged: (String text) => _onChangedAndUpdateLabelText(text),
       decoration: InputDecoration(
-        // enabledBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
+        focusedBorder: AuxiliaryTheming.authTextFormFieldStandardBorder.copyWith(
+          borderSide: BorderSide(
+            color: _borderColor,
+          ),
+        ),
         hintText:
             _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
         labelText: _labelText,
-        labelStyle: TextStyle(
-          color: _labelTextColor,
-        ),
         prefixIcon: Icon(
           widget.icon,
           color: AuthTextFormFieldColors.prefixIconColor,
