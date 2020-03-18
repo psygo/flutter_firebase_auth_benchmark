@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../authentication/firebase_auth.dart';
+import '../providers/firebase_auth.dart';
 import '../screens/login_screen.dart';
 import '../theme/colors.dart';
 

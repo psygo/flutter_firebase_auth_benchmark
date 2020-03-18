@@ -69,7 +69,7 @@ void main() {
   });
 
   group('Password Reset', () {
-    const String dummyPermanentEmail = 'philippefanaro@gmail.com';
+    const String dummyPermanentEmail = 'windbaduk@gmail.com';
 
     test('Simple password reset', () async {
       await driver.tap(find.byValueKey('forgot_password_button'));

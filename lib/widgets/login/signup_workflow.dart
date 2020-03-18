@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'auth_textformfield.dart';
 import 'button_alignment_wrapper.dart';
-import '../../authentication/firebase_auth.dart';
+import '../../providers/firebase_auth.dart';
 import '../../authentication/validator.dart';
 import '../../providers/login_workflow_provider.dart';
 import '../../screens/logged_in_screen.dart';

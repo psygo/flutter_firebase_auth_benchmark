@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_firebase_auth_benchmark/providers/login_workflow_provider.dart';
-import 'package:flutter_firebase_auth_benchmark/authentication/firebase_auth.dart';
+import 'package:flutter_firebase_auth_benchmark/providers/firebase_auth.dart';
 
 abstract class WidgetWrappers {
   static MaterialApp materialWrapper(Widget widget) =>
