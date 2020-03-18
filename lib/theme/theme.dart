@@ -10,7 +10,7 @@ abstract class Theming {
     iconTheme: defaultIconTheme,
   );
 
-  static final IconThemeData defaultIconTheme = IconThemeData(
+  static const IconThemeData defaultIconTheme = IconThemeData(
     color: BasicColors.grey,
   );
 
@@ -19,32 +19,32 @@ abstract class Theming {
     contentPadding: EdgeInsets.symmetric(
       vertical: 15,
     ),
-    fillColor: AuthTextFormFieldColors.fillColor,
+    fillColor: AuthTextFormFieldColors.fill,
     filled: true,
     labelStyle: TextStyle(
-      color: AuthTextFormFieldColors.labelTextColor,
+      color: AuthTextFormFieldColors.labelText,
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
       borderSide: BorderSide(
-        color: AuthTextFormFieldColors.enabledBorderColor,
+        color: AuthTextFormFieldColors.enabledBorder,
       ),
     ),
     focusedBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
     errorBorder: OutlineInputBorder(
       borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
       borderSide: BorderSide(
-        color: AuthTextFormFieldColors.enabledBorderColor,
+        color: AuthTextFormFieldColors.enabledBorder,
       ),
     ),
     errorStyle: TextStyle(
-      color: AuthTextFormFieldColors.errorTextColor,
+      color: AuthTextFormFieldColors.errorText,
     ),
     errorMaxLines: 1,
     focusedErrorBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
   );
 
-  static final ButtonThemeData flatButtonTheme = ButtonThemeData(
+  static const ButtonThemeData flatButtonTheme = ButtonThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
     ),

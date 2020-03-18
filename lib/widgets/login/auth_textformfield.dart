@@ -5,6 +5,8 @@ import '../utils/text_form_field_without_errortext.dart';
 import '../../theme/colors.dart';
 
 class AuthTextFormField extends StatefulWidget {
+  static const String tickSymbol = '\u{2713}';
+
   final TextInputType keyboardType;
   final String hintText;
   final String hintTextOnFocus;
@@ -34,8 +36,6 @@ class AuthTextFormField extends StatefulWidget {
 
 @visibleForTesting
 class AuthTextFormFieldState extends State<AuthTextFormField> {
-  static const String tickSymbol = '\u{2713}';
-
   final TextEditingController _textEditingController = TextEditingController();
 
   bool _passwordIsNotVisible;
@@ -43,6 +43,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   IconData _visibilityIcon;
   FocusNode _focusNode;
   String _labelText;
+  Color _labelTextColor;
   Color _borderColor;
 
   @visibleForTesting
@@ -54,7 +55,8 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _switchIcons();
     _focusNode = FocusNode();
     _labelText = widget.labelText;
-    _borderColor = AuthTextFormFieldColors.borderColor;
+    _labelTextColor = AuthTextFormFieldColors.labelText;
+    _borderColor = AuthTextFormFieldColors.border;
     super.initState();
   }
 
@@ -91,10 +93,12 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     setState(() {
       if (newLabelText != null) {
         _labelText = newLabelText;
-        _borderColor = AuthTextFormFieldColors.borderErrorColor;
+        _labelTextColor = AuthTextFormFieldColors.labelTextError;
+        _borderColor = AuthTextFormFieldColors.borderError;
       } else {
-        _labelText = tickSymbol;
-        _borderColor = AuthTextFormFieldColors.borderSuccessColor;
+        _labelText = AuthTextFormField.tickSymbol;
+        _labelTextColor = AuthTextFormFieldColors.labelTextSuccess;
+        _borderColor = AuthTextFormFieldColors.borderSuccess;
       }
     });
   }
@@ -122,12 +126,15 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
             color: _borderColor,
           ),
         ),
+        labelStyle: TextStyle(
+          color: _labelTextColor,
+        ),
         hintText:
             _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
         labelText: _labelText,
         prefixIcon: Icon(
           widget.icon,
-          color: AuthTextFormFieldColors.prefixIconColor,
+          color: AuthTextFormFieldColors.prefixIcon,
         ),
         suffixIcon: Visibility(
           visible: widget.obscureText,
@@ -135,7 +142,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
             key: _visibilityIconKey,
             icon: Icon(
               _visibilityIcon,
-              color: AuthTextFormFieldColors.suffixIconColor,
+              color: AuthTextFormFieldColors.suffixIcon,
             ),
             onPressed: _switchVisibility,
           ),

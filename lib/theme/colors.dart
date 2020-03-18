@@ -6,6 +6,7 @@ abstract class BasicColors {
   static const Color grey = Colors.grey;
   static final Color grey600 = Colors.grey[600];
   static final Color grey800 = Colors.grey[800];
+  static const Color lightBlueGrey = Color(0xFFEEF5FB);
   static const Color blue = Colors.blue;
   static const Color red = Colors.red;
   static const Color green = Colors.green;
@@ -13,19 +14,21 @@ abstract class BasicColors {
   static const Color transparent = Colors.transparent;
 }
 
-class LoginContainerColors {
+abstract class LoginContainerColors {
   static final Color containerShadowGrey = BasicColors.grey800;
 }
 
-class AuthTextFormFieldColors {
-  static final Color prefixIconColor = BasicColors.grey600;
-  static final Color suffixIconColor = BasicColors.grey600;
-  static final Color labelTextColor = BasicColors.grey800;
-  static final Color borderColor = BasicColors.grey;
-  static final Color borderErrorColor = BasicColors.lightRed;
-  static final Color borderSuccessColor = BasicColors.green;
-  static final Color enabledBorderColor = BasicColors.transparent;
-  static final Color focusedBorderColor = BasicColors.grey;
-  static const Color fillColor = Color(0xFFEEF5FB);
-  static const Color errorTextColor = BasicColors.red;
+abstract class AuthTextFormFieldColors {
+  static final Color prefixIcon = BasicColors.grey600;
+  static final Color suffixIcon = BasicColors.grey600;
+  static final Color labelText = BasicColors.grey800;
+  static const Color labelTextSuccess = BasicColors.green;
+  static final Color labelTextError = BasicColors.lightRed;
+  static const Color border = BasicColors.grey;
+  static final Color borderError = BasicColors.lightRed;
+  static const Color borderSuccess = BasicColors.green;
+  static const Color enabledBorder = BasicColors.transparent;
+  static const Color focusedBorder = BasicColors.grey;
+  static const Color fill = BasicColors.lightBlueGrey;
+  static const Color errorText = BasicColors.red;
 }

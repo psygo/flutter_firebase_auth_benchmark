@@ -15,13 +15,13 @@ abstract class AuxiliaryTheming {
     ),
   );
 
-  static final BorderRadius containerBorderRadius = BorderRadius.all(
+  static const BorderRadius containerBorderRadius = BorderRadius.all(
     Radius.circular(
       15,
     ),
   );
 
-  static final BorderRadius infiniteCircularBorderRadius = BorderRadius.all(
+  static const BorderRadius infiniteCircularBorderRadius = BorderRadius.all(
     Radius.circular(
       1000,
     ),
@@ -31,7 +31,7 @@ abstract class AuxiliaryTheming {
       OutlineInputBorder(
     borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
     borderSide: BorderSide(
-      color: AuthTextFormFieldColors.focusedBorderColor,
+      color: AuthTextFormFieldColors.focusedBorder,
     ),
   );
 
