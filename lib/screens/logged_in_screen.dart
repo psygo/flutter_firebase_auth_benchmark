@@ -38,7 +38,7 @@ class LoggedInScreen extends StatelessWidget {
                   height: 1,
                   indent: 150,
                   endIndent: 150,
-                  color: Colors.black,
+                  color: BasicColors.black,
                 ),
                 SizedBox(
                   height: 45,

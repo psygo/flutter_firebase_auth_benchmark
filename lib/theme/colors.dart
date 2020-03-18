@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class BasicColors {
   static const Color white = Colors.white;
+  static const Color black = Colors.black;
   static const Color grey = Colors.grey;
   static final Color grey600 = Colors.grey[600];
   static final Color grey800 = Colors.grey[800];
