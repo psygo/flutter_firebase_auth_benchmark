@@ -101,11 +101,8 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
-  void _onChangedShieldCall(String text) =>
-      widget.onChanged != null ? widget.onChanged(text) : null;
-
   void _onChangedAndUpdateLabelText(String text) {
-    _onChangedShieldCall(text);
+    widget.onChanged?.call(text);
     _updateLabelText(text);
   }
 
