@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_benchmark/theme/auxiliary_theming.dart';
 
 import '../utils/text_form_field_without_errortext.dart';
 import '../../theme/colors.dart';
@@ -83,13 +84,8 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
-  String _labelTextValidatorShieldCall(String text) =>
-      widget.labelTextValidator != null
-          ? widget.labelTextValidator(text)
-          : null;
-
   void _updateLabelText(String text) {
-    final String newLabelText = _labelTextValidatorShieldCall(text);
+    final String newLabelText = widget.labelTextValidator?.call(text);
     setState(() {
       if (newLabelText != null) {
         _labelText = newLabelText;
@@ -118,6 +114,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
       onTap: _requestFocus,
       onChanged: (String text) => _onChangedAndUpdateLabelText(text),
       decoration: InputDecoration(
+        // enabledBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
         hintText:
             _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
         labelText: _labelText,
