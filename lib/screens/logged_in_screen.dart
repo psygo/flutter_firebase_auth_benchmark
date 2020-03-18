@@ -40,7 +40,7 @@ class LoggedInScreen extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          '${auth.user?.email}',
+                          '${auth.user?.email ?? ''}',
                           key: Key('user_email_text'),
                         ),
                       ],
@@ -59,7 +59,7 @@ class LoggedInScreen extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          '${auth.user?.uid}',
+                          '${auth.user?.uid ?? ''}',
                           key: Key('user_uid_text'),
                         ),
                       ],
@@ -107,36 +107,6 @@ class LoggedInScreen extends StatelessWidget {
               ),
             ],
           ),
-          // floatingActionButton: Row(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children: <Widget>[
-          //     FloatingActionButton(
-          //       key: Key('delete_account'),
-          //       child: Icon(
-          //         Icons.delete,
-          //       ),
-          //       onPressed: () async {
-          //         await auth.deleteUser();
-
-          //         await Navigator.pushNamed(context, LoginScreen.id);
-          //       },
-          //     ),
-          //     SizedBox(
-          //       width: 10,
-          //     ),
-          //     FloatingActionButton(
-          //       key: Key('sign_out'),
-          //       child: Icon(
-          //         Icons.arrow_back,
-          //       ),
-          //       onPressed: () async {
-          //         await auth.signOut();
-
-          //         await Navigator.pushNamed(context, LoginScreen.id);
-          //       },
-          //     )
-          //   ],
-          // ),
         );
       },
     );

@@ -9,13 +9,13 @@ enum AuthStatus {
 }
 
 abstract class AuthInterface extends ChangeNotifier {
-  static final FirebaseAuth fireAuthInterface = FirebaseAuth.instance;
+  static final FirebaseAuth fireAuthInstance = FirebaseAuth.instance;
 
   Future<void> signInWithEmailAndPassword(
       {@required String email, @required String password});
   Future<void> signUp({@required String email, @required String password});
   Future<void> sendPasswordResetWithEmail({@required String email});
-  Future<FirebaseUser> getCurrentUserFromFirebase();
+  Future<void> updateCurrentUserFromFirebase();
   Future<void> signOut();
   Future<void> deleteUser();
 }
@@ -38,7 +38,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
   @override
   Future<void> signInWithEmailAndPassword(
       {@required String email, @required String password}) async {
-    AuthResult authResult = await AuthInterface.fireAuthInterface
+    AuthResult authResult = await AuthInterface.fireAuthInstance
         .signInWithEmailAndPassword(email: email, password: password);
 
     _user = authResult.user;
@@ -48,7 +48,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
   @override
   Future<void> signUp(
       {@required String email, @required String password}) async {
-    AuthResult authResult = await AuthInterface.fireAuthInterface
+    AuthResult authResult = await AuthInterface.fireAuthInstance
         .createUserWithEmailAndPassword(email: email, password: password);
 
     _user = authResult.user;
@@ -57,17 +57,20 @@ class Auth extends ChangeNotifier implements AuthInterface {
 
   @override
   Future<void> sendPasswordResetWithEmail({@required String email}) async {
-    await AuthInterface.fireAuthInterface.sendPasswordResetEmail(email: email);
+    await AuthInterface.fireAuthInstance.sendPasswordResetEmail(email: email);
     _resetEmail = email;
   }
 
   @override
-  Future<FirebaseUser> getCurrentUserFromFirebase() async =>
-      await AuthInterface.fireAuthInterface.currentUser();
+  Future<void> updateCurrentUserFromFirebase() async {
+    _user = await AuthInterface.fireAuthInstance.currentUser();
+    _authStatus = _userIsLoggedInOrNot();
+    notifyListeners();
+  }
 
   @override
   Future<void> signOut() async {
-    await AuthInterface.fireAuthInterface.signOut();
+    await AuthInterface.fireAuthInstance.signOut();
     _user = null;
     _authStatus = _userIsLoggedInOrNot();
   }

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'providers/firebase_auth.dart';
 import 'providers/login_workflow_provider.dart';
+import 'screens/authstate_redirector.dart';
 import 'screens/logged_in_screen.dart';
 import 'screens/login_screen.dart';
 import 'theme/theme.dart';
@@ -19,8 +20,9 @@ class FirebaseAuthenticationApp extends StatelessWidget {
       ],
       child: MaterialApp(
           theme: Theming.appTheme,
-          initialRoute: LoginScreen.id,
+          initialRoute: AuthStateRedirector.id,
           routes: {
+            AuthStateRedirector.id: (_) => AuthStateRedirector(),
             LoginScreen.id: (_) => LoginScreen(),
             LoggedInScreen.id: (_) => LoggedInScreen(),
           }),
