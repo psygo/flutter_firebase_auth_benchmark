@@ -26,46 +26,58 @@ class LoggedInScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 100,
                 ),
-                Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          'email:',
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          '${auth.user?.email ?? ''}',
-                          key: Key('user_email_text'),
-                        ),
-                      ],
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 75,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              'email',
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              '${auth.user?.email ?? ''}',
+                              key: Key('user_email_text'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              'uid',
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              '${auth.user?.uid?.substring(0, 8) ?? ''}',
+                              key: Key('user_uid_text'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          'uid:',
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          '${auth.user?.uid ?? ''}',
-                          key: Key('user_uid_text'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                SizedBox(
+                  height: 175,
+                )
               ],
             ),
           ),
