@@ -52,7 +52,7 @@ class PasswordResetWorkflow extends StatelessWidget {
             height: LoginScreen.widgetSpacing,
           ),
           Consumer<Auth>(
-            builder: (context, auth, _){
+            builder: (context, auth, _) {
               return ButtonAlignmentWrapper(
                 height: 40,
                 child: SizedBox(
@@ -65,7 +65,7 @@ class PasswordResetWorkflow extends StatelessWidget {
                     onPressed: () async {
                       if (loginWorkflowProvider.validate()) {
                         await auth.sendPasswordResetWithEmail(
-                          email: loginWorkflowProvider.email);
+                            email: loginWorkflowProvider.email);
                       }
                     },
                     child: Text(

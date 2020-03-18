@@ -10,8 +10,8 @@ class LoggedInScreen extends StatelessWidget {
   static const id = 'logged_in_screen';
 
   String _email(FirebaseUser firebaseUser) => firebaseUser?.email ?? '';
-  String _uid(FirebaseUser firebaseUser) 
-    => firebaseUser?.uid?.substring(0, 8) ?? '';
+  String _uid(FirebaseUser firebaseUser) =>
+      firebaseUser?.uid?.substring(0, 8) ?? '';
 
   @override
   Widget build(BuildContext context) {

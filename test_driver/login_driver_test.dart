@@ -49,10 +49,10 @@ void main() {
           find.byValueKey('create_account_button');
       final SerializableFinder cancelSignupButton =
           find.byValueKey('cancel_signup_button');
-      if (createAccountButtonExists(createAccountButton)){
+      if (createAccountButtonExists(createAccountButton)) {
         await driver.tap(cancelSignupButton);
       }
-      
+
       await driver.tap(find.byValueKey('email_field'));
       await driver.enterText(dummyPermanentEmail);
 

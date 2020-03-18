@@ -116,7 +116,8 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
       onTap: _requestFocus,
       onChanged: (String text) => _onChangedAndUpdateLabelText(text),
       decoration: InputDecoration(
-        focusedBorder: AuxiliaryTheming.authTextFormFieldStandardBorder.copyWith(
+        focusedBorder:
+            AuxiliaryTheming.authTextFormFieldStandardBorder.copyWith(
           borderSide: BorderSide(
             color: _borderColor,
           ),

@@ -12,11 +12,11 @@ class AuthStateRedirector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Auth>(
-      builder: (context, auth, _){
+      builder: (context, auth, _) {
         return StreamBuilder<FirebaseUser>(
           stream: AuthInterface.fireAuthInstance.onAuthStateChanged,
-          builder: (context, snapshot){
-            if (snapshot.hasData){
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
               auth.updateCurrentUserFromFirebase();
               return LoggedInScreen();
             } else {
