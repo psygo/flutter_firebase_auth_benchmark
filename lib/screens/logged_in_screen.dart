@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +8,10 @@ import '../theme/colors.dart';
 
 class LoggedInScreen extends StatelessWidget {
   static const id = 'logged_in_screen';
+
+  String _email(FirebaseUser firebaseUser) => firebaseUser?.email ?? '';
+  String _uid(FirebaseUser firebaseUser) 
+    => firebaseUser?.uid?.substring(0, 8) ?? '';
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +31,40 @@ class LoggedInScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 100,
+                  height: 45,
+                ),
+                Divider(
+                  thickness: 1.75,
+                  height: 1,
+                  indent: 150,
+                  endIndent: 150,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  height: 45,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 75,
+                    horizontal: 85,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              'email',
+                          Text(
+                            'email',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              '${auth.user?.email ?? ''}',
-                              key: Key('user_email_text'),
+                          Text(
+                            '${_email(auth.user)}',
+                            key: Key('user_email_text'),
+                            style: TextStyle(
+                              fontSize: 20,
                             ),
                           ),
                         ],
@@ -56,18 +73,20 @@ class LoggedInScreen extends StatelessWidget {
                         height: 10,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              'uid',
+                          Text(
+                            'uid',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              '${auth.user?.uid?.substring(0, 8) ?? ''}',
-                              key: Key('user_uid_text'),
+                          Text(
+                            '${_uid(auth.user)}',
+                            key: Key('user_uid_text'),
+                            style: TextStyle(
+                              fontSize: 20,
                             ),
                           ),
                         ],
