@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 import '../exceptions/login.dart';
@@ -61,7 +62,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
   Future<void> sendPasswordResetWithEmail({@required String email}) async {
     try {
       await AuthInterface.fireAuthInstance.sendPasswordResetEmail(email: email);
-    } catch (e) {
+    } on PlatformException catch (e) {
       switch (e.code) {
         case 'ERROR_USER_NOT_FOUND':
           _errorMsg = 'user not found';
@@ -70,6 +71,8 @@ class Auth extends ChangeNotifier implements AuthInterface {
           throw UnknownPasswordResetError(
               'Unknown error for password reset with Firebase.');
       }
+    } catch (e) {
+      rethrow;
     } finally {
       notifyListeners();
       await Future.delayed(Duration(milliseconds: 300));
