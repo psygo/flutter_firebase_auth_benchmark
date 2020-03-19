@@ -68,7 +68,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
         height = SignupWorkflow.height;
         break;
       default:
-        throw InvalidLoginWorkFlowException(
+        throw InvalidLoginWorkFlow(
             'There should only be 3 types of login sub workflows.');
     }
 
@@ -88,7 +88,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
         _loginSubWorkflow = LoginSubWorkflow.signup;
         break;
       default:
-        throw InvalidLoginWorkFlowException(
+        throw InvalidLoginWorkFlow(
             'There should only be 3 types of login sub workflows.');
     }
 
