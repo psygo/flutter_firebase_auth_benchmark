@@ -25,27 +25,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Auth notifier;
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final LoginWorkflowHandler loginWorkflowProvider =
         Provider.of<LoginWorkflowHandler>(context);
     loginWorkflowProvider.formKey = _formKey;
-
-    // final Auth notifier = Provider.of<Auth>(context);
-
-    // if (this.notifier != notifier) this.notifier = notifier;
   }
-
-  // String _erroMsg;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Future.microtask(() => _erroMsg = Provider.of<Auth>(context).errorMsg);
-  // }
 
   @override
   Widget build(BuildContext context) {
