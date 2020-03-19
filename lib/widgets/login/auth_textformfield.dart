@@ -96,8 +96,8 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
-  void _switchLabelColors(LabelStatus labelStatus){
-    switch (labelStatus){
+  void _switchLabelColors(LabelStatus labelStatus) {
+    switch (labelStatus) {
       case LabelStatus.error:
         _labelTextColor = AuthTextFormFieldColors.labelTextError;
         _borderColor = AuthTextFormFieldColors.borderError;
@@ -108,7 +108,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
         break;
       default:
         throw IllegalLabelStatus(
-          'There are only two possible label statuses: error and success.');
+            'There are only two possible label statuses: error and success.');
     }
   }
 
@@ -131,6 +131,8 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   }
 
   void _serverErrorOrNot(String text) {
+    print('from serverErrorOrNot');
+    print(widget.errorMsgFromServer);
     setState(() {
       if (widget.errorMsgFromServer != null) {
         _labelText = widget.errorMsgFromServer;

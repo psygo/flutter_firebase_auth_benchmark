@@ -25,14 +25,12 @@ abstract class AuthInterface extends ChangeNotifier {
 class Auth extends ChangeNotifier implements AuthInterface {
   AuthStatus _authStatus = AuthStatus.not_determined;
   FirebaseUser _user;
-  String _resetEmail;
   String _errorMsg;
 
   Auth();
 
   AuthStatus get authStatus => _authStatus;
   FirebaseUser get user => _user;
-  String get resetEmail => _resetEmail;
   String get errorMsg => _errorMsg;
 
   bool _userIsNotNull() => _user != null;
@@ -61,21 +59,21 @@ class Auth extends ChangeNotifier implements AuthInterface {
 
   @override
   Future<void> sendPasswordResetWithEmail({@required String email}) async {
-    await AuthInterface.fireAuthInstance
-        .sendPasswordResetEmail(email: email)
-        .catchError((e) {
+    try {
+      await AuthInterface.fireAuthInstance.sendPasswordResetEmail(email: email);
+    } catch (e) {
       switch (e.code) {
         case 'ERROR_USER_NOT_FOUND':
           _errorMsg = 'user not found';
-          notifyListeners();
           break;
         default:
           throw UnknownPasswordResetError(
               'Unknown error for password reset with Firebase.');
       }
-    });
-
-    _resetEmail = email;
+    } finally {
+      notifyListeners();
+      await Future.delayed(Duration(milliseconds: 300));
+    }
   }
 
   @override
