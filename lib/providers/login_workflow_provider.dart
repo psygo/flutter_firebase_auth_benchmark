@@ -47,7 +47,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
         return SignupWorkflow(key: Key('signup_workflow'));
         break;
       default:
-        throw InvalidLoginWorkFlowException(
+        throw InvalidLoginWorkFlow(
             'There should only be 3 types of login sub workflows.');
     }
   }

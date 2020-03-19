@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_benchmark/theme/auxiliary_theming.dart';
 
 import '../utils/text_form_field_without_errortext.dart';
+import '../../exceptions/login.dart';
+import '../../theme/auxiliary_theming.dart';
 import '../../theme/colors.dart';
+
+enum LabelStatus {
+  error,
+  success,
+}
 
 class AuthTextFormField extends StatefulWidget {
   static const String tickSymbol = '\u{2713}';
@@ -90,17 +96,31 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     });
   }
 
+  void _switchLabelColors(LabelStatus labelStatus){
+    switch (labelStatus){
+      case LabelStatus.error:
+        _labelTextColor = AuthTextFormFieldColors.labelTextError;
+        _borderColor = AuthTextFormFieldColors.borderError;
+        break;
+      case LabelStatus.success:
+        _labelTextColor = AuthTextFormFieldColors.labelTextSuccess;
+        _borderColor = AuthTextFormFieldColors.borderSuccess;
+        break;
+      default:
+        throw IllegalLabelStatus(
+          'There are only two possible label statuses: error and success.');
+    }
+  }
+
   void _updateLabelText(String text) {
     final String newLabelText = widget.labelTextValidator?.call(text);
     setState(() {
       if (newLabelText != null) {
         _labelText = newLabelText;
-        _labelTextColor = AuthTextFormFieldColors.labelTextError;
-        _borderColor = AuthTextFormFieldColors.borderError;
+        _switchLabelColors(LabelStatus.error);
       } else {
         _labelText = AuthTextFormField.tickSymbol;
-        _labelTextColor = AuthTextFormFieldColors.labelTextSuccess;
-        _borderColor = AuthTextFormFieldColors.borderSuccess;
+        _switchLabelColors(LabelStatus.success);
       }
     });
   }
@@ -114,8 +134,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     setState(() {
       if (widget.errorMsgFromServer != null) {
         _labelText = widget.errorMsgFromServer;
-        _labelTextColor = AuthTextFormFieldColors.labelTextError;
-        _borderColor = AuthTextFormFieldColors.borderError;
+        _switchLabelColors(LabelStatus.error);
       }
     });
   }

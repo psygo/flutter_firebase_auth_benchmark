@@ -70,7 +70,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
           notifyListeners();
           break;
         default:
-          throw UnknownPasswordReset(
+          throw UnknownPasswordResetError(
               'Unknown error for password reset with Firebase.');
       }
     });
