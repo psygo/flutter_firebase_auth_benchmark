@@ -11,6 +11,7 @@ class AuthTextFormField extends StatefulWidget {
   final String hintText;
   final String hintTextOnFocus;
   final String labelText;
+  final String errorMsgFromServer;
   final IconData icon;
   final bool obscureText;
   final String Function(String) validator;
@@ -23,6 +24,7 @@ class AuthTextFormField extends StatefulWidget {
     this.hintText,
     this.hintTextOnFocus = '',
     this.labelText,
+    this.errorMsgFromServer,
     this.icon,
     this.obscureText = false,
     this.validator,
@@ -108,6 +110,16 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
     _updateLabelText(text);
   }
 
+  void _serverErrorOrNot(String text) {
+    setState(() {
+      if (widget.errorMsgFromServer != null) {
+        _labelText = widget.errorMsgFromServer;
+        _labelTextColor = AuthTextFormFieldColors.labelTextError;
+        _borderColor = AuthTextFormFieldColors.borderError;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormFieldWithErrorTextOption(
@@ -119,6 +131,7 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
       focusNode: _focusNode,
       onTap: _requestFocus,
       onChanged: (String text) => _onChangedAndUpdateLabelText(text),
+      onSaved: _serverErrorOrNot,
       decoration: InputDecoration(
         focusedBorder:
             AuxiliaryTheming.authTextFormFieldStandardBorder.copyWith(

@@ -19,7 +19,6 @@ class LoginWorkflowHandler extends ChangeNotifier {
 
   LoginWorkflowHandler();
 
-  GlobalKey<FormState> get formKey => _formKey;
   bool get isLoginOrSignup =>
       _loginSubWorkflow == LoginSubWorkflow.login ||
       _loginSubWorkflow == LoginSubWorkflow.signup;
@@ -34,6 +33,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
   }
 
   bool validate() => _formKey.currentState.validate();
+  void save() => _formKey.currentState.save();
 
   Widget get widget {
     switch (_loginSubWorkflow) {

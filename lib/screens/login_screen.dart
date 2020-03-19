@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_benchmark/providers/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 import '../authentication/validator.dart';
@@ -34,74 +35,85 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginWorkflowHandler>(
-        builder: (context, loginWorkflowProvider, _) {
-      return Scaffold(
-        body: Container(
-          color: BasicColors.blue,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  LoginContainer(
-                    child: Form(
-                      key: _formKey,
-                      child: ListView(
-                        children: <Widget>[
-                          AuthTextFormField(
-                            key: Key('email_field'),
-                            keyboardType: TextInputType.emailAddress,
-                            hintText: 'email',
-                            hintTextOnFocus: 'your email',
-                            labelText: 'email',
-                            icon: Icons.account_circle,
-                            validator: AuthenticationValidator.validateEmail,
-                            labelTextValidator:
-                                AuthenticationValidator.validateEmail,
-                            onChanged: (String text) =>
-                                loginWorkflowProvider.email = text,
-                          ),
-                          SizedBox(
-                            height: LoginScreen.widgetSpacing,
-                          ),
-                          Visibility(
-                            visible: loginWorkflowProvider.isLoginOrSignup,
-                            child: Column(
+    return Scaffold(
+      body: Container(
+        color: BasicColors.blue,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                LoginContainer(
+                  child: Consumer<LoginWorkflowHandler>(
+                    builder: (context, loginWorkflowProvider, _) {
+                      return Consumer<Auth>(
+                        builder: (context, auth, _) {
+                          return Form(
+                            key: _formKey,
+                            child: ListView(
                               children: <Widget>[
                                 AuthTextFormField(
-                                  key: Key('password_field'),
-                                  keyboardType: TextInputType.visiblePassword,
-                                  hintText: 'password',
-                                  hintTextOnFocus: 'your password',
-                                  labelText: 'password',
-                                  icon: Icons.lock,
-                                  obscureText: true,
+                                  key: Key('email_field'),
+                                  keyboardType: TextInputType.emailAddress,
+                                  hintText: 'email',
+                                  hintTextOnFocus: 'your email',
+                                  labelText: 'email',
+                                  icon: Icons.account_circle,
                                   validator:
-                                      AuthenticationValidator.validatePassword,
+                                      AuthenticationValidator.validateEmail,
                                   labelTextValidator:
-                                      AuthenticationValidator.validatePassword,
+                                      AuthenticationValidator.validateEmail,
                                   onChanged: (String text) =>
-                                      loginWorkflowProvider.password = text,
+                                      loginWorkflowProvider.email = text,
+                                  errorMsgFromServer: auth.errorMsg,
+                                ),
+                                SizedBox(
+                                  height: LoginScreen.widgetSpacing,
+                                ),
+                                Visibility(
+                                  visible:
+                                      loginWorkflowProvider.isLoginOrSignup,
+                                  child: Column(
+                                    children: <Widget>[
+                                      AuthTextFormField(
+                                        key: Key('password_field'),
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
+                                        hintText: 'password',
+                                        hintTextOnFocus: 'your password',
+                                        labelText: 'password',
+                                        icon: Icons.lock,
+                                        obscureText: true,
+                                        validator: AuthenticationValidator
+                                            .validatePassword,
+                                        labelTextValidator:
+                                            AuthenticationValidator
+                                                .validatePassword,
+                                        onChanged: (String text) =>
+                                            loginWorkflowProvider.password =
+                                                text,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                LoginWorkflowAnimatedSwitcher(
+                                  key: Key('login_workflow_animated_switcher'),
                                 ),
                               ],
                             ),
-                          ),
-                          LoginWorkflowAnimatedSwitcher(
-                            key: Key('login_workflow_animated_switcher'),
-                          ),
-                        ],
-                      ),
-                    ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 }

@@ -14,8 +14,7 @@ abstract class Theming {
     color: BasicColors.grey,
   );
 
-  static final InputDecorationTheme authTextFormField =
-      InputDecorationTheme(
+  static final InputDecorationTheme authTextFormField = InputDecorationTheme(
     contentPadding: EdgeInsets.symmetric(
       vertical: 15,
     ),

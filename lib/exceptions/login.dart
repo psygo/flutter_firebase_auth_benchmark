@@ -12,3 +12,8 @@ class InvalidPassordOrResetMsg implements Exception {
   String cause;
   InvalidPassordOrResetMsg(this.cause);
 }
+
+class UnknownPasswordReset implements Exception {
+  String cause;
+  UnknownPasswordReset(this.cause);
+}
