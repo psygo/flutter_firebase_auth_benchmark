@@ -67,7 +67,9 @@ class PasswordResetWorkflow extends StatelessWidget {
                         await auth.sendPasswordResetWithEmail(
                             email: loginWorkflowProvider.email);
 
-                        loginWorkflowProvider.save();
+                        await Future.delayed(Duration(milliseconds: 100), (){
+                          loginWorkflowProvider.save();
+                        });
                       }
                     },
                     child: Text(

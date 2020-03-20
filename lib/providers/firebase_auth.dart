@@ -76,7 +76,6 @@ class Auth extends ChangeNotifier implements AuthInterface {
       rethrow;
     } finally {
       notifyListeners();
-      await Future.delayed(Duration(milliseconds: 300));
       if (errorOccurred) {
         return false;
       } else {
@@ -112,7 +111,6 @@ class Auth extends ChangeNotifier implements AuthInterface {
       rethrow;
     } finally {
       notifyListeners();
-      await Future.delayed(Duration(milliseconds: 300));
       if (errorOccurred) {
         return false;
       } else {
@@ -139,7 +137,6 @@ class Auth extends ChangeNotifier implements AuthInterface {
       rethrow;
     } finally {
       notifyListeners();
-      await Future.delayed(Duration(milliseconds: 300));
     }
   }
 
