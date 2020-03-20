@@ -18,6 +18,11 @@ class UnknownPasswordResetError implements Exception {
   UnknownPasswordResetError(this.cause);
 }
 
+class UnknownSignUpError implements Exception {
+  String cause;
+  UnknownSignUpError(this.cause);
+}
+
 class IllegalLabelStatus implements Exception {
   String cause;
   IllegalLabelStatus(this.cause);

@@ -16,7 +16,7 @@ abstract class AuthInterface extends ChangeNotifier {
 
   Future<void> signInWithEmailAndPassword(
       {@required String email, @required String password});
-  Future<void> signUp({@required String email, @required String password});
+  Future<bool> signUp({@required String email, @required String password});
   Future<void> sendPasswordResetWithEmail({@required String email});
   Future<void> updateCurrentUserFromFirebase();
   Future<void> signOut();
@@ -41,7 +41,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
   @override
   Future<void> signInWithEmailAndPassword(
       {@required String email, @required String password}) async {
-    AuthResult authResult = await AuthInterface.fireAuthInstance
+    final AuthResult authResult = await AuthInterface.fireAuthInstance
         .signInWithEmailAndPassword(email: email, password: password);
 
     _user = authResult.user;
@@ -49,13 +49,37 @@ class Auth extends ChangeNotifier implements AuthInterface {
   }
 
   @override
-  Future<void> signUp(
+  Future<bool> signUp(
       {@required String email, @required String password}) async {
-    AuthResult authResult = await AuthInterface.fireAuthInstance
+    bool errorOccurred;
+    try {
+      final AuthResult authResult = await AuthInterface.fireAuthInstance
         .createUserWithEmailAndPassword(email: email, password: password);
 
-    _user = authResult.user;
-    _authStatus = _userIsLoggedInOrNot();
+      _user = authResult.user;
+      _authStatus = _userIsLoggedInOrNot();
+
+      return true;
+    } on PlatformException catch(e) {
+      errorOccurred = true;
+      switch (e.code){
+        case 'ERROR_EMAIL_ALREADY_IN_USE':
+          _errorMsg = 'user already exists';
+          break;
+        default:
+          throw UnknownSignUpError('Unknown error for sign up with Firebase.');
+      }
+    } catch (e) {
+      rethrow;
+    } finally {
+      notifyListeners();
+      await Future.delayed(Duration(milliseconds: 300));
+      if (errorOccurred) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 
   @override
