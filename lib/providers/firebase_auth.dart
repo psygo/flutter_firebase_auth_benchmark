@@ -11,6 +11,11 @@ enum AuthStatus {
   logged_in,
 }
 
+enum ErrorMsgType {
+  email,
+  password,
+}
+
 abstract class AuthInterface extends ChangeNotifier {
   static final FirebaseAuth fireAuthInstance = FirebaseAuth.instance;
 
@@ -27,12 +32,14 @@ class Auth extends ChangeNotifier implements AuthInterface {
   AuthStatus _authStatus = AuthStatus.not_determined;
   FirebaseUser _user;
   String _errorMsg;
+  ErrorMsgType _errorMsgType;
 
   Auth();
 
   AuthStatus get authStatus => _authStatus;
   FirebaseUser get user => _user;
   String get errorMsg => _errorMsg;
+  ErrorMsgType get errorMsgType => _errorMsgType;
 
   bool _userIsNotNull() => _user != null;
   AuthStatus _userIsLoggedInOrNot() =>
@@ -55,9 +62,11 @@ class Auth extends ChangeNotifier implements AuthInterface {
       switch (e.code){
         case 'ERROR_WRONG_PASSWORD':
           _errorMsg = 'wrong password';
+          _errorMsgType = ErrorMsgType.password;
           break;
         case 'ERROR_USER_NOT_FOUND':
           _errorMsg = 'user not found';
+          _errorMsgType = ErrorMsgType.email;
           break;
         default:
           throw UnknownSignUpError('Unknown error for sign up with Firebase.');
@@ -93,6 +102,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
       switch (e.code){
         case 'ERROR_EMAIL_ALREADY_IN_USE':
           _errorMsg = 'user already exists';
+          _errorMsgType = ErrorMsgType.email;
           break;
         default:
           throw UnknownSignUpError('Unknown error for sign up with Firebase.');
@@ -119,6 +129,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
       switch (e.code) {
         case 'ERROR_USER_NOT_FOUND':
           _errorMsg = 'user not found';
+          _errorMsgType = ErrorMsgType.email;
           break;
         default:
           throw UnknownPasswordResetError(
