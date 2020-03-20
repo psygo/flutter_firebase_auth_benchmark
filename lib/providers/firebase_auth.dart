@@ -14,7 +14,7 @@ enum AuthStatus {
 abstract class AuthInterface extends ChangeNotifier {
   static final FirebaseAuth fireAuthInstance = FirebaseAuth.instance;
 
-  Future<void> signInWithEmailAndPassword(
+  Future<bool> signInWithEmailAndPassword(
       {@required String email, @required String password});
   Future<bool> signUp({@required String email, @required String password});
   Future<void> sendPasswordResetWithEmail({@required String email});
@@ -39,13 +39,41 @@ class Auth extends ChangeNotifier implements AuthInterface {
       _userIsNotNull() ? AuthStatus.logged_in : AuthStatus.not_logged_in;
 
   @override
-  Future<void> signInWithEmailAndPassword(
+  Future<bool> signInWithEmailAndPassword(
       {@required String email, @required String password}) async {
-    final AuthResult authResult = await AuthInterface.fireAuthInstance
+    bool errorOccurred;
+    try {
+      final AuthResult authResult = await AuthInterface.fireAuthInstance
         .signInWithEmailAndPassword(email: email, password: password);
 
-    _user = authResult.user;
-    _authStatus = _userIsLoggedInOrNot();
+      _user = authResult.user;
+      _authStatus = _userIsLoggedInOrNot();
+
+      return true;
+    } on PlatformException catch (e) {
+      errorOccurred = true;
+      switch (e.code){
+        case 'ERROR_WRONG_PASSWORD':
+          _errorMsg = 'wrong password';
+          break;
+        case 'ERROR_USER_NOT_FOUND':
+          _errorMsg = 'user not found';
+          break;
+        default:
+          throw UnknownSignUpError('Unknown error for sign up with Firebase.');
+      }
+    } catch (e) {
+      errorOccurred = true;
+      rethrow;
+    } finally {
+      notifyListeners();
+      await Future.delayed(Duration(milliseconds: 300));
+      if (errorOccurred) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 
   @override
@@ -70,6 +98,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
           throw UnknownSignUpError('Unknown error for sign up with Firebase.');
       }
     } catch (e) {
+      errorOccurred = true;
       rethrow;
     } finally {
       notifyListeners();

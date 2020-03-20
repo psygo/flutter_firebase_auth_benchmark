@@ -70,11 +70,15 @@ class LoginWorkflow extends StatelessWidget {
                     textColor: BasicColors.white,
                     onPressed: () async {
                       if (loginWorkflowProvider.validate()) {
-                        await auth.signInWithEmailAndPassword(
+                        final bool signedInSuccess = await auth.signInWithEmailAndPassword(
                             email: loginWorkflowProvider.email,
                             password: loginWorkflowProvider.password);
 
-                        await Navigator.pushNamed(context, LoggedInScreen.id);
+                        loginWorkflowProvider.save();
+
+                        if (signedInSuccess){
+                          await Navigator.pushNamed(context, LoggedInScreen.id);
+                        }
                       }
                     },
                     child: Text(
