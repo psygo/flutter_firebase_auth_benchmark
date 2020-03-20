@@ -12,6 +12,23 @@ void main() {
     app = FirebaseAuthenticationApp();
   });
 
+  group('Password Reset', (){
+    testWidgets('User not found', (tester) async {
+      await tester.pumpWidget(app);
+
+      await tester.tap(find.byKey(Key('forgot_password_button')));
+      await tester.pump();
+
+      await tester.enterText(find.byKey(Key('email_field')), dummyEmail);
+      await tester.pump();
+
+      await tester.tap(find.byKey(Key('send_password_reset_button')));
+      await tester.pump(Duration(seconds: 2));
+
+      // expect(find.text('user not found'), findsOneWidget);
+    });
+  });
+
   group('Sign Up', () {
     testWidgets('Simple sign up', (tester) async {
       await tester.pumpWidget(app);
