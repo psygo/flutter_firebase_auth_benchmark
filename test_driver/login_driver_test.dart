@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
@@ -13,52 +14,48 @@ void main() {
   });
 
   group('Sign Up', () {
+    setUpAll(() async => await driver.tap(find.byValueKey('signup_button')));
+
+    tearDownAll(() async => 
+      await driver.tap(find.byValueKey('cancel_signup_button')));
+
+    Future<void> signUp({
+      @required email,
+      @required password,
+    }) async {
+      await driver.tap(find.byValueKey('email_field'));
+      await driver.enterText(email);
+
+      await driver.tap(find.byValueKey('password_field'));
+      await driver.enterText(password);
+
+      await driver.tap(find.byValueKey('confirm_password_field'));
+      await driver.enterText(password);
+
+      await driver.tap(find.byValueKey('create_account_button'));
+    }
+
     test('Successful Sign Up', () async {
       const String dummyEmail = 'ppsf@gmail.com';
       const String dummyPassword = 'asdfA\$D1';
 
-      await driver.tap(find.byValueKey('signup_button'));
-
-      await driver.tap(find.byValueKey('email_field'));
-      await driver.enterText(dummyEmail);
-
-      await driver.tap(find.byValueKey('password_field'));
-      await driver.enterText(dummyPassword);
-
-      await driver.tap(find.byValueKey('confirm_password_field'));
-      await driver.enterText(dummyPassword);
-
-      await driver.tap(find.byValueKey('create_account_button'));
+      await signUp(email: dummyEmail, password: dummyPassword);
 
       expect(
           await driver.getText(find.byValueKey('user_email_text')), dummyEmail);
 
       await driver.tap(find.byValueKey('delete_account_button'));
-
-      await driver.tap(find.byValueKey('cancel_signup_button'));
     });
 
     test('Email already in use', () async {
       const String dummyEmail = 'pf@gmail.com';
       const String dummyPassword = 'asdfA\$D1';
 
-      await driver.tap(find.byValueKey('signup_button'));
-
-      await driver.tap(find.byValueKey('email_field'));
-      await driver.enterText(dummyEmail);
-
-      await driver.tap(find.byValueKey('password_field'));
-      await driver.enterText(dummyPassword);
-
-      await driver.tap(find.byValueKey('confirm_password_field'));
-      await driver.enterText(dummyPassword);
+      await signUp(email: dummyEmail, password: dummyPassword);
 
       expect(
-          await driver.getText(find.text('user already exists'),
-              timeout: Duration(seconds: 3)),
+          await driver.getText(find.text('user already exists')),
           'user already exists');
-
-      await driver.tap(find.byValueKey('cancel_signup_button'));
     });
   });
 
@@ -66,18 +63,7 @@ void main() {
     const String dummyPermanentEmail = 'pf@gmail.com';
     const String dummyPassword = 'asdfA\$D1';
 
-    bool createAccountButtonExists(SerializableFinder createAccountButton) =>
-        createAccountButton != null;
-
     test('Successful Sign In', () async {
-      final SerializableFinder createAccountButton =
-          find.byValueKey('create_account_button');
-      final SerializableFinder cancelSignupButton =
-          find.byValueKey('cancel_signup_button');
-      if (createAccountButtonExists(createAccountButton)) {
-        await driver.tap(cancelSignupButton);
-      }
-
       await driver.tap(find.byValueKey('email_field'));
       await driver.enterText(dummyPermanentEmail);
 
