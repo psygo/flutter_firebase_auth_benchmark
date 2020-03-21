@@ -23,6 +23,11 @@ class UnknownSignUpError implements Exception {
   UnknownSignUpError(this.cause);
 }
 
+class UnknownSignInError implements Exception {
+  String cause;
+  UnknownSignInError(this.cause);
+}
+
 class IllegalLabelStatus implements Exception {
   String cause;
   IllegalLabelStatus(this.cause);

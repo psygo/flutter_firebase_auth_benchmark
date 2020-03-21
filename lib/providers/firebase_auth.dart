@@ -39,6 +39,11 @@ class Auth extends ChangeNotifier implements AuthInterface {
   bool _userIsNotNull() => _user != null;
   AuthStatus _userIsLoggedInOrNot() =>
       _userIsNotNull() ? AuthStatus.logged_in : AuthStatus.not_logged_in;
+  bool _requestSuccessful(bool errorOccurred) => !errorOccurred;
+  void _updateUser(AuthResult authResult){
+    _user = authResult.user;
+    _authStatus = _userIsLoggedInOrNot();
+  }
 
   @override
   Future<bool> signInWithEmailAndPassword(
@@ -48,24 +53,24 @@ class Auth extends ChangeNotifier implements AuthInterface {
       final AuthResult authResult = await AuthInterface.fireAuthInstance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      _user = authResult.user;
-      _authStatus = _userIsLoggedInOrNot();
+      _updateUser(authResult);
 
       errorOccurred = false;
     } on PlatformException catch (e) {
       errorOccurred = true;
-      switch (e.code) {
-        case 'ERROR_USER_NOT_FOUND':
-          _emailErrorMsg = 'user not found';
-          _passwordErrorMsg = null;
-          break;
-        case 'ERROR_WRONG_PASSWORD':
-          _emailErrorMsg = null;
-          _passwordErrorMsg = 'wrong password';
-          break;
-        default:
-          throw UnknownSignUpError('Unknown error for sign up with Firebase.');
-      }
+      _signInErrorHandler(e);
+      // switch (e.code) {
+      //   case 'ERROR_USER_NOT_FOUND':
+      //     _emailErrorMsg = 'user not found';
+      //     _passwordErrorMsg = null;
+      //     break;
+      //   case 'ERROR_WRONG_PASSWORD':
+      //     _emailErrorMsg = null;
+      //     _passwordErrorMsg = 'wrong password';
+      //     break;
+      //   default:
+      //     throw UnknownSignInError('Unknown error for sign up with Firebase.');
+      // }
     } catch (e) {
       errorOccurred = true;
       rethrow;
@@ -75,7 +80,20 @@ class Auth extends ChangeNotifier implements AuthInterface {
     }
   }
 
-  bool _requestSuccessful(bool errorOccurred) => !errorOccurred;
+  void _signInErrorHandler(PlatformException platformException){
+    switch (platformException.code) {
+      case 'ERROR_USER_NOT_FOUND':
+        _emailErrorMsg = 'user not found';
+        _passwordErrorMsg = null;
+        break;
+      case 'ERROR_WRONG_PASSWORD':
+        _emailErrorMsg = null;
+        _passwordErrorMsg = 'wrong password';
+        break;
+      default:
+        throw UnknownSignInError('Unknown error for sign up with Firebase.');
+    }
+  }
 
   @override
   Future<bool> signUp(
@@ -85,20 +103,20 @@ class Auth extends ChangeNotifier implements AuthInterface {
       final AuthResult authResult = await AuthInterface.fireAuthInstance
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      _user = authResult.user;
-      _authStatus = _userIsLoggedInOrNot();
+      _updateUser(authResult);
 
       errorOccurred = false;
     } on PlatformException catch (e) {
       errorOccurred = true;
-      switch (e.code) {
-        case 'ERROR_EMAIL_ALREADY_IN_USE':
-          _emailErrorMsg = 'user already exists';
-          _passwordErrorMsg = null;
-          break;
-        default:
-          throw UnknownSignUpError('Unknown error for sign up with Firebase.');
-      }
+      _signUpErrorHandler(e);
+      // switch (e.code) {
+      //   case 'ERROR_EMAIL_ALREADY_IN_USE':
+      //     _emailErrorMsg = 'user already exists';
+      //     _passwordErrorMsg = null;
+      //     break;
+      //   default:
+      //     throw UnknownSignUpError('Unknown error for sign up with Firebase.');
+      // }
     } catch (e) {
       errorOccurred = true;
       rethrow;
@@ -108,24 +126,48 @@ class Auth extends ChangeNotifier implements AuthInterface {
     }
   }
 
+  void _signUpErrorHandler(PlatformException platformException){
+    switch (platformException.code) {
+      case 'ERROR_EMAIL_ALREADY_IN_USE':
+        _emailErrorMsg = 'user already exists';
+        _passwordErrorMsg = null;
+        break;
+      default:
+        throw UnknownSignUpError('Unknown error for sign up with Firebase.');
+    }
+  }
+
   @override
   Future<void> sendPasswordResetWithEmail({@required String email}) async {
     try {
       await AuthInterface.fireAuthInstance.sendPasswordResetEmail(email: email);
     } on PlatformException catch (e) {
-      switch (e.code) {
-        case 'ERROR_USER_NOT_FOUND':
-          _emailErrorMsg = 'user not found';
-          _passwordErrorMsg = null;
-          break;
-        default:
-          throw UnknownPasswordResetError(
-              'Unknown error for password reset with Firebase.');
-      }
+      _passwordResetWithEmailErrorHandler(e);
+      // switch (e.code) {
+      //   case 'ERROR_USER_NOT_FOUND':
+      //     _emailErrorMsg = 'user not found';
+      //     _passwordErrorMsg = null;
+      //     break;
+      //   default:
+      //     throw UnknownPasswordResetError(
+      //         'Unknown error for password reset with Firebase.');
+      // }
     } catch (e) {
       rethrow;
     } finally {
       notifyListeners();
+    }
+  }
+
+  void _passwordResetWithEmailErrorHandler(PlatformException platformException){
+    switch (platformException.code) {
+      case 'ERROR_USER_NOT_FOUND':
+        _emailErrorMsg = 'user not found';
+        _passwordErrorMsg = null;
+        break;
+      default:
+        throw UnknownPasswordResetError(
+            'Unknown error for password reset with Firebase.');
     }
   }
 
