@@ -71,13 +71,11 @@ class Auth extends ChangeNotifier implements AuthInterface {
       rethrow;
     } finally {
       notifyListeners();
-      if (errorOccurred) {
-        return false;
-      } else {
-        return true;
-      }
+      return _requestSuccessful(errorOccurred);
     }
   }
+
+  bool _requestSuccessful(bool errorOccurred) => !errorOccurred;
 
   @override
   Future<bool> signUp(
@@ -106,11 +104,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
       rethrow;
     } finally {
       notifyListeners();
-      if (errorOccurred) {
-        return false;
-      } else {
-        return true;
-      }
+      return _requestSuccessful(errorOccurred);
     }
   }
 
