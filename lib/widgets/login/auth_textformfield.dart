@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/text_form_field_without_errortext.dart';
 import '../../exceptions/login.dart';
-import '../../theme/auxiliary_theming.dart';
+import '../../theme/theme.dart';
 import '../../theme/colors.dart';
 
 enum LabelStatus {
@@ -153,12 +153,12 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
       onSaved: _serverErrorOrNot,
       decoration: InputDecoration(
         focusedBorder:
-            AuxiliaryTheming.authTextFormFieldStandardBorder.copyWith(
+            Theming.authTextFormField.focusedBorder.copyWith(
           borderSide: BorderSide(
             color: _borderColor,
           ),
         ),
-        labelStyle: TextStyle(
+        labelStyle: Theming.authTextFormField.labelStyle.copyWith(
           color: _labelTextColor,
         ),
         hintText:

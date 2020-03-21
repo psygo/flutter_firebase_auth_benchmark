@@ -29,7 +29,12 @@ abstract class Theming {
         color: AuthTextFormFieldColors.enabledBorder,
       ),
     ),
-    focusedBorder: AuxiliaryTheming.authTextFormFieldStandardBorder,
+    focusedBorder: OutlineInputBorder(
+      borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
+      borderSide: BorderSide(
+        color: AuthTextFormFieldColors.focusedBorder,
+      ),
+    ),
   );
 
   static const ButtonThemeData flatButton = ButtonThemeData(
