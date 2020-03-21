@@ -47,7 +47,7 @@ class LoginWorkflow extends StatelessWidget {
               child: FlatButton(
                 key: Key('signup_button'),
                 onPressed: () => loginWorkflowProvider
-                    .switchWorkFlow(LoginSubWorkflow.signup),
+                    .switchWorkFlow(LoginSubWorkflow.signUp),
                 child: Text(
                   'SIGN UP',
                   style: TextStyle(
