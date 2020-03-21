@@ -51,7 +51,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
 
       _updateUser(authResult);
     } on PlatformException catch (e) {
-      _errorHandler(e, LoginSubWorkflow.login);
+      _errorHandler(e, LoginSubWorkflow.signIn);
     } catch (e) {
       rethrow;
     } finally {
@@ -71,7 +71,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
 
       _updateUser(authResult);
     } on PlatformException catch (e) {
-      _errorHandler(e, LoginSubWorkflow.signup);
+      _errorHandler(e, LoginSubWorkflow.signUp);
     } catch (e) {
       rethrow;
     } finally {
@@ -123,7 +123,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
         break;
       default:
         switch (loginSubWorkflow) {
-          case LoginSubWorkflow.login:
+          case LoginSubWorkflow.signIn:
             throw UnknownSignInError(
                 'Unknown error for sign up with Firebase.');
             break;
@@ -131,7 +131,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
             throw UnknownPasswordResetError(
                 'Unknown error for password reset with Firebase.');
             break;
-          case LoginSubWorkflow.signup:
+          case LoginSubWorkflow.signUp:
             throw UnknownSignUpError(
                 'Unknown error for sign up with Firebase.');
             break;

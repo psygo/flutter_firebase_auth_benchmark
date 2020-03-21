@@ -6,13 +6,13 @@ import '../widgets/login/password_reset_workflow.dart';
 import '../widgets/login/signup_workflow.dart';
 
 enum LoginSubWorkflow {
-  login,
+  signIn,
   passwordReset,
-  signup,
+  signUp,
 }
 
 class LoginWorkflowHandler extends ChangeNotifier {
-  LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.login;
+  LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.signIn;
   GlobalKey<FormState> _formKey;
   String _email;
   String _password;
@@ -20,8 +20,8 @@ class LoginWorkflowHandler extends ChangeNotifier {
   LoginWorkflowHandler();
 
   bool get isLoginOrSignup =>
-      _loginSubWorkflow == LoginSubWorkflow.login ||
-      _loginSubWorkflow == LoginSubWorkflow.signup;
+      _loginSubWorkflow == LoginSubWorkflow.signIn ||
+      _loginSubWorkflow == LoginSubWorkflow.signUp;
   String get email => _email;
   String get password => _password;
 
@@ -40,13 +40,13 @@ class LoginWorkflowHandler extends ChangeNotifier {
 
   Widget get widget {
     switch (_loginSubWorkflow) {
-      case LoginSubWorkflow.login:
+      case LoginSubWorkflow.signIn:
         return LoginWorkflow(key: Key('login_workflow'));
         break;
       case LoginSubWorkflow.passwordReset:
         return PasswordResetWorkflow(key: Key('password_reset_workflow'));
         break;
-      case LoginSubWorkflow.signup:
+      case LoginSubWorkflow.signUp:
         return SignupWorkflow(key: Key('signup_workflow'));
         break;
       default:
@@ -60,14 +60,14 @@ class LoginWorkflowHandler extends ChangeNotifier {
     const double padding = 160;
 
     switch (_loginSubWorkflow) {
-      case LoginSubWorkflow.login:
+      case LoginSubWorkflow.signIn:
         height = LoginWorkflow.height;
         break;
       case LoginSubWorkflow.passwordReset:
         height = PasswordResetWorkflow.height;
         return height + 100;
         break;
-      case LoginSubWorkflow.signup:
+      case LoginSubWorkflow.signUp:
         height = SignupWorkflow.height;
         break;
       default:
@@ -81,14 +81,14 @@ class LoginWorkflowHandler extends ChangeNotifier {
 
   void switchWorkFlow(LoginSubWorkflow loginSubWorkflow) {
     switch (loginSubWorkflow) {
-      case LoginSubWorkflow.login:
-        _loginSubWorkflow = LoginSubWorkflow.login;
+      case LoginSubWorkflow.signIn:
+        _loginSubWorkflow = LoginSubWorkflow.signIn;
         break;
       case LoginSubWorkflow.passwordReset:
         _loginSubWorkflow = LoginSubWorkflow.passwordReset;
         break;
-      case LoginSubWorkflow.signup:
-        _loginSubWorkflow = LoginSubWorkflow.signup;
+      case LoginSubWorkflow.signUp:
+        _loginSubWorkflow = LoginSubWorkflow.signUp;
         break;
       default:
         throw InvalidLoginWorkFlow(

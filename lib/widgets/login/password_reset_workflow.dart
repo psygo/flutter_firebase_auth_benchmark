@@ -39,7 +39,7 @@ class PasswordResetWorkflow extends StatelessWidget {
             child: FlatButton(
               key: Key('cancel_reset_button'),
               onPressed: () =>
-                  loginWorkflowProvider.switchWorkFlow(LoginSubWorkflow.login),
+                  loginWorkflowProvider.switchWorkFlow(LoginSubWorkflow.signIn),
               child: Text(
                 'CANCEL RESET',
                 style: TextStyle(

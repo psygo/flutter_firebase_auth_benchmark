@@ -51,7 +51,7 @@ class SignupWorkflow extends StatelessWidget {
             child: FlatButton(
               key: Key('cancel_signup_button'),
               onPressed: () =>
-                  loginWorkflowProvider.switchWorkFlow(LoginSubWorkflow.login),
+                  loginWorkflowProvider.switchWorkFlow(LoginSubWorkflow.signIn),
               child: Text(
                 'CANCEL SIGN UP',
                 style: TextStyle(
