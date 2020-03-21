@@ -74,9 +74,7 @@ class LoginWorkflow extends StatelessWidget {
                             email: loginWorkflowProvider.email,
                             password: loginWorkflowProvider.password);
 
-                        await Future.delayed(Duration(milliseconds: 100), (){
-                          loginWorkflowProvider.save();
-                        });
+                        await loginWorkflowProvider.save();
 
                         if (signedInSuccess){
                           await Navigator.pushNamed(context, LoggedInScreen.id);

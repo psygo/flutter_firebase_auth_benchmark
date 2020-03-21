@@ -48,7 +48,7 @@ abstract class AuthenticationMsgs {
   static const String atLeastOneLowerCase = 'min 1 lower case';
   static const String invalidPassword = 'invalid Password';
 
-  static const String confirmPasswordDoesNotMatch = 'passwords don\'t match';
+  static const String confirmPasswordDoesNotMatch = 'they don\'t match';
 }
 
 abstract class AuthenticationUtils {
