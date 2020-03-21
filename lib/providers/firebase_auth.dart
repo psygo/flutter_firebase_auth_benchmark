@@ -14,9 +14,9 @@ enum AuthStatus {
 abstract class AuthInterface extends ChangeNotifier {
   static final FirebaseAuth fireAuthInstance = FirebaseAuth.instance;
 
-  Future<bool> signInWithEmailAndPassword(
+  Future<void> signInWithEmailAndPassword(
       {@required String email, @required String password});
-  Future<bool> signUp({@required String email, @required String password});
+  Future<void> signUp({@required String email, @required String password});
   Future<void> sendPasswordResetWithEmail({@required String email});
   Future<void> updateCurrentUserFromFirebase();
   Future<void> signOut();
@@ -36,11 +36,12 @@ class Auth extends ChangeNotifier implements AuthInterface {
   String get emailErrorMsg => _emailErrorMsg;
   String get passwordErrorMsg => _passwordErrorMsg;
   bool get errorOccurred => _emailErrorMsg != null || _passwordErrorMsg != null;
+  bool get noErrorOccurred => !errorOccurred;
 
   bool _userIsNotNull() => _user != null;
   AuthStatus _userIsLoggedInOrNot() =>
       _userIsNotNull() ? AuthStatus.logged_in : AuthStatus.not_logged_in;
-  bool _requestSuccessful() => !errorOccurred;
+
   void _updateUser(AuthResult authResult) {
     _user = authResult.user;
     _authStatus = _userIsLoggedInOrNot();
@@ -52,7 +53,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
   }
 
   @override
-  Future<bool> signInWithEmailAndPassword(
+  Future<void> signInWithEmailAndPassword(
       {@required String email, @required String password}) async {
     _resetErrorMsgs();
     try {
@@ -66,7 +67,6 @@ class Auth extends ChangeNotifier implements AuthInterface {
       rethrow;
     } finally {
       notifyListeners();
-      return _requestSuccessful();
     }
   }
 
@@ -84,7 +84,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
   }
 
   @override
-  Future<bool> signUp(
+  Future<void> signUp(
       {@required String email, @required String password}) async {
     _resetErrorMsgs();
     try {
@@ -98,7 +98,6 @@ class Auth extends ChangeNotifier implements AuthInterface {
       rethrow;
     } finally {
       notifyListeners();
-      return _requestSuccessful();
     }
   }
 

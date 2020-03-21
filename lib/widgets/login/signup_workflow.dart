@@ -76,13 +76,13 @@ class SignupWorkflow extends StatelessWidget {
                     textColor: BasicColors.white,
                     onPressed: () async {
                       if (loginWorkflowProvider.validate()) {
-                        final bool signedUpSuccess = await auth.signUp(
+                        await auth.signUp(
                             email: loginWorkflowProvider.email,
                             password: loginWorkflowProvider.password);
 
                         await loginWorkflowProvider.save();
 
-                        if (signedUpSuccess) {
+                        if (auth.noErrorOccurred) {
                           await Navigator.pushNamed(context, LoggedInScreen.id);
                         }
                       }
