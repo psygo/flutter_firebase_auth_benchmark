@@ -16,8 +16,8 @@ void main() {
   group('Sign Up', () {
     setUpAll(() async => await driver.tap(find.byValueKey('signup_button')));
 
-    tearDownAll(() async => 
-      await driver.tap(find.byValueKey('cancel_signup_button')));
+    tearDownAll(
+        () async => await driver.tap(find.byValueKey('cancel_signup_button')));
 
     Future<void> signUp({
       @required email,
@@ -53,8 +53,7 @@ void main() {
 
       await signUp(email: dummyEmail, password: dummyPassword);
 
-      expect(
-          await driver.getText(find.text('user already exists')),
+      expect(await driver.getText(find.text('user already exists')),
           'user already exists');
     });
   });
@@ -80,23 +79,27 @@ void main() {
   });
 
   group('Password Reset', () {
+    setUpAll(() async =>
+        await driver.tap(find.byValueKey('forgot_password_button')));
+
+    tearDownAll(
+        () async => await driver.tap(find.byValueKey('cancel_reset_button')));
+
     test('Simple password reset', () async {
       const String dummyPermanentEmail = 'windbaduk@gmail.com';
-
-      await driver.tap(find.byValueKey('forgot_password_button'));
 
       await driver.tap(find.byValueKey('email_field'));
       await driver.enterText(dummyPermanentEmail);
 
       await driver.tap(find.byValueKey('send_password_reset_button'));
 
-      await driver.waitFor(find.text('✓'), timeout: Duration(seconds: 3));
-    }, skip: true);
+      expect(
+          await driver.getText(find.text('✓'), timeout: Duration(seconds: 3)),
+          '✓');
+    });
 
     test('User not found error message', () async {
       const String dummyUserNotFoundEmail = 'pf@gmail.co';
-
-      await driver.tap(find.byValueKey('forgot_password_button'));
 
       await driver.tap(find.byValueKey('email_field'));
       await driver.enterText(dummyUserNotFoundEmail);
