@@ -57,6 +57,16 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
   @visibleForTesting
   bool get textIsVisible => !_passwordIsNotVisible;
 
+  FontWeight get _labelTextFontWeight {
+    if (_labelText == widget.labelText) {
+      return FontWeight.normal;
+    } else if (_labelText == AuthTextFormField.tickSymbol) {
+      return FontWeight.w900;
+    } else {
+      return FontWeight.w500;
+    }
+  }
+
   @override
   void initState() {
     _passwordIsNotVisible = widget.obscureText;
@@ -152,14 +162,14 @@ class AuthTextFormFieldState extends State<AuthTextFormField> {
       onChanged: (String text) => _onChangedAndUpdateLabelText(text),
       onSaved: _serverErrorOrNot,
       decoration: InputDecoration(
-        focusedBorder:
-            Theming.authTextFormField.focusedBorder.copyWith(
+        focusedBorder: Theming.authTextFormField.focusedBorder.copyWith(
           borderSide: BorderSide(
             color: _borderColor,
           ),
         ),
         labelStyle: Theming.authTextFormField.labelStyle.copyWith(
           color: _labelTextColor,
+          fontWeight: _labelTextFontWeight,
         ),
         hintText:
             _focusNode.hasFocus ? widget.hintTextOnFocus : widget.hintText,
