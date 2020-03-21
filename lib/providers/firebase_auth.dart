@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
+import 'login_workflow_provider.dart';
 import '../exceptions/login.dart';
 
 enum AuthStatus {
@@ -38,23 +39,11 @@ class Auth extends ChangeNotifier implements AuthInterface {
   bool get errorOccurred => _emailErrorMsg != null || _passwordErrorMsg != null;
   bool get noErrorOccurred => !errorOccurred;
 
-  bool _userIsNotNull() => _user != null;
-  AuthStatus _userIsLoggedInOrNot() =>
-      _userIsNotNull() ? AuthStatus.logged_in : AuthStatus.not_logged_in;
-
-  void _updateUser(AuthResult authResult) {
-    _user = authResult.user;
-    _authStatus = _userIsLoggedInOrNot();
-  }
-
-  void _resetErrorMsgs() {
-    _emailErrorMsg = null;
-    _passwordErrorMsg = null;
-  }
-
   @override
-  Future<void> signInWithEmailAndPassword(
-      {@required String email, @required String password}) async {
+  Future<void> signInWithEmailAndPassword({
+    @required String email,
+    @required String password,
+  }) async {
     _resetErrorMsgs();
     try {
       final AuthResult authResult = await AuthInterface.fireAuthInstance
@@ -62,7 +51,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
 
       _updateUser(authResult);
     } on PlatformException catch (e) {
-      _signInErrorHandler(e);
+      _errorHandler(e, LoginSubWorkflow.login);
     } catch (e) {
       rethrow;
     } finally {
@@ -70,22 +59,11 @@ class Auth extends ChangeNotifier implements AuthInterface {
     }
   }
 
-  void _signInErrorHandler(PlatformException platformException) {
-    switch (platformException.code) {
-      case 'ERROR_USER_NOT_FOUND':
-        _emailErrorMsg = 'user not found';
-        break;
-      case 'ERROR_WRONG_PASSWORD':
-        _passwordErrorMsg = 'wrong password';
-        break;
-      default:
-        throw UnknownSignInError('Unknown error for sign up with Firebase.');
-    }
-  }
-
   @override
-  Future<void> signUp(
-      {@required String email, @required String password}) async {
+  Future<void> signUp({
+    @required String email,
+    @required String password,
+  }) async {
     _resetErrorMsgs();
     try {
       final AuthResult authResult = await AuthInterface.fireAuthInstance
@@ -93,21 +71,11 @@ class Auth extends ChangeNotifier implements AuthInterface {
 
       _updateUser(authResult);
     } on PlatformException catch (e) {
-      _signUpErrorHandler(e);
+      _errorHandler(e, LoginSubWorkflow.signup);
     } catch (e) {
       rethrow;
     } finally {
       notifyListeners();
-    }
-  }
-
-  void _signUpErrorHandler(PlatformException platformException) {
-    switch (platformException.code) {
-      case 'ERROR_EMAIL_ALREADY_IN_USE':
-        _emailErrorMsg = 'user already exists';
-        break;
-      default:
-        throw UnknownSignUpError('Unknown error for sign up with Firebase.');
     }
   }
 
@@ -117,7 +85,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
     try {
       await AuthInterface.fireAuthInstance.sendPasswordResetEmail(email: email);
     } on PlatformException catch (e) {
-      _passwordResetWithEmailErrorHandler(e);
+      _errorHandler(e, LoginSubWorkflow.passwordReset);
     } catch (e) {
       rethrow;
     } finally {
@@ -125,15 +93,52 @@ class Auth extends ChangeNotifier implements AuthInterface {
     }
   }
 
-  void _passwordResetWithEmailErrorHandler(
-      PlatformException platformException) {
+  void _updateUser(AuthResult authResult) {
+    _user = authResult.user;
+    _authStatus = _userIsLoggedInOrNot();
+  }
+
+  AuthStatus _userIsLoggedInOrNot() =>
+      _userIsNotNull() ? AuthStatus.logged_in : AuthStatus.not_logged_in;
+  bool _userIsNotNull() => _user != null;
+
+  void _resetErrorMsgs() {
+    _emailErrorMsg = null;
+    _passwordErrorMsg = null;
+  }
+
+  void _errorHandler(
+    PlatformException platformException,
+    LoginSubWorkflow loginSubWorkflow,
+  ) {
     switch (platformException.code) {
       case 'ERROR_USER_NOT_FOUND':
         _emailErrorMsg = 'user not found';
         break;
+      case 'ERROR_WRONG_PASSWORD':
+        _passwordErrorMsg = 'wrong password';
+        break;
+      case 'ERROR_EMAIL_ALREADY_IN_USE':
+        _emailErrorMsg = 'user already exists';
+        break;
       default:
-        throw UnknownPasswordResetError(
-            'Unknown error for password reset with Firebase.');
+        switch (loginSubWorkflow) {
+          case LoginSubWorkflow.login:
+            throw UnknownSignInError(
+                'Unknown error for sign up with Firebase.');
+            break;
+          case LoginSubWorkflow.passwordReset:
+            throw UnknownPasswordResetError(
+                'Unknown error for password reset with Firebase.');
+            break;
+          case LoginSubWorkflow.signup:
+            throw UnknownSignUpError(
+                'Unknown error for sign up with Firebase.');
+            break;
+          default:
+            throw InvalidLoginWorkFlow(
+                'There should only be 3 types of login sub workflows.');
+        }
     }
   }
 
