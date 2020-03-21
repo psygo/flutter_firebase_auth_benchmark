@@ -13,10 +13,10 @@ void main() {
   });
 
   group('Sign Up', () {
-    const String dummyEmail = 'ppsf@gmail.com';
-    const String dummyPassword = 'asdfA\$D1';
-
     test('Successful Sign Up', () async {
+      const String dummyEmail = 'ppsf@gmail.com';
+      const String dummyPassword = 'asdfA\$D1';
+
       await driver.tap(find.byValueKey('signup_button'));
 
       await driver.tap(find.byValueKey('email_field'));
@@ -34,6 +34,31 @@ void main() {
           await driver.getText(find.byValueKey('user_email_text')), dummyEmail);
 
       await driver.tap(find.byValueKey('delete_account_button'));
+
+      await driver.tap(find.byValueKey('cancel_signup_button'));
+    });
+
+    test('Email already in use', () async {
+      const String dummyEmail = 'pf@gmail.com';
+      const String dummyPassword = 'asdfA\$D1';
+
+      await driver.tap(find.byValueKey('signup_button'));
+
+      await driver.tap(find.byValueKey('email_field'));
+      await driver.enterText(dummyEmail);
+
+      await driver.tap(find.byValueKey('password_field'));
+      await driver.enterText(dummyPassword);
+
+      await driver.tap(find.byValueKey('confirm_password_field'));
+      await driver.enterText(dummyPassword);
+
+      expect(
+          await driver.getText(find.text('user already exists'),
+              timeout: Duration(seconds: 3)),
+          'user already exists');
+
+      await driver.tap(find.byValueKey('cancel_signup_button'));
     });
   });
 
@@ -78,6 +103,8 @@ void main() {
       await driver.enterText(dummyPermanentEmail);
 
       await driver.tap(find.byValueKey('send_password_reset_button'));
+
+      await driver.waitFor(find.text('✓'), timeout: Duration(seconds: 3));
     }, skip: true);
 
     test('User not found error message', () async {
@@ -95,5 +122,5 @@ void main() {
               timeout: Duration(seconds: 3)),
           'user not found');
     });
-  }, skip: true);
+  });
 }
