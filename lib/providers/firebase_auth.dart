@@ -54,20 +54,15 @@ class Auth extends ChangeNotifier implements AuthInterface {
   @override
   Future<bool> signInWithEmailAndPassword(
       {@required String email, @required String password}) async {
-    // bool errorOccurred;
     _resetErrorMsgs();
     try {
       final AuthResult authResult = await AuthInterface.fireAuthInstance
           .signInWithEmailAndPassword(email: email, password: password);
 
       _updateUser(authResult);
-
-      // errorOccurred = false;
     } on PlatformException catch (e) {
-      // errorOccurred = true;
       _signInErrorHandler(e);
     } catch (e) {
-      // errorOccurred = true;
       rethrow;
     } finally {
       notifyListeners();
@@ -91,20 +86,15 @@ class Auth extends ChangeNotifier implements AuthInterface {
   @override
   Future<bool> signUp(
       {@required String email, @required String password}) async {
-    // bool errorOccurred;
     _resetErrorMsgs();
     try {
       final AuthResult authResult = await AuthInterface.fireAuthInstance
           .createUserWithEmailAndPassword(email: email, password: password);
 
       _updateUser(authResult);
-
-      // errorOccurred = false;
     } on PlatformException catch (e) {
-      // errorOccurred = true;
       _signUpErrorHandler(e);
     } catch (e) {
-      // errorOccurred = true;
       rethrow;
     } finally {
       notifyListeners();
