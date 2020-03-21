@@ -91,8 +91,9 @@ void main() {
       await driver.tap(find.byValueKey('send_password_reset_button'));
 
       expect(
-        await driver.getText(find.text('user not found'), timeout: Duration(seconds: 3)), 
-        'user not found');
+          await driver.getText(find.text('user not found'),
+              timeout: Duration(seconds: 3)),
+          'user not found');
     });
   }, skip: true);
 }

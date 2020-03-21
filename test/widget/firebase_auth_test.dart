@@ -12,7 +12,7 @@ void main() {
     app = FirebaseAuthenticationApp();
   });
 
-  group('Password Reset', (){
+  group('Password Reset', () {
     testWidgets('User not found', (tester) async {
       await tester.pumpWidget(app);
 

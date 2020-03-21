@@ -67,10 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       AuthenticationValidator.validateEmail,
                                   onChanged: (String text) =>
                                       loginWorkflowProvider.email = text,
-                                  errorMsgFromServer: 
-                                    auth.errorMsgType == ErrorMsgType.email 
-                                        ? auth.errorMsg
-                                        : null,
+                                  errorMsgFromServer: auth.emailErrorMsg,
                                 ),
                                 SizedBox(
                                   height: LoginScreen.widgetSpacing,
@@ -97,10 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         onChanged: (String text) =>
                                             loginWorkflowProvider.password =
                                                 text,
-                                        errorMsgFromServer: 
-                                          auth.errorMsgType == ErrorMsgType.password 
-                                              ? auth.errorMsg
-                                              : null,
+                                        errorMsgFromServer:
+                                            auth.passwordErrorMsg,
                                       ),
                                     ],
                                   ),

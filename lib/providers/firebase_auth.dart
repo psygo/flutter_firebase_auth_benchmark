@@ -11,11 +11,6 @@ enum AuthStatus {
   logged_in,
 }
 
-enum ErrorMsgType {
-  email,
-  password,
-}
-
 abstract class AuthInterface extends ChangeNotifier {
   static final FirebaseAuth fireAuthInstance = FirebaseAuth.instance;
 
@@ -31,15 +26,15 @@ abstract class AuthInterface extends ChangeNotifier {
 class Auth extends ChangeNotifier implements AuthInterface {
   AuthStatus _authStatus = AuthStatus.not_determined;
   FirebaseUser _user;
-  String _errorMsg;
-  ErrorMsgType _errorMsgType;
+  String _emailErrorMsg;
+  String _passwordErrorMsg;
 
   Auth();
 
   AuthStatus get authStatus => _authStatus;
   FirebaseUser get user => _user;
-  String get errorMsg => _errorMsg;
-  ErrorMsgType get errorMsgType => _errorMsgType;
+  String get emailErrorMsg => _emailErrorMsg;
+  String get passwordErrorMsg => _passwordErrorMsg;
 
   bool _userIsNotNull() => _user != null;
   AuthStatus _userIsLoggedInOrNot() =>
@@ -51,22 +46,22 @@ class Auth extends ChangeNotifier implements AuthInterface {
     bool errorOccurred;
     try {
       final AuthResult authResult = await AuthInterface.fireAuthInstance
-        .signInWithEmailAndPassword(email: email, password: password);
+          .signInWithEmailAndPassword(email: email, password: password);
 
       _user = authResult.user;
       _authStatus = _userIsLoggedInOrNot();
 
-      return true;
+      errorOccurred = false;
     } on PlatformException catch (e) {
       errorOccurred = true;
-      switch (e.code){
-        case 'ERROR_WRONG_PASSWORD':
-          _errorMsg = 'wrong password';
-          _errorMsgType = ErrorMsgType.password;
-          break;
+      switch (e.code) {
         case 'ERROR_USER_NOT_FOUND':
-          _errorMsg = 'user not found';
-          _errorMsgType = ErrorMsgType.email;
+          _emailErrorMsg = 'user not found';
+          _passwordErrorMsg = null;
+          break;
+        case 'ERROR_WRONG_PASSWORD':
+          _emailErrorMsg = null;
+          _passwordErrorMsg = 'wrong password';
           break;
         default:
           throw UnknownSignUpError('Unknown error for sign up with Firebase.');
@@ -90,18 +85,18 @@ class Auth extends ChangeNotifier implements AuthInterface {
     bool errorOccurred;
     try {
       final AuthResult authResult = await AuthInterface.fireAuthInstance
-        .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       _user = authResult.user;
       _authStatus = _userIsLoggedInOrNot();
 
-      return true;
-    } on PlatformException catch(e) {
+      errorOccurred = false;
+    } on PlatformException catch (e) {
       errorOccurred = true;
-      switch (e.code){
+      switch (e.code) {
         case 'ERROR_EMAIL_ALREADY_IN_USE':
-          _errorMsg = 'user already exists';
-          _errorMsgType = ErrorMsgType.email;
+          _emailErrorMsg = 'user already exists';
+          _passwordErrorMsg = null;
           break;
         default:
           throw UnknownSignUpError('Unknown error for sign up with Firebase.');
@@ -126,8 +121,8 @@ class Auth extends ChangeNotifier implements AuthInterface {
     } on PlatformException catch (e) {
       switch (e.code) {
         case 'ERROR_USER_NOT_FOUND':
-          _errorMsg = 'user not found';
-          _errorMsgType = ErrorMsgType.email;
+          _emailErrorMsg = 'user not found';
+          _passwordErrorMsg = null;
           break;
         default:
           throw UnknownPasswordResetError(

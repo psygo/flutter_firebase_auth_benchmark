@@ -33,10 +33,10 @@ class LoginWorkflowHandler extends ChangeNotifier {
   }
 
   bool validate() => _formKey.currentState.validate();
-  Future<void> save() async => 
-    await Future.delayed(Duration(milliseconds: 100), (){
-      _formKey.currentState.save();
-    });
+  Future<void> save() async =>
+      await Future.delayed(Duration(milliseconds: 100), () {
+        _formKey.currentState.save();
+      });
 
   Widget get widget {
     switch (_loginSubWorkflow) {
