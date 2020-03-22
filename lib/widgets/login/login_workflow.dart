@@ -121,15 +121,13 @@ class LoginWorkflow extends StatelessWidget {
                         height: LoginScreen.googleLogoHeightWidth,
                       ),
                       onPressed: () async {
-                        if (loginWorkflowProvider.validate()) {
-                          await auth.signInWithGoogle(
-                              email: loginWorkflowProvider.email,
-                              password: loginWorkflowProvider.password);
+                        await auth.signInWithGoogle(
+                            email: loginWorkflowProvider.email,
+                            password: loginWorkflowProvider.password);
 
-                          if (auth.noErrorOccurred) {
-                            await Navigator.pushNamed(
-                                context, LoggedInScreen.id);
-                          }
+                        if (auth.noErrorOccurred) {
+                          await Navigator.pushNamed(
+                              context, LoggedInScreen.id);
                         }
                       },
                     ),

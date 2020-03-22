@@ -20,15 +20,22 @@ class LoggedInScreen extends StatelessWidget {
         return Scaffold(
           body: Container(
             color: BasicColors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: ListView(
               children: <Widget>[
-                Text(
-                  'You\'re logged in!',
-                  key: Key('logged_in_text'),
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
+                SizedBox(
+                  height: 125,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'You\'re logged in!',
+                      key: Key('logged_in_text'),
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 45,
@@ -45,7 +52,7 @@ class LoggedInScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 85,
+                    horizontal: 45,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
