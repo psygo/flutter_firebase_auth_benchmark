@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -103,26 +102,40 @@ class LoginWorkflow extends StatelessWidget {
             SizedBox(
               height: LoginScreen.beforeFaceGoogleSpacing,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FlatButton(
-                  child: SvgPicture.asset(
-                    '${FirebaseAuthenticationApp.imgPath}/facebook_logo.svg',
-                    width: LoginScreen.facebookLogoHeightWidth,
-                    height: LoginScreen.facebookLogoHeightWidth,
-                  ),
-                  onPressed: () {},
-                ),
-                FlatButton(
-                  child: SvgPicture.asset(
-                    '${FirebaseAuthenticationApp.imgPath}/google_logo.svg',
-                    width: LoginScreen.googleLogoHeightWidth,
-                    height: LoginScreen.googleLogoHeightWidth,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
+            Consumer<Auth>(
+              builder: (context, auth, _) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FlatButton(
+                        child: SvgPicture.asset(
+                          '${FirebaseAuthenticationApp.imgPath}/facebook_logo.svg',
+                          width: LoginScreen.facebookLogoHeightWidth,
+                          height: LoginScreen.facebookLogoHeightWidth,
+                        ),
+                        onPressed: () async {}),
+                    FlatButton(
+                      child: SvgPicture.asset(
+                        '${FirebaseAuthenticationApp.imgPath}/google_logo.svg',
+                        width: LoginScreen.googleLogoHeightWidth,
+                        height: LoginScreen.googleLogoHeightWidth,
+                      ),
+                      onPressed: () async {
+                        if (loginWorkflowProvider.validate()) {
+                          await auth.signInWithGoogle(
+                              email: loginWorkflowProvider.email,
+                              password: loginWorkflowProvider.password);
+
+                          if (auth.noErrorOccurred) {
+                            await Navigator.pushNamed(
+                                context, LoggedInScreen.id);
+                          }
+                        }
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         );

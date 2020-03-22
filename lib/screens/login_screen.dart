@@ -21,8 +21,8 @@ class LoginScreen extends StatefulWidget {
   static const double googleLogoHeightWidth = 45;
   static const double facebookLogoHeightWidth = 47.5;
 
-  static final double maxSignInIconHeight = 
-    max(googleLogoHeightWidth, facebookLogoHeightWidth);
+  static final double maxSignInIconHeight =
+      max(googleLogoHeightWidth, facebookLogoHeightWidth);
 
   const LoginScreen({Key key}) : super(key: key);
 

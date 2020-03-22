@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
 import 'login_workflow_provider.dart';
@@ -16,6 +17,8 @@ abstract class AuthInterface extends ChangeNotifier {
   static final FirebaseAuth fireAuthInstance = FirebaseAuth.instance;
 
   Future<void> signInWithEmailAndPassword(
+      {@required String email, @required String password});
+  Future<void> signInWithGoogle(
       {@required String email, @required String password});
   Future<void> signUp({@required String email, @required String password});
   Future<void> sendPasswordResetWithEmail({@required String email});
@@ -38,6 +41,31 @@ class Auth extends ChangeNotifier implements AuthInterface {
   String get passwordErrorMsg => _passwordErrorMsg;
   bool get errorOccurred => _emailErrorMsg != null || _passwordErrorMsg != null;
   bool get noErrorOccurred => !errorOccurred;
+
+  @override
+  Future<void> signInWithGoogle({
+    @required String email,
+    @required String password,
+  }) async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount googleUser = await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final AuthCredential googleCredential = GoogleAuthProvider.getCredential(
+          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+
+      final AuthResult authResult = await AuthInterface.fireAuthInstance
+          .signInWithCredential(googleCredential);
+
+      _updateUser(authResult);
+    } catch (e) {
+      rethrow;
+    } finally {
+      notifyListeners();
+    }
+  }
 
   @override
   Future<void> signInWithEmailAndPassword({
