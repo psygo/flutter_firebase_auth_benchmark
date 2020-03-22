@@ -41,7 +41,7 @@ abstract class Theming {
     shape: RoundedRectangleBorder(
       borderRadius: AuxiliaryTheming.infiniteCircularBorderRadius,
     ),
-    minWidth: 100,
+    minWidth: 80,
     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     padding: EdgeInsets.all(0),
   );

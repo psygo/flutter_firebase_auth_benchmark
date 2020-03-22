@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import 'button_alignment_wrapper.dart';
@@ -63,28 +64,31 @@ class LoginWorkflow extends StatelessWidget {
               builder: (context, auth, _) {
                 return ButtonAlignmentWrapper(
                   height: LoginScreen.raisedButtonHeight,
-                  child: RaisedButton(
-                    key: Key('login_button'),
-                    elevation: AuxiliaryTheming.raisedButtonElevation,
-                    color: BasicColors.blue,
-                    textColor: BasicColors.white,
-                    onPressed: () async {
-                      if (loginWorkflowProvider.validate()) {
-                        await auth.signInWithEmailAndPassword(
-                            email: loginWorkflowProvider.email,
-                            password: loginWorkflowProvider.password);
+                  child: SizedBox(
+                    width: 100,
+                    child: RaisedButton(
+                      key: Key('login_button'),
+                      elevation: AuxiliaryTheming.raisedButtonElevation,
+                      color: BasicColors.blue,
+                      textColor: BasicColors.white,
+                      onPressed: () async {
+                        if (loginWorkflowProvider.validate()) {
+                          await auth.signInWithEmailAndPassword(
+                              email: loginWorkflowProvider.email,
+                              password: loginWorkflowProvider.password);
 
-                        await loginWorkflowProvider.save();
+                          await loginWorkflowProvider.save();
 
-                        if (auth.noErrorOccurred) {
-                          await Navigator.pushNamed(context, LoggedInScreen.id);
+                          if (auth.noErrorOccurred) {
+                            await Navigator.pushNamed(context, LoggedInScreen.id);
+                          }
                         }
-                      }
-                    },
-                    child: Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        fontSize: 14.5,
+                      },
+                      child: Text(
+                        'LOGIN',
+                        style: TextStyle(
+                          fontSize: 14.5,
+                        ),
                       ),
                     ),
                   ),
@@ -92,7 +96,28 @@ class LoginWorkflow extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: 19,
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FlatButton(
+                  child: SvgPicture.asset(
+                    'img/facebook_logo.svg',
+                    width: 45,
+                    height: 45,
+                  ),
+                  onPressed: (){},
+                ),
+                FlatButton(
+                  child: SvgPicture.asset(
+                    'img/google_logo.svg',
+                    width: 45,
+                    height: 45,
+                  ),
+                  onPressed: (){},
+                ),
+              ],
             ),
           ],
         );

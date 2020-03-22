@@ -57,7 +57,7 @@ class LoginWorkflowHandler extends ChangeNotifier {
 
   double get workflowHeight {
     double height;
-    const double padding = 160;
+    const double padding = 225;
 
     switch (_loginSubWorkflow) {
       case LoginSubWorkflow.signIn:
