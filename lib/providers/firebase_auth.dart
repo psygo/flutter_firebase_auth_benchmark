@@ -65,6 +65,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
 
   @override
   Future<void> signInWithGoogle() async {
+    _resetErrorMsgs();
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount googleAccount = await googleSignIn.signIn();
@@ -87,6 +88,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
 
   @override
   Future<void> signInWithFacebook() async {
+    _resetErrorMsgs();
     try {
       final FacebookLogin facebookSignIn = FacebookLogin();
       final FacebookLoginResult facebookLoginResult =
@@ -179,6 +181,9 @@ class Auth extends ChangeNotifier implements AuthInterface {
         break;
       case 'ERROR_EMAIL_ALREADY_IN_USE':
         _emailErrorMsg = 'user already exists';
+        break;
+      case 'ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL':
+        _emailErrorMsg = 'exists with another credential';
         break;
       default:
         switch (loginSubWorkflow) {

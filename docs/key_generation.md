@@ -5,7 +5,7 @@
 Simply enter these into Windows command prompt. Don't forget to replace `userName` with your actual user name.
 
 ```cmd
-cd C:\Program Files\Java\jdk1.7.0_09\bin
+cd C:\Program Files (x86)\Java\jdk1.8.0_231\bin
 
 keytool -exportcert -alias androiddebugkey -keystore "C:\Users\userName\.android\debug.keystore" -list -v
 ```
