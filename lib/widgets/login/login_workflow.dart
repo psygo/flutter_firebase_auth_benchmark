@@ -126,8 +126,7 @@ class LoginWorkflow extends StatelessWidget {
                             password: loginWorkflowProvider.password);
 
                         if (auth.noErrorOccurred) {
-                          await Navigator.pushNamed(
-                              context, LoggedInScreen.id);
+                          await Navigator.pushNamed(context, LoggedInScreen.id);
                         }
                       },
                     ),

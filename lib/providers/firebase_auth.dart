@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
@@ -80,6 +81,41 @@ class Auth extends ChangeNotifier implements AuthInterface {
           .signInWithCredential(googleCredential);
 
       _updateUser(authResult);
+    } catch (e) {
+      rethrow;
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> signInWithFacebook({
+    @required String email,
+    @required String password,
+  }) async {
+    try {
+      final FacebookLogin facebookSignIn = FacebookLogin();
+      final FacebookLoginResult facebookLoginResult =
+          await facebookSignIn.logIn(['email']);
+
+      switch (facebookLoginResult.status) {
+        case FacebookLoginStatus.loggedIn:
+          final FacebookAccessToken accessToken =
+              facebookLoginResult.accessToken;
+          final AuthCredential facebookCredential =
+              FacebookAuthProvider.getCredential(
+                  accessToken: accessToken.token);
+          final AuthResult authResult = await AuthInterface.fireAuthInstance
+              .signInWithCredential(facebookCredential);
+          _updateUser(authResult);
+          break;
+        case FacebookLoginStatus.cancelledByUser:
+          break;
+        case FacebookLoginStatus.error:
+          break;
+        default:
+          throw UnknownFacebookLoginError(
+              'This error is not covered by the Facebook Login package.');
+      }
     } catch (e) {
       rethrow;
     } finally {

@@ -32,3 +32,8 @@ class IllegalLabelStatus implements Exception {
   String cause;
   IllegalLabelStatus(this.cause);
 }
+
+class UnknownFacebookLoginError implements Exception {
+  String cause;
+  UnknownFacebookLoginError(this.cause);
+}
