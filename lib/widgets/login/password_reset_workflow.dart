@@ -82,8 +82,8 @@ class PasswordResetWorkflow extends StatelessWidget {
             },
           ),
           SizedBox(
-            height: 19,
-          )
+            height: LoginScreen.maxSignInIconHeight + LoginScreen.beforeFaceGoogleSpacing,
+          ),
         ],
       );
     });

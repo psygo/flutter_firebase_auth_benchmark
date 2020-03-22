@@ -12,6 +12,8 @@ enum LoginSubWorkflow {
 }
 
 class LoginWorkflowHandler extends ChangeNotifier {
+  static const double heightPadding = 160;
+
   LoginSubWorkflow _loginSubWorkflow = LoginSubWorkflow.signIn;
   GlobalKey<FormState> _formKey;
   String _email;
@@ -56,26 +58,23 @@ class LoginWorkflowHandler extends ChangeNotifier {
   }
 
   double get workflowHeight {
-    double height;
-    const double padding = 225;
+    double height = heightPadding;
 
     switch (_loginSubWorkflow) {
       case LoginSubWorkflow.signIn:
-        height = LoginWorkflow.height;
+        height += LoginWorkflow.height;
         break;
       case LoginSubWorkflow.passwordReset:
-        height = PasswordResetWorkflow.height;
-        return height + 100;
+        height += PasswordResetWorkflow.height - 60;
         break;
       case LoginSubWorkflow.signUp:
-        height = SignupWorkflow.height;
+        height += SignupWorkflow.height;
         break;
       default:
         throw InvalidLoginWorkFlow(
             'There should only be 3 types of login sub workflows.');
     }
 
-    height += padding;
     return height;
   }
 

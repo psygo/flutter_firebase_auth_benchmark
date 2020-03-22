@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_benchmark/providers/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +17,12 @@ class LoginScreen extends StatefulWidget {
   static const double flatButtonHeight = 30;
   static const double raisedButtonHeight = 40;
   static const double textFormFieldHeight = 50;
+  static const double beforeFaceGoogleSpacing = 20;
+  static const double googleLogoHeightWidth = 45;
+  static const double facebookLogoHeightWidth = 47.5;
+
+  static final double maxSignInIconHeight = 
+    max(googleLogoHeightWidth, facebookLogoHeightWidth);
 
   const LoginScreen({Key key}) : super(key: key);
 

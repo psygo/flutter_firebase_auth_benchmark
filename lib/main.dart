@@ -11,6 +11,8 @@ import 'theme/theme.dart';
 void main() => runApp(FirebaseAuthenticationApp());
 
 class FirebaseAuthenticationApp extends StatelessWidget {
+  static const String imgPath = 'img';
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

@@ -1,8 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import 'button_alignment_wrapper.dart';
+import '../../main.dart';
 import '../../providers/firebase_auth.dart';
 import '../../providers/login_workflow_provider.dart';
 import '../../screens/logged_in_screen.dart';
@@ -13,7 +15,9 @@ import '../../theme/colors.dart';
 class LoginWorkflow extends StatelessWidget {
   static final double height = 2 * LoginScreen.flatButtonHeight +
       LoginScreen.raisedButtonHeight +
-      2 * LoginScreen.widgetSpacing;
+      2 * LoginScreen.widgetSpacing +
+      LoginScreen.beforeFaceGoogleSpacing +
+      LoginScreen.maxSignInIconHeight;
 
   const LoginWorkflow({Key key}) : super(key: key);
 
@@ -80,7 +84,8 @@ class LoginWorkflow extends StatelessWidget {
                           await loginWorkflowProvider.save();
 
                           if (auth.noErrorOccurred) {
-                            await Navigator.pushNamed(context, LoggedInScreen.id);
+                            await Navigator.pushNamed(
+                                context, LoggedInScreen.id);
                           }
                         }
                       },
@@ -96,26 +101,26 @@ class LoginWorkflow extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: 20,
+              height: LoginScreen.beforeFaceGoogleSpacing,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 FlatButton(
                   child: SvgPicture.asset(
-                    'img/facebook_logo.svg',
-                    width: 45,
-                    height: 45,
+                    '${FirebaseAuthenticationApp.imgPath}/facebook_logo.svg',
+                    width: LoginScreen.facebookLogoHeightWidth,
+                    height: LoginScreen.facebookLogoHeightWidth,
                   ),
-                  onPressed: (){},
+                  onPressed: () {},
                 ),
                 FlatButton(
                   child: SvgPicture.asset(
-                    'img/google_logo.svg',
-                    width: 45,
-                    height: 45,
+                    '${FirebaseAuthenticationApp.imgPath}/google_logo.svg',
+                    width: LoginScreen.googleLogoHeightWidth,
+                    height: LoginScreen.googleLogoHeightWidth,
                   ),
-                  onPressed: (){},
+                  onPressed: () {},
                 ),
               ],
             ),
