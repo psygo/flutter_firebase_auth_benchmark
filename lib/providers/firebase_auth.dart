@@ -9,9 +9,9 @@ import 'login_workflow_provider.dart';
 import '../exceptions/login.dart';
 
 enum AuthStatus {
-  not_determined,
-  not_logged_in,
-  logged_in,
+  notDetermined,
+  notSignedIn,
+  signedIn,
 }
 
 abstract class AuthInterface extends ChangeNotifier {
@@ -19,8 +19,8 @@ abstract class AuthInterface extends ChangeNotifier {
 
   Future<void> signInWithEmailAndPassword(
       {@required String email, @required String password});
-  Future<void> signInWithGoogle(
-      {@required String email, @required String password});
+  Future<void> signInWithGoogle();
+  Future<void> signInWithFacebook();
   Future<void> signUp({@required String email, @required String password});
   Future<void> sendPasswordResetWithEmail({@required String email});
   Future<void> updateCurrentUserFromFirebase();
@@ -29,7 +29,7 @@ abstract class AuthInterface extends ChangeNotifier {
 }
 
 class Auth extends ChangeNotifier implements AuthInterface {
-  AuthStatus _authStatus = AuthStatus.not_determined;
+  AuthStatus _authStatus = AuthStatus.notDetermined;
   FirebaseUser _user;
   String _emailErrorMsg;
   String _passwordErrorMsg;
@@ -64,10 +64,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
   }
 
   @override
-  Future<void> signInWithGoogle({
-    @required String email,
-    @required String password,
-  }) async {
+  Future<void> signInWithGoogle() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount googleAccount = await googleSignIn.signIn();
@@ -88,10 +85,8 @@ class Auth extends ChangeNotifier implements AuthInterface {
     }
   }
 
-  Future<void> signInWithFacebook({
-    @required String email,
-    @required String password,
-  }) async {
+  @override
+  Future<void> signInWithFacebook() async {
     try {
       final FacebookLogin facebookSignIn = FacebookLogin();
       final FacebookLoginResult facebookLoginResult =
@@ -163,7 +158,7 @@ class Auth extends ChangeNotifier implements AuthInterface {
   }
 
   AuthStatus _userIsLoggedInOrNot() =>
-      _userIsNotNull() ? AuthStatus.logged_in : AuthStatus.not_logged_in;
+      _userIsNotNull() ? AuthStatus.signedIn : AuthStatus.notSignedIn;
   bool _userIsNotNull() => _user != null;
 
   void _resetErrorMsgs() {
@@ -224,6 +219,6 @@ class Auth extends ChangeNotifier implements AuthInterface {
   Future<void> deleteUser() async {
     await _user?.delete();
     _user = null;
-    _authStatus = AuthStatus.not_determined;
+    _authStatus = AuthStatus.notDetermined;
   }
 }
