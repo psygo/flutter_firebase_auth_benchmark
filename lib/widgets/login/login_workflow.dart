@@ -117,7 +117,7 @@ class LoginWorkflow extends StatelessWidget {
                       onPressed: () async {
                         await auth.signInWithFacebook();
 
-                        if (auth.noErrorOccurred){
+                        if (auth.noErrorOccurred) {
                           await Navigator.pushNamed(context, LoggedInScreen.id);
                         }
                       },
