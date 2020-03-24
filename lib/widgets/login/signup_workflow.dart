@@ -1,10 +1,8 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'auth_textformfield.dart';
 import 'button_alignment_wrapper.dart';
-import 'login_workflow.dart';
 import '../../providers/firebase_auth.dart';
 import '../../authentication/validator.dart';
 import '../../providers/login_workflow_provider.dart';

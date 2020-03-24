@@ -108,20 +108,22 @@ class LoginWorkflow extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     FlatButton(
-                        child: SvgPicture.asset(
-                          '${FirebaseAuthenticationApp.imgPath}/facebook_logo.svg',
-                          width: LoginScreen.facebookLogoHeightWidth,
-                          height: LoginScreen.facebookLogoHeightWidth,
-                        ),
-                        onPressed: () async {
-                          await auth.signInWithFacebook();
-
-                          if (auth.noErrorOccurred){
-                            await Navigator.pushNamed(context, LoggedInScreen.id);
-                          }
-                        },
+                      key: Key('facebook_signin_button'),
+                      child: SvgPicture.asset(
+                        '${FirebaseAuthenticationApp.imgPath}/facebook_logo.svg',
+                        width: LoginScreen.facebookLogoHeightWidth,
+                        height: LoginScreen.facebookLogoHeightWidth,
                       ),
+                      onPressed: () async {
+                        await auth.signInWithFacebook();
+
+                        if (auth.noErrorOccurred){
+                          await Navigator.pushNamed(context, LoggedInScreen.id);
+                        }
+                      },
+                    ),
                     FlatButton(
+                      key: Key('google_signin_button'),
                       child: SvgPicture.asset(
                         '${FirebaseAuthenticationApp.imgPath}/google_logo.svg',
                         width: LoginScreen.googleLogoHeightWidth,

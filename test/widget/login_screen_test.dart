@@ -27,7 +27,7 @@ void main() {
 
       const Map<Type, int> typesByNumberOfWidgets = {
         TextFormFieldWithErrorTextOption: 2,
-        FlatButton: 2,
+        FlatButton: 4,
         RaisedButton: 1,
       };
 
@@ -55,6 +55,18 @@ void main() {
         Key('forgot_password_button'),
         Key('signup_button'),
         Key('login_button'),
+      ];
+
+      checkEachKeyOneWidget(buttonsKeys);
+    });
+
+    testWidgets('Finds the Google and Facebook sign in buttons',
+        (tester) async {
+      await tester.pumpWidget(wrappedLoginScreen);
+
+      const List<Key> buttonsKeys = [
+        Key('google_signin_button'),
+        Key('facebook_signin_button'),
       ];
 
       checkEachKeyOneWidget(buttonsKeys);
