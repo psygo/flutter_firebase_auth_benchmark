@@ -4,13 +4,16 @@ language: dart
 
 dart: stable
 
-dart_task: dartfmt
+dart_task: 
+  - dartanalyzer
+  - dartfmt
+  - test
 
 jobs:
   include:
     - stage: Flutter Test
-      language: dart
       os: linux
+      language: dart
       install: git clone $FLUTTER_GITHUB -b stable
       before_script: ./flutter/bin/flutter doctor
       script: ./flutter/bin/flutter test
