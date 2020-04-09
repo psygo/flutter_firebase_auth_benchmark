@@ -1,6 +1,6 @@
 # Flutter Firebase Authentication Benchmark
 
-> **This was an interesting experiment but isn't really going to be scalable or easily turned into a package. What I'm going to do is turn it into a package from scratch, focusing on the Flutter native `StreamBuilder` and `rxdart` observables and Dart `Streams` to manage the state of multiple widgets when necessary, instead of using Provider or other high-level packages. This repo will still be up as a learning experience for others.**
+> **This was an interesting experiment but isn't really going to be scalable or easily turned into a package &mdash; everything works though. What I'm going to do is turn it into a package from scratch, focusing on the Flutter native `StreamBuilder` and `rxdart` observables and Dart `Streams` to manage the state of multiple widgets when necessary, instead of using Provider or other high-level packages. This repo will still be up as a learning experience for others.**
 
 A benchmark for Authentication through Firebase in Flutter.
 
